@@ -1,4 +1,4 @@
-{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield %}
+{% from '_form_helpers.html' import render_field %}
 
     <!-- <a href="#" class="popClose">close</a> -->
     <h4 class="title">프로젝트 생성</h4>
@@ -8,11 +8,12 @@
             id="prj_create_form"
             class="form-horizontal form-bordered"
             method="POST"
+            data-ajax="true"
             data-parsley-validate=''>
             <div class="contentsArea project">
                 {{ form.hidden_tag() if form.hidden_tag }}
-                {{ render_39field(form.title) }}
-                {{ render_39field(form.description) }}
+                {{ render_field(form.title) }}
+                {{ render_field(form.description) }}
                 <div class="form-group">
                     <label for="name" class="control-label">컴포넌트 유형</label>
                     <div class="floatL">
@@ -27,7 +28,7 @@
                 </div>
             </div>
             <div class="btnArea">
-                <a href="#" class="btn medium gray  w140">취소</a>
+                <a href="javascript:;" class="btn medium gray  w140" data-dismiss="modal" aria-hidden="true">취소</a>
                 <button type="submit" class="btn medium  navy w140">생성</button>
             </div>
         </form>

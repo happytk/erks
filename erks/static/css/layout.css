@@ -22,11 +22,12 @@ header {position:relative; height:60px; }
 	header .topLogo {position:absolute; top:20px; left:0; width:75px; height:20px; }
 	header.login .topLogo {position:absolute; top:71px; left:calc((100% - 75px) / 2); width:75px; height:20px; }
 	header.login .headerSub {}
-	header .rightMenu {overflow:visible; float:right; margin-top:14px; }
+	header .rightMenu {overflow:visible; float:right; margin-top:12px; }
 	header .rightMenu li {float:left; margin-left:60px; font-size:15px; height:36px; line-height:36px; letter-spacing:-0.2px; color:#222222; }
+	header .rightMenu li:last-child .btn {margin-top:3px; }
 	header .rightMenu li.arrow {background:url(../images/bg_delimeter_03.png) no-repeat 100% center; padding-right:20px; }
 	header.sub .rightMenu li {color:#fff; }
-	header .rightMenu li .dropdown .dropdown-menu {width:157px; border:1px solid #e1e1e1; border-bottom:0;  margin-top:10px; }
+	header .rightMenu li .dropdown .dropdown-menu {width:157px; border:1px solid #e1e1e1; border-bottom:0;  margin-top:12px; }
 	header .rightMenu li .dropdown .dropdown-menu li {font-size:14px; height:35px; line-height:35px; color:#222; background:#fff; border-bottom:1px solid #e1e1e1; }
 	header .rightMenu li .dropdown .dropdown-menu li a {font-size:14px; height:35px; line-height:35px; color:#222; padding:0 14px; display:block; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; }
 	header .rightMenu li .dropdown .dropdown-menu li.on {background:#f86464; color:#fff; }
@@ -52,8 +53,10 @@ header {position:relative; height:60px; }
 	.contentsWrap .mainVisualDiv .tit1 {font-family:"LatoRegular"; font-size:88px; line-height:89px; color:#ffffff; text-align:center; padding-top:104px; text-shadow: 0.15vmin 0.15vmin rgba(0, 0, 0, 0.5);}
 	.contentsWrap .mainVisualDiv .tit2 {font-size:16px; line-height:26px; letter-spacing:-0.2px; color:#ffffff; text-align:center; margin-top:23px; }
 	.contentsWrap .mainVisualDiv .mainInfoDiv {overflow:hidden; width:1200px; margin:60px auto 50px; }
-	.contentsWrap .mainVisualDiv .mainInfoDiv li {float:left; width:380px; height:140px; background:#839ca1; opacity:0.9; filter:alpha(opacity=90);  margin-right:30px; text-align:center; }
-	.contentsWrap .mainVisualDiv .mainInfoDiv li:last-child {margin-right:0; }
+	.contentsWrap .mainVisualDiv .mainInfoDiv li {float:left; width:380px; height:140px; background:#839ca1; opacity:0.7; filter:alpha(opacity=70);  margin-right:30px; text-align:center; }
+	.contentsWrap .mainVisualDiv .mainInfoDiv li:nth-child(1) {background:#2e4041; }
+	.contentsWrap .mainVisualDiv .mainInfoDiv li:nth-child(2) {background:#2e3341; }
+	.contentsWrap .mainVisualDiv .mainInfoDiv li:last-child {margin-right:0; background:#41322e; }
 	.contentsWrap .mainVisualDiv .mainInfoDiv li .tit {font-size:21px; color:#ffffff; margin-top:23px; }
 	.contentsWrap .mainVisualDiv .mainInfoDiv li .desc {font-size:14px; line-height:24px; color:#fff; letter-spacing:-0.2px; }
 	.contentsWrap .mainVisualDiv .btn.white:hover {background-color:#323544; border:1px solid #323544; }
@@ -62,8 +65,10 @@ header {position:relative; height:60px; }
 	.contentsWrap .contents .communityDiv .btnDiv {overflow:hidden; margin:0 0 0 432px; padding-top:54px; }
 	.contentsWrap .contents .communityDiv .btnDiv li {float:left; width:180px; margin-right:16px; }
 	.contentsWrap .contents .communityDiv .btnDiv li a.btn {display:block; width:180px; height:45px; line-height:45px; font-size:14px; letter-spacing:-0.2px; background:#667295; color:#fff; border:0; }
+	.contentsWrap .contents .communityDiv .btnDiv li a.btn:hover {background-color:#323544; }
 	.contentsWrap .contents .communityDiv .btnDiv li:last-child {margin-right:0; }
 	.contentsWrap .contents .communityDiv .btnMore {font-size:0; position:absolute; top:19px; left:330px; width:40px; height:49px; background:url(../images/btn_more.png) no-repeat 0 0; }
+	.contentsWrap .contents .communityDiv .btnMore:hover {background:url(../images/btn_more_on.png) no-repeat 0 0; }
 	.contentsWrap .contents .leftDiv {width:240px; float:left; background:#323544; padding-bottom:50px; }
 	.contentsWrap .contents.myProject .leftDiv {width:600px; background:#f4f4f4; border:1px solid #ebebeb; padding:31px 30px 29px; height:707px !important; }
 	.contentsWrap .contents .leftDiv h3.title {font-size:22px; line-height:35px; font-weight:bold; color:#333333; letter-spacing:-0.2px; margin:0 0 24px; }
@@ -94,6 +99,7 @@ header {position:relative; height:60px; }
 	.contentsWrap .contents .leftDiv .projectList ul li {margin-bottom:5px; border:1px solid #ebebeb; height:113px; background:#fff; padding:0 14px 0 25px; }
 	.contentsWrap .contents .leftDiv .projectList ul li:last-child  {margin-bottom:0; }
 	.contentsWrap .contents .leftDiv .projectList ul li a.tit {font-size:17px; line-height:48px; letter-spacing:-0.2px; color:#333333; font-weight:bold; margin-top:3px; display:inline-block; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; width:240px; }
+	.contentsWrap .contents .leftDiv .projectList ul li a.tit:hover {color:#667295; }
 	.contentsWrap .contents .leftDiv .projectList ul li .desc {text-overflow:ellipsis; overflow:hidden; white-space:nowrap; margin-top:5px; font-size:14px; line-height:24px; color:#333333; letter-spacing:-0.2px; }
 	.contentsWrap .contents .leftDiv .projectList ul li .btnArea {margin-top:14px; display:inline-block; text-align:right; vertical-align:top; margin-left:8px; }
 	.contentsWrap .contents .leftDiv .projectList ul li .btnArea a.btn {margin-right:0; }
@@ -121,6 +127,7 @@ header {position:relative; height:60px; }
 	.contentsWrap .contents .contentsDiv .table td.tit {text-align:left; padding-left:20px; }
 	.contentsWrap .contents .contentsDiv .table td .form-group {height:35px; margin-top:5px; margin-left:-13px; }
 	.contentsWrap .contents .contentsDiv .table td a.tit {color:#333333; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; display:inline-block; max-width:500px; }
+	.contentsWrap .contents .contentsDiv .table td a.tit:hover {color:#667295; }
 	.contentsWrap .contents .contentsDiv .table td a.attachCnt {margin-left:6px; font-size:13px; color:#2046b3; letter-spacing:-0.2px; display:inline-block; vertical-align:top; }
 	.contentsWrap .contents .contentsDiv .table td .btnArea {margin-top:8px; height:30px; }
 	.contentsWrap .contents .contentsDiv .table td .dropdown {height:36px; margin:5px 0 0 -13px; }
@@ -183,6 +190,7 @@ header {position:relative; height:60px; }
 	.contentsWrap .contents .contentsDiv .communityList li {position:relative; border:1px solid #ebebeb; height:113px; padding:0 14px 0 25px; margin-bottom:5px; vertical-align:top; }
 	.contentsWrap .contents .contentsDiv .communityList li:last-child {margin-bottom:0; }
 	.contentsWrap .contents .contentsDiv .communityList li a.tit {font-size:17px; line-height:48px; letter-spacing:-0.2px; color:#333333; font-weight:bold; margin-top:3px; display:inline-block; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; max-width:380px; }
+	.contentsWrap .contents .contentsDiv .communityList li a.tit:hover {color:#667295; }
 	.contentsWrap .contents .contentsDiv .communityList li span.cnt {font-size:13px; letter-spacing:-0.2px; color:#2046b3; display:inline-block; vertical-align:top; margin-top:20px; }
 	.contentsWrap .contents .contentsDiv .communityList li span.attach {display:inline-block; width:15px; height:16px; background:url(../images/icon_attach2.png) no-repeat 0 0; margin-left:9px; vertical-align:top; margin-top:20px; }
 	.contentsWrap .contents .contentsDiv .communityList li .desc {text-overflow:ellipsis; overflow:hidden; white-space:nowrap; font-size:14px; line-height:24px; color:#333333; letter-spacing:-0.2px; }
@@ -215,20 +223,21 @@ footer {position:relative; width:100%; border-top:1px solid #eaeaea; }
 	footer .footerSub .footerMenu {position:relative; }
 	footer .footerSub .footerMenu li {float:left; background:url(../images/bg_delimeter_02.gif) no-repeat 100% center; padding-right:18px; margin-right:16px; font-size:13px; line-height:58px; color:#999999; letter-spacing:-0.2px; }
 	footer .footerSub .footerMenu li a {color:#999999; }
+	footer .footerSub .footerMenu li:hover a {color:#667295; }
 	footer .footerSub .footerMenu li:last-child {background:none; }
 	footer .footerSub .copyright {font-size:13px; line-height:58px; color:#999999; position:absolute; top:0; right:0; }
 
 .dim {position:absolute; top:0; left:0; background:#000; opacity:0.5; filter:alpha(opacity=50); z-index:99999; }
 .dim2 {position:absolute; top:0; left:0; background:#000; opacity:0.5; filter:alpha(opacity=50); z-index:9999999; }
 .dim3 {position:absolute; top:60px; left:0; background:#000; opacity:0.5; filter:alpha(opacity=50); z-index:99999; }
-.popup {display:none; position:absolute; top:0; left:0; z-index:99999; width:612px; background:#f4f4f4; padding:30px; }
+.popup {display:none; position:absolute; top:0; left:0; z-index:99999; width:612px; background:#f4f4f4; padding:30px; border-radius:0; }
 	.popup.login {padding:0; top:160px !important; width:460px; }
-	.popup.projectCreate {width:960px; height:440px; }
+	.popup.projectCreate {width:960px; height:440px; display:block; }
 	.popup.login1 {width:460px; background:none; }
 	.popup.join {width:460px; background:none; }
 	.popup.joinSuccess {height:330px; background:#fff; }
 	.popup.passwdSetting {background:none; }
-	.popup.myInfo1 {width:340px; background:#fff; padding:32px 30px 17px; top:60px !important;  }
+	.popup.myInfo1 {width:340px; background:#fff; padding:32px 30px 17px; top:60px !important;  border:1px solid #e1e1e1; }
 	.popup.msg{width:340px; min-height:120px; background:#fff; z-index:9999999; }
 	.popup.msg.popMsg5 {background:#fff url(../images/bg_warning.png) no-repeat 15px 15px; }
 	.popup.emailCollectionReject {width:800px; height:152px; background:#fff; padding:30px 40px; }
@@ -277,11 +286,13 @@ footer {position:relative; width:100%; border-top:1px solid #eaeaea; }
 	.popup .loginDiv .checkbox span.bold {background:none; width:auto; height:auto; position:relative; }
 	.popup .loginDiv .checkbox input[type=checkbox]:checked + span {background:url(../images/bg_checkbox_on2.gif) no-repeat 0 0; }
 	.popup .msg {font-size:12px; letter-spacing:-0.2px; color:#ff0000; }
+	.popup .msg.type2 {text-align:right; margin-bottom:5px; }
 	.popup .menu {margin:25px 60px 0; }
 	.popup .menu li {float:left; background:url(../images/bg_delimeter_09.gif) no-repeat 100% center; padding-right:38px; margin-right:37px; }
 	.popup .menu.type2 li {margin-right:52px; padding-right:53px;  }
 	.popup .menu.type3 li {margin-right:42px; padding-right:42px;  }
 	.popup .menu li a {display:block; font-size:14px; letter-spacing:-0.2px; color:#494b56; }
+	.popup .menu li:hover a {color:#667295; }
 	.popup .menu li:last-child {margin-right:0; padding-right:0; background:none; }
 	.popup .changeDiv {display:none; }	
 	.popup .changeBtn {text-align:right; font-size:13px; line-height:17px; font-weight:bold; color:#222222; letter-spacing:-0.2px; background:url(../images/bg_delimeter_10.gif) no-repeat 175px 15px; display:block;  padding-top:15px; margin-top:3px; border-top:1px solid #e1e1e1; }
@@ -303,7 +314,7 @@ footer {position:relative; width:100%; border-top:1px solid #eaeaea; }
 	.popup .table th {height:39px; border-bottom:1px solid #e1e1e1; border-left:1px solid #e1e1e1; background:#f4f4f4; line-height:39px; text-align:center; }
 	.popup .table td {border-bottom:1px solid #e1e1e1; border-left:1px solid #e1e1e1; padding:17px 20px; }
 
-.btnArea {text-align:center; }
+.btnArea {text-align:center; position:relative; }
 	.popup.msg .btnArea {font-size:0; }
 	.btnArea .btn {margin-right:6px; }
 	.btnArea .btn:last-child {margin-right:0; }
@@ -362,7 +373,7 @@ footer {position:relative; width:100%; border-top:1px solid #eaeaea; }
 
 .bold {font-weight:bold; }
 
-.dropdown .btn.dropdown-toggle.selectbox {background:url(../images/bg_delimeter_03.png) no-repeat; background-position:calc(100% - 12px) center; margin-left:0; border:0; width:157px; text-align:left; color:#222222; font-size:14px; height:36px; line-height:36px; border:1px solid #585b67; padding-left:15px; }
+.dropdown .btn.dropdown-toggle.selectbox {background:url(../images/bg_delimeter_03.png) no-repeat; background-position:calc(100% - 12px) center; margin-left:0; border:0; width:157px; text-align:left; color:#222222; font-size:14px; height:36px; line-height:34px; border:1px solid #585b67; padding-left:15px; }
 .dropdown.open .btn.dropdown-toggle.selectbox {background:url(../images/bg_delimeter_03_on.png) no-repeat; background-position:calc(100% - 12px) center; }
 .dropdown-menu {background:#fff; }
 .dropdown-menu li {background:#fff; font-size:15px; color:#222222; margin-left:0 !important;  }
@@ -373,9 +384,9 @@ footer {position:relative; width:100%; border-top:1px solid #eaeaea; }
 .dropdown-menu li {text-align:left; display:block !important; line-height:30px; padding:0; background:#fff; color:#222; opacity:1; filter:alpha(opacity=100); float:none !important; border-bottom:1px solid #333; }
 
 /* bootstrap 파일 수정 */
-.btn {padding:0; width:80px; height:30px; line-height:30px;  border:1px solid #555555; text-align:center; font-size:13px; letter-spacing:-0.2px; color:#222222; border-radius:0; vertical-align:top; }
-	.btn.h35 {height:35px; line-height:35px;}
-	.btn.medium {height:45px; line-height:45px; font-size:14px; }
+.btn {padding:0; width:80px; height:30px; line-height:28px;  border:1px solid #555555; text-align:center; font-size:13px; letter-spacing:-0.2px; color:#222222; border-radius:0; vertical-align:top; }
+	.btn.h35 {height:35px; line-height:33px;}
+	.btn.medium {height:45px; line-height:43px; font-size:14px; }
 	.btn.medium.radius {border-radius:20px; }
 	.btn.white {color:#fff; background:none; border:1px solid #fff; }
 	/*.btn.bg323544 {background:#323544; color:#fff; border:1px solid #323544; }
@@ -405,6 +416,8 @@ h2, h3, h4, h5 {margin:0; }
 select::-ms-expand {display:none; }
 
 .form-control.inputTxt {box-shadow:none; }
+.form-control.inputTxt:focus {box-shadow: 0px 0px 1px #f7b9b9; border:1px solid #f7b9b9; }	
+textarea.form-control:focus {box-shadow: 0px 0px 1px #f7b9b9 !important; border:1px solid #f7b9b9 !important; }	
 .dropdown-menu {border-radius:0; box-shadow:none; }
 
 .form-control.inputTxt {border:1px solid #e1e1e1; border-radius:0; padding:0 10px; font-size:14px; color:#333333; letter-spacing:-0.2px; height:35px; }

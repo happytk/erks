@@ -30,6 +30,7 @@ from erks.utils import (
     flash_error,
     flash_success,
     flash_warning,
+    flash_info,
     register_breadcrumb,
     default_breadcrumb_root
 )
@@ -100,20 +101,20 @@ def create_project(slug='default'):
     d['form'] = project_create_form
     d['project_group'] = project_group
 
-    if project_group.is_not_default:
-        grade = project_group.get_grade(current_user._get_current_object())
-        if not project_group.ban_create_project or grade in ('owner', 'manager'):
-            pass
-        else:
-            flash_warning(gettext(u'신규 프로젝트 생성 제한 설정중입니다. 그룹관리자에게 문의해주세요.'))
-            return redirect(url_for('project_group.index', slug=slug))
+    # if project_group.is_not_default:
+    #     grade = project_group.get_grade(current_user._get_current_object())
+    #     if not project_group.ban_create_project or grade in ('owner', 'manager'):
+    #         pass
+    #     else:
+    #         flash_warning(gettext(u'신규 프로젝트 생성 제한 설정중입니다. 그룹관리자에게 문의해주세요.'))
+    #         return redirect(url_for('project_group.index', slug=slug))
 
-    if not current_user.can_make_project_for(project_group):
-        flash_warning(lazy_gettext(u'더 이상 무료 프로젝트를 생성할 수 없습니다.'))
-        if current_app.config['BILLING']:
-            return redirect(url_for('portal.services'))
-        else:
-            return redirect(url_for('portal.index'))
+    # if not current_user.can_make_project_for(project_group):
+    #     flash_warning(lazy_gettext(u'더 이상 무료 프로젝트를 생성할 수 없습니다.'))
+    #     if current_app.config['BILLING']:
+    #         return redirect(url_for('portal.services'))
+    #     else:
+    #         return redirect(url_for('portal.index'))
 
     if request.method == 'POST':
         if project_create_form.validate():
@@ -123,9 +124,10 @@ def create_project(slug='default'):
             prj = project_create_form.save(commit=False)
             prj.visible = True
             prj.save()
-
             return redirect(url_for('project.index', project_id=prj.id))
-
+        else:
+            flash_error(gettext('프로젝트 생성에 실패했습니다.'))
+            return redirect(url_for('portal.index'))
     return render_template('portal/project_create.htm.j2', **d)
 
 
@@ -256,6 +258,11 @@ def index(project_id):
             user=current_user._get_current_object()).first()
         if puser:
             puser.visit()
+
+    flash_success('helloworld[category-success]')
+    flash_error('helloworld[category-error]')
+    flash_info('helloworld[category-info]')
+    flash_warning('helloworld[category-warning]')
 
     # if project.project_group.has_theme():
     #     return render_template(

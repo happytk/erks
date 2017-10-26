@@ -20,7 +20,7 @@ A = 3
 
 import os
 
-_base_dir = os.environ.get('ERCC_HOME', os.environ.get('HOME', '/ercc'))
+_base_dir = os.environ.get('ERCC_HOME', os.environ.get('HOME', '/erks'))
 
 
 
@@ -138,7 +138,7 @@ DB는 mongodb의 database이름.
 
 {'DB': "ercc", 'host': 'localhost'}
 """
-MONGODB_SETTINGS = {'DB': "erccp", 'host': 'localhost'}
+MONGODB_SETTINGS = {'DB': "erks", 'host': 'localhost'}
 
 """
 backend configuration
@@ -239,7 +239,7 @@ EVENT_170322_COUPON_ID = None
 
 
 SESSION_TYPE = 'mongodb'
-SESSION_MONGODB_DB = 'ercc_session'
+SESSION_MONGODB_DB = 'erks_session'
 SESSION_MONGODB_COLLECT = 'sessions'
 
 try:

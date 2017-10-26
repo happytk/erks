@@ -244,7 +244,6 @@ def index(project_id):
 
     project = Project.objects.get_or_404(id=project_id)
 
-
     # 이 화면은 비로그인 사용자도 프로젝트 설정에 따라 볼 수 있으므로
     # current_user체크를 해주어야 함
     # project.write_visit_log(current_user._get_current_object())
@@ -258,18 +257,33 @@ def index(project_id):
         if puser:
             puser.visit()
 
-    if project.project_group.has_theme():
-        return render_template(
-            'theme/{theme_key}/project/index_{theme_key}.html'.format(theme_key=project.project_group.theme_key),
-            project=project,
-            portlet_summary_model=Portlet('._summary_model', project_id=project_id),
-            portlet_summary_glossary=Portlet('._summary_glossary', project_id=project_id),
-            portlet_subjectarea_recently_changed=Portlet('._subjectarea_recently_changed', project_id=project_id),
-            portlet_summary_board=Portlet('._summary_board', project_id=project_id),
-        )
-    else:
-        return render_template(gettext(u'project/index.html'), project=project)
+    # if project.project_group.has_theme():
+    #     return render_template(
+    #         'theme/{theme_key}/project/index_{theme_key}.html'.format(theme_key=project.project_group.theme_key),
+    #         project=project,
+    #         portlet_summary_model=Portlet('._summary_model', project_id=project_id),
+    #         portlet_summary_glossary=Portlet('._summary_glossary', project_id=project_id),
+    #         portlet_subjectarea_recently_changed=Portlet('._subjectarea_recently_changed', project_id=project_id),
+    #         portlet_summary_board=Portlet('._summary_board', project_id=project_id),
+    #     )
+    # else:
+    return render_template('project/community.htm.j2', project=project)
 
+
+@bpapp.route('/p/<mbj:project_id>/info', methods=['GET', 'POST'])
+def info(project_id):
+    project = Project.objects.get_or_404(id=project_id)
+    if request.method == 'POST':
+        form = ProjectEditForm(request.form)
+        if form.validate():
+            form.populate_obj(project)
+            project.save()
+            flash('Saved the project successfully.')
+        else:
+            flash('Sorry, There are invalid form data.')
+    else:
+        form = ProjectEditForm(obj=project)
+    return render_template('project/info.htm.j2', project=project, form=form)
 
 @bpapp.route('/p/<mbj:project_id>/_summary_model/_json')
 def _summary_model_json(project_id):
@@ -824,7 +838,7 @@ def _members(project_id):
             project=project).order_by('-last_visited_at')
 
     return render_template(
-        'project/_members.htm.j2',
+        'project/members.htm.j2',
         project=project,
         project_users=project_users,
         search_form=form,

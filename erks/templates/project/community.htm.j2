@@ -1,0 +1,50 @@
+{% extends "project/_base.htm.j2" %}
+{% set active_menu = 'community'%}
+{% block projectMainContent %}
+        <h3 class="title">프로젝트 커뮤니티</h3>
+        <!-- <form class="form-horizontal searchArea">
+            <div class="form-group">
+                <div class="floatL">
+                    <input type="text" class="form-control inputTxt" placeholder="본문/제목을 입력해 주세요.">
+                </div>
+                <div class="btnArea inlineBlock">
+                    <button type="button" class="btn h35 navy">검색</button>
+                </div>
+            </div>
+        </form> -->
+        <table data-toggle="table"
+               data-classes="table type2 mb50"
+               data-show-columns="false"
+               data-pagination="true"
+               data-page-size="5"
+               data-search="true">
+        <thead>
+            <th data-width="*;" data-class="tit" data-field="tile" data-sortable="true">제목</th>
+            <th data-width="80px" data-class="attachCnt" data-field="attach_cnt" data-sortable="true">첨부</th>
+            <th data-width="102px;" data-field="created_by" data-sortable="true">작성자</th>
+            <th data-width="132px;" data-field="created_at" data-sortable="true">작성일자</th>
+        </thead>
+        <tbody>
+        {% for post in project.queryset_post.only('title', 'created_by', 'created_at').order_by('-created_at') %}
+        <tr>
+            <td data-field="tile"><a href="{{ url_for('board.post_view', post_id=post.id) }}" class="tit">{{ post.title | e }}</a><a href="#" class="attachCnt">(1)</a></td>
+            <td data-field="attach_cnt"><a href="#" class="attach">attach</a></td>
+            <td data-field="created_by">{{ post.created_by.email }}</td>
+            <td data-field="created_at">{{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        <!-- <ul class="paging">
+            <li><a href="#" class="prev">prev</a></li>
+            <li class="on"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#" class="next">next</a></li>
+        </ul> -->
+        <div class="btnArea floatR mt-29">
+            <a href="{{ url_for('board._post_write', project_id=project.id) }}" class="btn medium w140 blue">작성</a>
+        </div>
+{% endblock %}

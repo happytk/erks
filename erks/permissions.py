@@ -240,15 +240,15 @@ def _check_permission_project():
         return
     project = g.project
 
-    if current_app.config['BILLING'] and project.is_expired:
-        grades = project._get_grades(current_user._get_current_object())
-        if project.ORGANIZER not in grades:
-            if request.is_xhr:
-                abort(403)  # 402
-            else:
-                flash_error(gettext(u'이 프로젝트는 더 이상 사용하실 수 없습니다.'))
-                raise CheckPermissionError(
-                    response=redirect('portal.index'))
+    # if current_app.config['BILLING'] and project.is_expired:
+    #     grades = project._get_grades(current_user._get_current_object())
+    #     if project.ORGANIZER not in grades:
+    #         if request.is_xhr:
+    #             abort(403)  # 402
+    #         else:
+    #             flash_error(gettext(u'이 프로젝트는 더 이상 사용하실 수 없습니다.'))
+    #             raise CheckPermissionError(
+    #                 response=redirect('portal.index'))
 
     if check_what == CHECK_PROJECT_OWNER:
         grades = project._get_grades(current_user._get_current_object())

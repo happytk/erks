@@ -1,0 +1,63 @@
+{% extends "project/_base.htm.j2" %}
+{% set active_menu = 'community'%}
+{% block projectMainContent %}
+    <h3 class="title">글작성
+        <span class="desc">/ 커뮤니티에 함께 공유할 내용을 작성해 주세요.</span>
+    </h3>
+    <form method="POST" enctype="multipart/form-data" name="createform" id="post_create_form" class="form-horizontal" autocomplete="off" data-ajax="true" action="{{ action_url }}">
+        <div class="communityWriteDiv">
+            {{ form.hidden_tag() if form.hidden_tag }}
+            <div class="form-group">
+                {{ form.title(class_="form-control inputTxt", placeholder=_('제목을 입력하세요'), required='required') }}
+                <p class="msg">{{ form.errors['title'] | join(' ') }}</p>
+            </div>
+            <div class="contentsArea">
+                <div class="editerArea">
+                    {{ form.contents(class_="form-control" ) }}
+                    <p class="msg">{{ form.errors['contents'] | join(' ') }}</p>
+                </div>
+                <div class="attachArea">
+                    <div class="fileDiv">
+                        <input type="file" name="fileName" class="file" onchange="fileAppend(this.value);">
+                    </div>
+                    <ul class="attachList">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="btnArea alignR">
+            <a href="#" class="btn medium white2  w140">취소</a>
+            <button type="submit" class="btn medium  blue w140">저장</a>
+        </div>
+    </form>
+
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap-summernote/summernote.css') }}">
+<style>
+.note-editor.note-frame.panel.panel-default {
+    margin-bottom: 0px;
+}
+</style>
+<script src="{{ url_for('static', filename='bootstrap-summernote/summernote.min.js') }}" type="text/javascript"></script>
+<script>
+$(document).ready(function() {
+    $('div#contents').summernote({
+        height: 300,
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            // ['fontsize', ['fontsize']],
+            // ['color', ['color']],
+            // ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ],
+    });
+
+    $('#post_create_form').submit(function() {
+        $('textarea#contents').val($('div#contents').summernote('code'));
+        return true;
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% from '_form_helpers.html' import render_field %}
+
+{% extends "project/_base.htm.j2" %}
+{% set active_menu = 'info'%}
+{% block projectMainContent %}
+    <form class="form-horizontal" method="POST" action="{{ url_for('project.info', project_id=project.id) }}">
+        <div class="contentsDiv">
+            <h3 class="title">프로젝트 상세</h3>
+            <div class="communityWriteDiv">
+                <div class="contentsArea project">
+                    {{ form.hidden_tag() if form.hidden_tag }}
+                    {{ render_field(form.title) }}
+                    {{ render_field(form.description) }}
+                    <div class="form-group">
+                        <label for="name" class="control-label">컴포넌트 유형</label>
+                        <div class="floatL">
+                            <input type="text" id="name" class="form-control inputTxt w317" value="-" placeholder="">
+                        </div>
+                        <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="options" id="options1" value="option1">커뮤니티 공개 설정
+                            <span></span>
+                        </label>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="control-label">PM 설정</label>
+                        <div class="floatL">
+                            <input type="text" id="name" class="form-control inputTxt w317" value="{{ project.owner }}" disabled placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btnArea alignR">
+                <a href="{{ url_for('project.destroy', project_id=project.id) }}" class="btn medium navy  w140">프로젝트 삭제</a>
+                <button type="submit" class="btn medium  blue w140">저장</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

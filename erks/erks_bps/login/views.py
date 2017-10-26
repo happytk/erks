@@ -222,6 +222,7 @@ def login():
     next_url = get_redirect_target()
     form = LoginForm(request.form)
     if request.method == 'POST':
+        # import pdb; pdb.set_trace()
         if form.validate():
             try:
                 email_or_userid = form.email.data
@@ -234,8 +235,8 @@ def login():
                 if user.verified:
                     login_user(user, remember=form.remember_me.data)
                     session['lang_code'] = user.locale
-                    # return redirect(url_for('portal.index'))
-                    return redirect_back('portal.index')
+                    return redirect(url_for('portal.index'))
+                    # return redirect_back('portal.index')
                 else:
                     message = Markup(lazy_gettext(u'이메일 인증이 완료되지 않은 사용자입니다.<br/><a href=\'#\' style=\"color: blue;\">인증 요청</a>'))
                     flash(message)
@@ -271,6 +272,7 @@ def signup():
     next_url = get_redirect_target()
     form = SignUpForm(request.form)
     if request.method == 'POST' and form.validate():
+        # import pdb; pdb.set_trace()
         try:
             email = form.email.data
             password = password_hash(form.password.data)

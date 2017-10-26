@@ -1,0 +1,40 @@
+{% from '_form_helpers.html' import render_field %}
+
+{% extends "project/_base.htm.j2" %}
+{% set active_menu = 'community'%}
+{% block projectMainContent %}
+    <h3 class="title">글보기</h3>
+    <div class="communityViewDiv">
+        <p class="tit">{{ post.title | e }}
+            <span class="date">{{ post.created_by.email }}, {{ post.created_at.strftime('%Y-%m-%d') }}</span>
+        </p>
+        <div class="content">
+            {{ post.contents | e}}
+        </div>
+        <ul class="attach">
+            <li><a href="#">첨부파일명.txt첨부파일명.txt첨부파일명.txt</a></li>
+            <li><a href="#">첨부파일명.txt</a></li>
+        </ul>
+    </div>
+    <div class="btnArea alignR">
+        <a href="{{ url_for('board._post_edit', post_id=post.id) }}" class="btn medium blue w140">수정</a>
+        <a href="{{ url_for('project.index', project_id=post.project.id) }}" class="btn medium white2 w140">목록</a>
+    </div>
+    <div class="commentsDiv">
+        <h4 class="title">댓글 (2)</h4>
+        <form class="form-horizontal">
+        <div class="form-group">
+            <div class="floatL mr10">
+                <input type="text" class="form-control inputTxt w770" placeholder="의견을 남겨주세요.">
+            </div>
+            <div class="btnArea inlineBlock">
+                <button type="button" class="btn h35 navy">등록</button>
+            </div>
+        </div>
+        <ul class="commentsList">
+            <li>(user2) 알겠습니다.<span class="date">2017-08-24</span></li>
+            <li>(user2) 알겠습니다.<span class="date">2017-08-24</span></li>
+        </ul>
+    </form>
+    </div>
+{% endblock %}

@@ -1,5 +1,5 @@
 # -*-encoding:utf-8-*-
-from ercc.extensions import db, mail
+from erks.extensions import db, mail
 from flask import current_app
 from flask_mail import Message
 import logging as logger

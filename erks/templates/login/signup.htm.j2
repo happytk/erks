@@ -9,7 +9,7 @@
                 {{ form.hidden_tag() if form.hidden_tag }}
                 <div class="form-group">
                     <label for="name" class="control-label">이메일
-                        <span class="errMsg">올바르지 않은 이메일 주소입니다.</span>
+                        <span class="errMsg">{{ form.errors['email'] | join(',') }}</span>
                     </label>
                     <div class="floatL">
                         {{ form.email(class_='form-control inputTxt w340', type="text") }}
@@ -17,18 +17,18 @@
                 </div>
                 <div class="form-group">
                     <label for="name" class="control-label">비밀번호
-                        <span class="errMsg">비밀번호를 입력해 주세요.</span>
+                        <span class="errMsg">{{ form.errors['password'] | join(',') }}</span>
                     </label>
                     <div class="floatL">
-                        {{ form.password(class_='form-control inputTxt w340', type="password", autocomplete="off", id="register_password") }}
+                        {{ form.password(class_='form-control inputTxt w340', type="password", autocomplete="off") }}
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="name" class="control-label">비밀번호 재입력
-                        <span class="errMsg">비밀번호를 다시 한번 입력해 주세요.</span>
+                        <span class="errMsg">{{ form.errors['password_confirm'] | join(',') }}</span>
                     </label>
                     <div class="floatL">
-                        {{ form.password_confirm(class_='form-control inputTxt w340', type="password", autocomplete="off", id="register_password_check") }}
+                        {{ form.password_confirm(class_='form-control inputTxt w340', type="password", autocomplete="off") }}
                     </div>
                 </div>
                 <div class="overHidden">
@@ -61,9 +61,20 @@
                 </div>
             </form>
             </div>
-            <p class="msg">서비스 이용 약관 및 개인정보 정책을 동의해 주세요.</p>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <p class="msg">
+                    {% for category, message in messages %}
+                    {% set category = (category == 'message') and 'info' or category %}
+                    {{ message }}
+                    {% endfor %}
+                    </p>
+                {% endif %}
+            {% endwith %}
+            {# <p class="msg">{{ form.errors }}</p> #}
+            {# <p class="msg">서비스 이용 약관 및 개인정보 정책을 동의해 주세요.</p>
             <p class="msg">개인정보 처리방침을 동의해 주세요.</p>
-            <p class="msg">개인정보의 수집·이용 동의서에 동의해 주세요.</p>
+            <p class="msg">개인정보의 수집·이용 동의서에 동의해 주세요.</p> #}
         </div>
         <ul class="menu type3">
             <li><a href="{{ url_for('portal.index') }}">메인</a></li>

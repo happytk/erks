@@ -1,8 +1,8 @@
-{% extends g.project.base_html %}
+{% extends 'project/_base.htm.j2' %}
 {% set active_page = active_page -%}
 {% from '_helpers.html' import debuginfo %}
 
-{% block project_content %}
+{% block projectMainContent %}
 
 {% for portlet in portlets %}
 <!-- BEGIN PORTLET-->
@@ -12,4 +12,4 @@
 
 {{ debuginfo(self) }}
 
-{% endblock project_content %}
+{% endblock projectMainContent %}

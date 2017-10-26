@@ -1,0 +1,87 @@
+{% extends "project/_base.htm.j2" %}
+{% set active_menu = 'members'%}
+{% block projectMainContent %}
+    <h3 class="title">프로젝트 구성원 관리</h3>
+    <!-- <form class="form-horizontal searchArea">
+        <div class="form-group">
+            <label for="name" class="control-label">사용자 검색</label>
+            <div class="floatL">
+                <input type="text" name="name" id="name" class="form-control inputTxt" placeholder="이메일을 입력해 주세요.">
+            </div>
+            <div class="btnArea inlineBlock">
+                <button type="button" class="btn h35 navy">검색</button>
+            </div>
+        </div>
+    </form> -->
+    <form class="form-horizontal">
+    <table data-toggle="table"
+           data-classes="table type2"
+           data-show-columns="false"
+           data-search="true">
+    <thead>
+        <th data-width="*;" data-field="email" data-sortable="true">이메일</th>
+        <th data-width="119px" data-field="nickname" data-sortable="true">닉네임</th>
+        <th data-width="169px;" data-field="role" data-sortable="true">역할</th>
+        <th data-width="169px;" data-field="description" data-sortable="true">설명</th>
+        <th data-width="120px;" data-field="last_visited_at" data-sortable="true">최근 방문 일시</th>
+        <th data-width="140zpx;" data-field="admin" data-sortable="false">구성원 관리</th>
+    </thead>
+    <tbody>
+    {% for project_user in project.queryset_project_user.order_by('-last_visited_at') %}
+    <tr>
+        <td data-field="email">{{ project_user.email }}</td>
+        <td data-field="nickname">-</td>
+        <td data-field="role">{{ project_user.role }}</td>
+        <td data-field="description">-</td>
+        <td data-field="last_visited_at">{{ project_user.last_visited_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        <td data-field="admin"></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </form>
+
+    <!-- <tr class="edit">
+        <td class="alignL">user1@sk.com</td>
+        <td>user_id</td>
+        <td class="alignL">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle selectbox" type="button" id="msglist" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">프로젝트 관리자</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#">프로젝트 관리자</a></li>
+                    <li><a href="#">Annotator</a></li>
+                </ul>
+            </div>
+        </td>
+        <td class="alignL">
+            <div class="form-group">
+                <div>
+                    <input type="text" name="name" id="name" value="총괄업무" class="form-control inputTxt w155">
+                </div>
+            </div>
+        </td>
+        <td>2017-08-24</td>
+        <td>
+            <div class="btnArea">
+                <a href="#" class="btn blue">저장</a>
+                <a href="#" class="btn navy">제외</a>
+            </div>
+        </td>
+    </tr> -->
+
+    {% if project.owner.email == current_user.email %}
+    <h4 class="title alignC">프로젝트 구성원 등록</h4>
+    <div class="memberRegisterDiv">
+    <form class="form-horizontal" method="POST" action="{{ url_for('project.invite', project_id=project.id) }}">
+        <div class="form-group">
+            <div class="floatL mr10">
+                <input type="text" name="email" id="email" class="form-control inputTxt h45 w306" placeholder="이메일을 입력해 주세요.">
+            </div>
+            <div class="btnArea inlineBlock">
+                <button type="submit" class="btn medium navy w140">등록</button>
+            </div>
+        </div>
+    </form>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -489,9 +489,13 @@ class Project(JsonifyPatchMixin,
         return ProjectUserBase.objects(project=self)
 
     @property
-    def queryset_glossary(self):
-        from erks.models import GlossaryBase
-        return GlossaryBase.head_objects(project=self)
+    def queryset_post(self):
+        from erks.models import Post
+        return Post.objects(project=self)
+    # @property
+    # def queryset_glossary(self):
+    #     from erks.models import GlossaryBase
+    #     return GlossaryBase.head_objects(project=self)
 
     @property
     def queryset_user(self):

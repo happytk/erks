@@ -1,5 +1,5 @@
 from . import db
-from erks.utils import JsonifyPatchMixin
+from erks.utils import JsonifyPatchMixin, AuditableMixin
 from erks.signals import (
     on_created_post,
     on_modified_post,
@@ -67,7 +67,7 @@ class PostReplyMixin(object):
             self.save()
 
 
-class Post(JsonifyPatchMixin, PostReplyMixin, db.Document):
+class Post(JsonifyPatchMixin, AuditableMixin, PostReplyMixin, db.Document):
     meta = {
         # 'abstract': True,
         'allow_inheritance': True,

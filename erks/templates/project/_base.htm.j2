@@ -1,0 +1,27 @@
+{% extends "portal/_base.htm.j2" %}
+
+{% block mainContent %}
+        <div class="contentsWrap">
+            <div class="contents">
+                <div class="leftDiv">
+                    <div class="titleArea">
+                        <p class="projectName">{{ g.project.title }}</p>
+                        <p class="name">{{ g.project.owner.email }}</p>
+                        <p class="authority">(프로젝트 관리자)</p>
+                    </div>
+                    <ul class="leftMenu">
+                        <li {% if active_menu == 'community' %}class="on"{% endif %}><a href="{{ g.project.url }}">프로젝트 커뮤니티</a></li>
+                        <li {% if active_menu == 'members' %}class="on"{% endif %}><a href="{{ url_for('project.members', project_id=g.project.id) }}">프로젝트 구성원</a></li>
+                        <li {% if active_menu == 'info' %}class="on"{% endif %}><a href="{{ url_for('project.info', project_id=g.project.id) }}">프로젝트 정보</a></li>
+                    </ul>
+                    <div class="btnArea">
+                        <a href="#" class="btn medium">ER-KS 시작하기</a>
+                    </div>
+                </div>
+                <div class="contentsDiv">
+                    {% block projectMainContent %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+{% endblock %}

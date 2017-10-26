@@ -133,17 +133,19 @@ class UserProjectCreateBillingCheckMixin(object):
 
     @property
     def can_make_project(self):
-        from erks.erks_bps.project.models import Project
-        return len(Project.my_free_project()) == 0
+        # from erks.erks_bps.project.models import Project
+        # return len(Project.my_free_project()) == 0
+        return True
 
     def can_make_project_for(self, project_group):
-        '''순수하게 billing차원에서만 점검. project_group은 무조건 true'''
-        if project_group.has_theme():
-            return True
-        elif project_group.is_default:
-            return self.can_make_project
-        else:
-            return True
+        # '''순수하게 billing차원에서만 점검. project_group은 무조건 true'''
+        # if project_group.has_theme():
+        #     return True
+        # elif project_group.is_default:
+        #     return self.can_make_project
+        # else:
+        #     return True
+        return True
 
 
 class UserProfileImageMixin(object):

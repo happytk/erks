@@ -168,7 +168,7 @@ def _post_write(project_id):
             post_id=post.id))
 
     return render_template(
-        'board/_post_write.htm.j2',
+        'project/community_write.htm.j2',
         action_url=url_for('board._post_write', project_id=project_id),
         project=project, form=form)
 
@@ -273,7 +273,7 @@ def _post_view(post_id):
     post = Post.objects.get_or_404(id=post_id)
     if isinstance(post, ProjectPost):
         return render_template(
-            'board/_post_view.html',
+            'project/community_view.htm.j2',
             project=g.project,
             post=post,
             board_list_url=url_for('._posts', project_id=post.project.id)

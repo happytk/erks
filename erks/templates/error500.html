@@ -1,0 +1,41 @@
+{% if not project_group %}
+{% if project and project.project_group %}
+{% set project_group = project.project_group %}
+{% else %}
+{% set project_group = default_project_group %}
+{% endif %}
+{% endif %}
+
+{% extends project_group.base_html %}
+
+
+{% block script_head %}
+<link href="/comp/static/assets/pages/css/error.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block page_title %}
+{% endblock %}
+
+{% block page_breadcrumb %}
+{% endblock %}
+
+{% block content %}
+<div class="page-500">
+	<div class=" number">
+		 500
+	</div>
+	<div class=" details">
+		<h3>Oops! Something went wrong.</h3>
+		<p>
+			 We are fixing it!<br/>
+			Please come back in a while.<br/><br/>
+		</p>
+		{% if g.sentry_event_id %}
+		<p>The error identifier is {{ g.sentry_event_id }}</p>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

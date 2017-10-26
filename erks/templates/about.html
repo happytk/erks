@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+
+{% block page_title %}
+    <div class="text-center" style="padding-bottom: 11px; font-size:36px; color:#0056a0; font-weight:bold;">{{ _('ER-C 소개') }}</div>
+    <div class="text-center help-block"
+    style="font-size:15px; color:#999999; padding-bottom: 35px;">{{_('통합 데이터 모델링 솔루션 NEXCORE ER-C를 소개합니다.')}}</div>
+{% endblock %}
+
+
+
+{% block content %}
+<style>
+    .page-content-white .page-title {
+        margin: 0 0 0 0;
+        padding-top: 100px;
+        font-size: 24px;
+    }
+
+    .page-content-wrapper .page-content {
+        padding: 0px 20px 10px;
+    }
+
+    .page-title {
+        margin:0;
+        padding:0;
+    }
+    .about-left-title {
+        font-size:32px; color:#333333;
+    }
+    .about-line {
+        border-top: 1px solid #dfdfdf;
+    }
+    .page-content-wrapper .page-content {
+        padding-left: 0px; padding-right: 0px;
+    }
+    .about-panel {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+    .about-panel-last {
+        padding-top: 60px;
+        padding-bottom: 80px;
+    }
+    .about-subpanel-title {
+        font-size:20px; color:#333333; padding-bottom:10px;
+    }
+    .about-subpanel-description {
+        line-height:27px; color:#666666;
+    }
+    .about-subpanel-img {
+        /*padding-bottom:60px;*/
+        padding-bottom: 0px;
+    }
+    .about-subpanel-oneimg {
+        padding-bottom:60px;
+    }
+    .about-subpanel-img img, .about-subpanel-oneimg img {
+        max-width: 100%;
+    }
+    .about-wrapper {
+        border-top: 1px solid #b0b0b0;
+        padding-left:60px;
+        padding-right:60px;
+    }
+    .about-summary {
+        font-size:28px; color:#333333; padding-bottom: 40px;
+    }
+    .about-description {
+        font-size:15px; color:#666666; padding-bottom: 60px; line-height:27px;
+    }
+    .about-contactus {
+        line-height:32px; color:#666666;
+    }
+    .about-contactus-btns {
+        padding-top:30px;
+    }
+    .about-contactus-btns a {
+        margin-right:5px;
+    }
+    .gray-wrapper {
+        background-color:#f7f7f7;
+        padding:40px;
+    }
+    .about-wrapper img {
+        max-width: 100%;
+    }
+</style>
+<div class="portlet light about-wrapper">
+
+    <div class="row about-panel">
+
+        <div class="col-md-2">
+            <div class="about-left-title">{{_('ER-C란?')}}</div>
+        </div>
+        <div class="col-md-10">
+
+            <div class="about-summary">{{_('SaaS기반의 데이터 모델링 솔루션입니다.')}}
+            </div>
+            <div class="about-description">
+            {{_('데이터 모델의 일관성과 품질 관리를 위한 통합 데이터 모델링 솔루션으로
+            데이터의 논리/물리적 architecture를 관리하는 End to End 솔루션의 기능을 제공합니다.')}}
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="about-subpanel-oneimg"><img src="/static/img/r3/about/img01_01.jpg"></div>
+                    <div class="text-center about-subpanel-title">{{_('모델 분석')|title}}</div>
+                    <div class="text-center">{{_('AS-IS 데이터 구조 조회/분석을 지원')}}</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="about-subpanel-oneimg"><img src="/static/img/r3/about/img01_02.jpg"></div>
+                    <div class="text-center about-subpanel-title">{{_('모델 구현')|title}}</div>
+                    <div class="text-center">{{_('TO-BE 데이터 구조 통합 설계를 지원')}}</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="about-subpanel-oneimg"><img src="/static/img/r3/about/img01_03.jpg"></div>
+                    <div class="text-center about-subpanel-title">{{_('모델 운영')|title}}</div>
+                    <div class="text-center">{{_('실시간 데이터 표준/모델 운영 관리 지원')}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-line">&nbsp;</div>
+    <div class="row about-panel">
+
+        <div class="col-md-2">
+            <div class="about-left-title">{{_('활용분야')|title}}</div>
+        </div>
+        <div class="col-md-10">
+
+            <div class="about-summary">{{_('NEXCORE ER-C 서비스 소개')}}
+            </div>
+            <div class="about-description">
+            {{_('ER-C는 분석-개발 단계에 활용하는 Online 기반의 공유/협업 데이터 모델링 솔루션')}}
+            </div>
+            <div><img src="{{ _('/static/img/r3/about/img02.jpg') }}"></div>
+        </div>
+    </div>
+    <div class="about-line">&nbsp;</div>
+    <div class="row about-panel">
+
+        <div class="col-md-2">
+            <div class="about-left-title">{{_('도입효과')|title}}</div>
+        </div>
+        <div class="col-md-10">
+            <div style="padding-bottom:50px;"><img src="{{ _('/static/img/r3/about/img03_01.jpg') }}"></div>
+            <div>
+                <div class="gray-wrapper">
+                    <img src="{{ _('/static/img/r3/about/img03_02.jpg') }}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-line">&nbsp;</div>
+    <div class="row about-panel">
+
+        <div class="col-md-2">
+            <div class="about-left-title">{{_('특징')}}</div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="about-subpanel-img"><img src="/static/img/r3/about/img04_01.jpg""></div>
+                    <div class="text-center about-subpanel-title">{{_('ONLINE 데이터 모델링 환경')}}</div>
+                    <div class="text-center about-subpanel-description">{{_('ONLINE으로 데이터 모델을 설계')}}<br/>
+                    {{_('동시에 여러 명의 사용자가 등록/편집')}}<br/>
+                    {{_('데이터 모델 변경 영향도 실시간 공유')}}</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="about-subpanel-img"><img src="/static/img/r3/about/img04_02.jpg""></div>
+                    <div class="text-center about-subpanel-title">{{_('데이터 표준 메타 관리')}}</div>
+                    <div class="text-center about-subpanel-description">{{_('데이터 모델과 표준사전의 실시간 연동')}}<br/>
+                    {{_('논리/물리 타입 자동 매핑 기능')}}<br/>
+                    {{_('데이터 모델의 표준통제 및 품질관리')}}</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="about-subpanel-img"><img src="/static/img/r3/about/img04_03.jpg""></div>
+                    <div class="text-center about-subpanel-title">{{_('실시간 공유/협업 강화')}}</div>
+                    <div class="text-center about-subpanel-description">{{_('가상의 협업 공간(Project)제공')}}<br/>
+                    {{_('프로젝트 사용자의 자유로운 소통')}}<br/>
+                    {{_('개인화된 지식의 실시간 공유')}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-line">&nbsp;</div>
+    <div class="row about-panel-last">
+
+        <div class="col-md-2">
+            <div class="about-left-title">{{_('제품문의')}}</div>
+        </div>
+        <div class="col-md-10">
+            <div class="about-contactus">
+            {{_('주소: 경기도 성남시 분당구 판교로 255번지 46')}}<br/>
+            {{_('전화: 02-6400-3283, 02-6400-2692 / FAX: 02-6400-0403')}}<br/>
+            E-mail: ercadmin@sk.com
+            </div>
+            <div class="about-contactus-btns">
+                <a class="btn btn-default btn-circle" href="{{ url_for('static', filename=config['OSS_NOTICE_FILE_PATH']) }}">{{_('오픈소스 고지문')}}</a>
+                <a class="btn btn-default btn-circle" href="{{ url_for('portal.dialog_toc') }}" data-target="#footer-toc-ajax" data-toggle="modal" id="btn_term_of_service">{{_('서비스 이용약관')}}</a>
+                <a class="btn btn-default btn-circle" href="{{ url_for('portal.dialog_privacy_policy') }}" data-target="#footer-privacy_policy-ajax" data-toggle="modal" style="color:#0056a0;">{{_('개인정보처리방침')}}</a>
+            </div>
+            <div class="pull-right">
+                <!-- <img src="/static/img/r3/about/img06_01.jpg"> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

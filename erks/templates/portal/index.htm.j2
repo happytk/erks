@@ -1,0 +1,58 @@
+{% extends "portal/_base.htm.j2" %}
+
+{% block page_settings %}
+{% set active_menu = 'createproject'%}
+{% endblock %}
+
+{% block mainContent %}
+        <div class="contentsWrap main">
+            <div class="mainVisualDiv">
+                <p class="tit1 tlt">ER-Knowledge Studio</p>
+                <p class="tit2">고도화된 AI 서비스를 위해 도메인 전문가와 개발자들이 Watson에게 <br />
+                비정형 문서에서 의미 있는 insight를 발견하는 방법을 트레이닝 시키기 위한 도메인 지식 협업 툴입니다.</p>
+                <ul class="mainInfoDiv">
+                    <li>
+                        <p class="tit">직관적인 UI</p>
+                        <p class="desc">단 한 줄의 코드도 작성할 필요가 없는 최신 UI를 사용<br />
+                        하여 Watson에 자연어 뉘앙스를 도입합니다.</p>
+                    </li>
+                    <li>
+                        <p class="tit">협업 지원</p>
+                        <p class="desc">코그너티브 애플리케이션에 도메인 지식을 접목하면서<br />
+                        주제별 전문가 동료들과 협업할 수 있습니다.</p>
+                    </li>
+                    <li>
+                        <p class="tit">비용 효용 증대</p>
+                        <p class="desc">통합 개발 환경을 사용하기 전에 도메인 지식이 접목된<br />
+                        어노테이터를 이전보다 더 빠르게 작성 및 배치합니다.</p>
+                    </li>
+                </ul>
+                <div class="btnArea">
+                    <a href="{{ url_for('portal.about') }}" class="btn medium white w150">자세히 보기</a>
+                </div>
+            </div>
+            <div class="contents">
+                <div class="communityDiv">
+                    <ul class="btnDiv">
+                        <li><a href="#" class="btn">ER-KS 시작하기</a></li>
+                        <li><a href="#" class="btn">용어사전</a></li>
+                        <li><a href="#" class="btn">ER-KS 작업 그 이후</a></li>
+                        <li><a href="#" class="btn">자주 묻는 질문</a></li>
+                    </ul>
+                    <a href="#" class="btnMore">+</a>
+                </div>
+            </div>
+        </div>
+    <script type="text/javascript">
+    <!--
+    $(document).ready(function()  {
+        $('.tlt').textillate({
+          in: { effect: 'splat' },
+          out: { effect: 'foldUnfold', sync: true },
+          loop: true
+        });
+    });
+    //-->
+    </script>
+    <!-- 20171022 추가 끝 //-->
+{% endblock %}

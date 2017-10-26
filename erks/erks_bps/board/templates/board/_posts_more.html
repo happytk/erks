@@ -1,0 +1,5 @@
+{% from 'board/_board_box.html' import render_board_box %}
+
+{% for o in posts %}
+{{ render_board_box(o,project) }}
+{% endfor %}

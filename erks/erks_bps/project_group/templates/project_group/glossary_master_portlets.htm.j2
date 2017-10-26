@@ -1,0 +1,12 @@
+{% extends "project_group/glossary_master.htm.j2" %}
+{% from '_helpers.html' import debuginfo %}
+
+{% block project_content %}
+{% for portlet in portlets %}
+<!-- BEGIN PORTLET-->
+{{ portlet.render() | safe }}
+<!-- END PORTLET-->
+{% endfor %}
+
+{{ debuginfo(self) }}
+{% endblock %}

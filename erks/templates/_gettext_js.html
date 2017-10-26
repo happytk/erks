@@ -1,0 +1,19 @@
+<script type="text/javascript" src="/static/js/Gettext.js"></script>
+
+{% if debug %}
+<link rel="gettext" type="application/x-po" href="/static/translations_js/en/LC_MESSAGES/messages.po">
+<link rel="gettext" type="application/x-po" href="/static/translations_js/zh/LC_MESSAGES/messages.po">
+{% endif %}
+<link rel="gettext" type="application/x-po" href="/static/translations_js/ko/LC_MESSAGES/messages.po">
+
+<script type="text/javascript">
+/*
+JSGETTEXT 설정 부분, 사이트 전체에서 사용할 수 있도록 전역 변수로 생성
+*/
+
+var gt = new Gettext({domain: "{{session['lang_code']}}"});
+var _ = function(msgid) { return gt.gettext(msgid); };
+var ngettext = function(msgid, msgid_plural, n) { return gt.ngettext(msgid, msgid_plural, n); };
+
+</script>
+

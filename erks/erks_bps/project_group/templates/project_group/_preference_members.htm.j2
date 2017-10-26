@@ -1,0 +1,45 @@
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+{#
+project-group-preference의 member관리화면.
+관리자만 들어올 수 있습니다.
+#}
+
+<div id="project-group-user-table-toolbar" class="columns">
+<a href="{{ url_for('project_group._invite', slug=project_group.slug) }}" data-toggle="modal" data-target="#project-group-share" class="btn btn-default btn-success">
+{{_('그룹사용자초대')}} <i class="fa fa-plus"></i></a>
+</div>
+<table id="project-group-user-table"
+       data-method="get"
+       data-page-list="[5, 10, 20, 50, 100, 200]"
+       data-page-size="10"
+       data-pagination="true"
+       data-project-group-slug="{{ project_group.slug }}"
+       data-search="true"
+       data-show-columns="true"
+       data-side-pagination="server"
+       data-sort-name="last_visited_at"
+       data-sort-order="desc"
+       data-toggle="table"
+       data-toolbar="#project-group-user-table-toolbar"
+       data-unique-id="id"
+       data-url="/api_btstptbl/projectgroup/{{ project_group.slug }}/users"
+       >
+    <thead>
+    <tr>
+        <th data-checkbox="true"></th>
+        <th data-field="user_email" data-sortable="true">{{ _('이메일') }}</th>
+        <th data-field="user.name">{{ _('이름') }}</th>
+        <th data-formatter="roleFormatter">{{ _('역할') }}</th>
+        <th data-field="last_visited_at" data-sortable="true" data-formatter='btstrp_commonf_datetime'>{{ _('최근방문일시') }}</th>
+        <th data-field="created_at" data-visible="false" data-sortable="true" data-formatter='btstrp_commonf_datetime'>{{ _('프로젝트가입일시') }}</th>
+        <th data-field="is_moderator" data-visible="false" data-sortable="true" data-formatter='btstrp_commonf_checked'>{{ _('관리자') }}</th>
+        <th data-field="is_termer" data-visible="false" data-sortable="true" data-formatter='btstrp_commonf_checked'>{{ _('용어관리자') }}</th>
+        <th data-field="is_owner" data-formatter="roleChangerFormatter"> {{ _('설정') }} </th>
+    </tr>
+    </thead>
+</table>
+
+<script src="/comp/static/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="{{ url_for('project_group.static', filename='js/pg_members.js') }}"></script>
+{% endblock %}

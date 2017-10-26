@@ -1,0 +1,25 @@
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield, render_39fieldlist %}
+
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+{% if subscription_cnt %}
+<div class="alert alert-info">
+    <u>{{_('이 프로젝트의 변경사항을 %(cnt)d명이 구독중입니다.', cnt=subscription_cnt)}}</u>
+</div>
+{% endif %}
+<form
+    method="POST"
+    action="{{ url_for('project._subscribe', project_id=project.id) }}"
+    data-ajax="true"
+    class="form-horizontal form-bordered"
+    >
+    <div class="form-body">
+    {{ render_39field(form.subscribed_report_model_change)}}
+    {{ render_39field(form.subscribed_report_model_glossary)}}
+    {{ render_39field(form.subscribed_report_model_schema, class_='last')}}
+    </div>
+    {{ render_39submit() }}
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Pragma" content="no-cache"> 
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<title>KSPay({{ rcid }})</title>
+<script language="JavaScript">
+<!--
+    function init()
+	{
+ 		if (typeof(top.opener) == "undefined" || typeof(top.opener.eparamSet) == "undefined" || typeof(top.opener.goResult) == "undefined")
+ 		{
+ 			alert("ERROR: ÁÖ¹®ÆäÀÌÁö¸¦ È®ÀÎÇÒ ¼ö ¾ø¾î °áÁ¦¸¦ Áß´ÜÇÕ´Ï´Ù!!");
+ 			self.close();
+ 			return;
+ 		}
+
+{% if not rcid or rcid|length < 10 %}
+		alert("ERROR: °áÁ¦¿äÃ»Á¤º¸({{ rcid }})¸¦ È®ÀÎÇÒ ¼ö ¾ø¾î °áÁ¦¸¦ Áß´ÜÇÕ´Ï´Ù!!");
+		self.close();
+		return;
+{% else %}
+        top.opener.eparamSet("{{ rcid }}","{{ rctype }}","{{ rhash }}");
+        top.opener.goResult();
+{% endif %}
+		setTimeout( 'self.close()', '3000' );
+    }
+
+    init();
+-->
+</script>
+</head>
+<body>
+ 	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+        <td valign="middle" align="center"><table width="450" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+          	{% set p_protocol = "http" %}
+            <td><img src="{{ p_protocol }}://kspay.ksnet.to/store/KSPayFlashV1.3/mall/imgs/processing.gif" width="450" height="141"></td>
+          </tr>
+          <tr>
+            <td><img src="{{ p_protocol }}://kspay.ksnet.to/store/KSPayFlashV1.3/mall/imgs/process_step.gif" width="456" height="20"></td>
+          </tr>
+        </table>		
+		</td>
+      </tr>
+    </table>
+</body>
+</html>

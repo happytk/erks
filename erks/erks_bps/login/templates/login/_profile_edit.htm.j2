@@ -1,0 +1,21 @@
+{% from '_form_helpers.html' import
+    render_39field,
+    render_39submit,
+    render_39imgfield,
+    render_39fieldlist
+%}
+
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+
+<link href="/comp/static/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
+<script src="/comp/static/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+<form data-ajax="true" action="{{ url_for('login._profile_edit') }}" class="form-horizontal form-bordered" enctype="multipart/form-data" method="POST">
+    {{ render_39field(form.name) }}
+    {{ render_39field(form.profile) }}
+    {{ render_39imgfield(form.profile_imgf, current_user.profile_imgf, current_user.get_profile_img_url(False), url_for('login.delete_profile_img'), config.PROJECT_BRAND_IMAGE_MAX_CONTENT_LENGTH) }}
+    {{ render_39field(form.default_project_group_id, class_='last') }}
+    {{ render_39submit(cancel_url=url_for('login._profile')) }}
+</form>
+<script type="text/javascript" src="/comp/static/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+{% endblock %}

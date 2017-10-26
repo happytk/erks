@@ -1,0 +1,13 @@
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield %}
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+
+<form action="{{ url_for('project_group._preference_project', slug=project_group.slug) }}" id="form-pg" class="form-horizontal form-bordered" enctype="multipart/form-data" data-ajax="true" method="POST">
+    <div class="form-body">
+        {{ form.hidden_tag() if form.hidden_tag }}
+        {{ render_39field(form.ban_create_project, class_='last') }}
+    </div>
+    {{ render_39submit() }}
+</form>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% macro render_board_box(o,project) -%}
+    <tr>
+        <td>
+            <a data-ajax="true" href="{{ url_for('board._post_view', post_id=o.id)}}">{{ o.title }}</a>
+            {% if o.is_new()  %}
+            <span class="label label-sm label-success">
+                New
+            </span>
+            {% endif %}
+            <br/>
+            {{ o.summary or "" }}
+        </td>
+        <td>
+             {{ o.get_replies(sort=False)|length }}
+        </td>
+        <td>
+             {{ o.writer }}
+        </td>
+        <td>
+             {{ o.created_at | strd_dt_fmt  }}
+        </td>
+    </tr>
+{% endmacro %}
+

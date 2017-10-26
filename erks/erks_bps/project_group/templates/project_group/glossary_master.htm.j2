@@ -1,0 +1,166 @@
+{% extends g.project_group.base_html %}
+{% from '_helpers.html' import debuginfo %}
+
+{% set active_page = active_page|default('index') -%}
+{% set project_group_user = g.project_group.queryset_project_group_user(user=current_user).first() %}
+{% if project_group_user and project_group_user.project_layout == 'full' %}
+{% set container_cls = '-' %}
+{% endif %}
+
+{% block script_head %}
+{{ super() }}
+
+<link rel="stylesheet" type="text/css" href="/comp/static/assets/global/plugins/bootstrap-table/bootstrap-table.min.css" />
+<link href="/comp/static/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
+<link href="/comp/static/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<link href="/comp/static/assets/pages/css/profile.min.css" rel="stylesheet" type="text/css" />
+<link href="/comp/static/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+<style>
+.profile-sidebar-portlet {
+    padding: 0px 0 0 !important;
+}
+</style>
+{% endblock %}
+
+{% block jumbotron %} {% endblock %}
+{% block page_bar %}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="{{ g.project_group.url }}">{{ g.project_group.title }} {{_('프로젝트 그룹 홈')}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{ g.glossary_master.glossary_name }}</span>
+        </li>
+    </ul>
+
+    <div class="pull-right" style='padding-top: 10px;'>
+        <div class="btn-group btn-group-xs btn-group-solid">
+            <a href='javascript: project_group_layout("boxed", this);' class='btn btn-xs btn-info'>STANDARD</a>
+            <a href='javascript: project_group_layout("full", this);' class='btn btn-xs btn-info'>FULL</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block page_title %}
+    {{ g.glossary_master.glossary_name }}
+    <small>
+    {% if can_be_pg_termer() %}
+    <span class="label label-info">{{_('전사용어관리자')}}</span>
+    {% else %}
+    <span class="label label-info">{{_('프로젝트그룹멤버')}}</span>
+    {% endif %}
+    </small>
+{% endblock %}
+
+{% block content %}
+<!-- BEGIN PROFILE SIDEBAR -->
+<div class="profile-sidebar">
+    <!-- PORTLET MAIN -->
+    <div class="portlet light profile-sidebar-portlet ">
+        <!-- SIDEBAR USERPIC -->
+        <!-- profile-userpic -->
+        <div class="">
+            <img src="{{ g.project_group.brand_img_url }}" class="img-responsive" alt="">
+        </div>
+        <!-- END SIDEBAR USERPIC -->
+        <!-- SIDEBAR USER TITLE -->
+        <!-- <div class="profile-usertitle">
+            <div class="profile-usertitle-name"> {{ g.project_group.title }} </div>
+            <div class="profile-usertitle-job"> 기업환경을 위한 프로젝트 그룹입니다. </div>
+        </div> -->
+        <!-- END SIDEBAR USER TITLE -->
+        <!-- SIDEBAR BUTTONS -->
+        <!-- <div class="profile-userbuttons">
+            <button type="button" class="btn btn-circle green btn-sm">Follow</button>
+            <button type="button" class="btn btn-circle red btn-sm">Message</button>
+        </div> -->
+        <!-- END SIDEBAR BUTTONS -->
+        <!-- SIDEBAR MENU -->
+        <div class="profile-usermenu">
+            <ul class="nav">
+                <li {% if active_page == 'glossary_master' %} class="active" {% endif %}>
+                    <a href="{{ url_for('glossary_master.glossary_master', slug=g.project_group.slug) }}">
+                        <i class="icon-home"></i> {{_('전사용어사전 정보')|title}} </a>
+                </li>
+                <li {% if active_page == 'glossary_master_term' %} class="active" {% endif %}>
+                    <a href="{{ url_for('glossary_master.glossary_master_terms', glossary_master_id=g.glossary_master.id) }}">
+                        <i class="icon-layers"></i> {{_('전사표준용어')|title }}</a>
+                </li>
+                <li {% if active_page == 'glossary_master_term_request' %} class="active" {% endif %}>
+                    <a href="{{ url_for('glossary_master.glossary_master_term_requests', glossary_master_id=g.glossary_master.id) }}">
+                        <i class="icon-layers"></i> {{_('전사표준용어 변경신청')|title }}</a>
+                </li>
+                <li {% if active_page == 'glossary_master_code' %} class="active" {% endif %}>
+                    <a href="{{ url_for('glossary_master.glossary_master_codeterms', glossary_master_id=g.glossary_master.id) }}">
+                        <i class="icon-drawer"></i> {{ _('전사코드용어')|title }}</a>
+                </li>
+                <li {% if active_page == 'glossary_master_infotype' %} class="active" {% endif %}>
+                    <a href="{{ url_for('glossary_master.glossary_master_infotypes', glossary_master_id=g.glossary_master.id) }}">
+                        <i class="icon-drawer"></i> {{_('전사인포타입')|title }} </a>
+                </li>
+                {% if can_be_pg_termer() %}
+                <li {% if active_page == 'glossary_master_preference' %} class="active" {% endif %}>
+                    <a href="{{ url_for('glossary_master.glossary_master_preference', glossary_master_id=g.glossary_master.id) }}">
+                        <i class="icon-drawer"></i> {{_('환경설정')|title }} </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- END MENU -->
+    </div>
+    <!-- END PORTLET MAIN -->
+</div>
+<!-- END BEGIN PROFILE SIDEBAR -->
+<!-- BEGIN PROFILE CONTENT -->
+<div class="profile-content">
+    <div id="alert_container"></div>
+    <div class="row">
+        <div class="col-md-12">
+            {% block project_content %}
+            {% endblock project_content %}
+        </div>
+    </div>
+</div>
+<!-- END PROFILE CONTENT -->
+
+{% endblock %}
+
+
+{% block script_foot %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/bootstrap-table.js') }}" type="text/javascript" ></script>
+<script src="{{ url_for('static', filename='js/bootstrap-table-ercc-formatter.js') | autoversion }}" type="text/javascript" ></script>
+<script src="/comp/static/assets/global/plugins/bootstrap-table/extensions/flat-json/bootstrap-table-flat-json.js"></script>
+<script src="/comp/static/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="/comp/static/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript" ></script>
+<script src="/comp/static/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript" ></script>
+<script src="/comp/static/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/comp/static/assets/global/plugins/moment.min.js" type="text/javascript"></script>
+<script>
+function project_group_layout(what, that) {
+    if (what === 'boxed') {
+        $('.page-wrapper .page-container-cls-check').addClass('container');
+        // $(that).siblings().removeClass('btn-primary');
+        // $(that).siblings().removeClass('btn-info');
+        // $(that).addClass('btn-primary');
+        $.post(
+            Flask.url_for('project_group.project_group_layout', {slug: '{{ g.project_group.slug }}'}),
+            {what: 'boxed'}
+        );
+    }
+    else {
+        $('.page-wrapper .page-container-cls-check').removeClass('container');
+        // $(that).siblings().removeClass('btn-primary');
+        // $(that).siblings().removeClass('btn-info');
+        // $(that).addClass('btn-primary');
+        $.post(
+            Flask.url_for('project_group.project_group_layout', {slug: '{{ g.project_group.slug }}'}),
+            {what: 'full'}
+        );
+    }
+}
+</script>
+{% endblock %}

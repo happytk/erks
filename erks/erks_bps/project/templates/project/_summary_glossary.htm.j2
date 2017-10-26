@@ -1,0 +1,116 @@
+{% extends "portlet-body.htm.j2" %}
+
+{% block portlet_body %}
+<div class="scroller" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+    {% if glossaries_info['glossaries']|count %}
+    {# <div class="row list-separated profile-stat">
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="uppercase profile-stat-title">
+                {{ format_3s(glossaries_info['strdterm_cnt'] or 0) }}
+            </div>
+            <div class="uppercase profile-stat-text">
+                {{_('표준용어')}}
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="uppercase profile-stat-title">
+                {{ format_3s(glossaries_info['unitterm_cnt'] or 0) }}
+            </div>
+            <div class="uppercase profile-stat-text">
+                {{_('표준단어')}}
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="uppercase profile-stat-title">
+                {{ format_3s(glossaries_info['domain_cnt'] or 0) }}
+            </div>
+            <div class="uppercase profile-stat-text">
+                {{_('도메인')}}
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <div class="uppercase profile-stat-title">
+                {{ format_3s(glossaries_info['infotype_cnt'] or 0) }}
+            </div>
+            <div class="uppercase profile-stat-text">
+                {{_('인포타입')}}
+            </div>
+        </div>
+    </div> #}
+    <div class="table-scrollable table-scrollable-borderless">
+        <table class="table table-hover table-light">
+            <thead>
+                <tr class="uppercase">
+                    <th>
+                        {{_('용어사전이름')}}
+                    </th>
+                    <th>
+                        {{_('표준용어개수')}}
+                    </th>
+                    <th>
+                        {{_('바로가기')}}
+                    </th>
+                </tr>
+            </thead>
+            {% if glossaries_info['glossaries']|count %}
+            {% for glossary in glossaries_info['glossaries']|sort(attribute='name') %}
+            <tr>
+                <td>
+                    <a href="{{ glossary['obj'].url }}" class="primary-link">{{ glossary['name'] }}</a>
+                    {% if glossary['is_gderived'] %}
+                    <span class="label label-info">전사</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {{ glossary['strdterm_cnt'] }}
+                </td>
+                <td>
+                    <span class="bold theme-font"></span>
+                    <select class="glossary_quick">
+                        <option value="">----</option>
+                        {% if glossary['is_gderived'] %}
+                        <option value="{{ url_for('glossary_master.glossary_derived_terms', glossary_derived_id=glossary['id']) }}">{{_('용어목록')}}</option>
+                        {% else %}
+                        <option value="{{ url_for('term.glossary_terms', glossary_id=glossary['id']) }}">{{_('용어목록')}}</option>
+                        <option value="{{ url_for('infotype.glossary_infotypes', glossary_id=glossary['id']) }}">{{_('인포타입')}}</option>
+                        {% endif %}
+                    </select>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center">
+                    {{_('등록된 용어사전이 없습니다.')}}
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+    {% elif can_be_p_termer() %}
+    <div class="note note-danger">
+        <h4 class="block">{{_('용어사전을 만드세요!')}}</h4>
+        <p>
+            {{_('용어사전은 모델링에 사용되는 엔티티명이나 속성명을 일관성있게 작성할 수 있는 메타데이타 집합니다. 기존데이타를 엑셀형식으로 올릴 수도 있고, 새롭게 구성할 수도 있습니다.')}}
+        </p>
+        <p style="padding-top: 15px;">
+            <a class="btn blue" href="{{ url_for('glossary.glossary_new', project_id=project.id) }}">
+                {{_('새로운 용어사전 만들기')}} </a>
+        </p>
+    </div>
+    {% else %}
+    <div class="text-center">{{_('생성된 용어사전이 없습니다!')}}</div>
+    {% endif %}
+</div>
+
+<script>
+$(document).ready(function() {
+    $('select.glossary_quick').on('change', function() {
+        var url = $(this).val();
+        if (url) {
+            window.location.href = url;
+        }
+    });
+});
+</script>
+{% endblock %}

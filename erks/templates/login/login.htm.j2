@@ -1,0 +1,56 @@
+{% extends "login/_base.htm.j2" %}
+{% set popup_id = 'login1'%}
+
+{% block mainContent %}
+    <div class="subDiv">
+        <h5 class="title">LOGIN</h5>
+        <div class="loginDiv">
+        <form class="form-horizontal" action="{{ url_for('login.login') }}" method="POST">
+            {{ form.hidden_tag() if form.hidden_tag }}
+            <div class="form-group">
+                <label for="name" class="control-label">이메일</label>
+                <div class="floatL">
+                    <input type="text" id="email" name="email" class="form-control inputTxt w340" placeholder="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="control-label">비밀번호</label>
+                <div class="floatL">
+                    <input type="password" id="password" name="password" class="form-control inputTxt w340" placeholder="">
+                </div>
+            </div>
+            <div class="checkbox floatL">
+                <label>
+                    <input type="checkbox" name="remember_me" id="remember_me" value="y" checked>로그인 상태 유지
+                    <span></span>
+                </label>
+            </div>
+            <div class="btnArea alignR floatR mt20">
+                <button type="submit" class="btn medium red w140">로그인</button>
+            </div>
+        </form>
+        </div>
+        {% if form.errors %}
+        <p class="msg">
+        {% for error in form.errors.values() %}
+        {{ error | join(',') }}
+        {% endfor %}
+        </p>
+        {% endif %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <p class="msg">
+                {% for category, message in messages %}
+                {% set category = (category == 'message') and 'info' or category %}
+                {{ message }}
+                {% endfor %}
+                </p>
+            {% endif %}
+        {% endwith %}
+    </div>
+    <ul class="menu">
+        <li><a href="{{ url_for('portal.index') }}">메인</a></li>
+        <li><a href="{{ url_for('login.signup') }}">회원 가입</a></li>
+        <li><a href="{{ url_for('login.forget_password') }}">비밀번호 재설정</a></li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% from '_project_box.html' import render_project_box %}
+
+{% for project in projects %}
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" id="project">
+{{ render_project_box(project, current_user) }}
+</div>
+{% endfor %}

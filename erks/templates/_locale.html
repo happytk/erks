@@ -1,0 +1,5 @@
+{% if debug %}
+<a href="{{ url_for('portal.new_locale', new_lang_code='ko') }}">한국어</a>
+<a href="{{ url_for('portal.new_locale', new_lang_code='en') }}">ENGLISH</a>
+<a href="{{ url_for('portal.new_locale', new_lang_code='zh') }}">中文</a>
+{% endif %}

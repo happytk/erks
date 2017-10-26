@@ -1,0 +1,125 @@
+{% from 'board/_board_box.html' import render_board_box %}
+{% extends "portlet-body.htm.j2" %}
+
+{% block portlet_body %}
+<div class="row">
+    <div class="col-md-12">
+        <form id="post-search-form"
+              class="alert alert-success alert-borderless"
+              action="{{ url_for('board._posts', project_id=project.id) }}"
+              data-ajax="true">
+            <input type='hidden' id='project_id' value='{{ project.id }}'>
+            <div class="form-actions input-group">
+                <div class="input-cont">
+                    {{ form.search_text(placeholder=_('제목/본문으로 검색'), class_='form-control') }}
+                </div>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn red">
+                        {{_('조회')}}
+                        <i class="m-icon-swapright m-icon-white"></i>
+                    </button>
+                    {% if can_write %}
+                    <a data-ajax="true" href="{{ url_for('._post_write', project_id=project.id) }}" class="btn green-haze">
+                        {{_('글쓰기')}}
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    {% endif %}
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if form.search_text.data %}
+<div class="alert alert-info alert-borderless">
+    {{_("'%(search_text)s'에 대한 검색결과입니다.", search_text=form.search_text.data)}}
+</div>
+{% endif %}
+
+{% if posts|count %}
+<!-- board list -->
+<div class="table-responsive">
+    <table id="posts-table"
+           class="table table-hover table-bordered table-striped"
+           data-page='{{ page }}'
+           data-project-id='{{ project.id }}'>
+    <thead>
+    <tr>
+        <th>
+             {{_('제목')}}
+        </th>
+        <th>
+             {{_('댓글수')}}
+        </th>
+        <th>
+             {{_('작성자')}}
+        </th>
+        <th>
+             {{_('작성일자')}}
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for post in posts %}
+    {{ render_board_box(post, project) }}
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% else %}
+<div class="text-center">
+    <h2>{{ _("등록된 글이 없습니다.") }}</h2>
+</div>
+{%endif%}
+
+{% if is_more %}
+<div id="more" class="btn btn-block blue">{{_('더보기')}}</div>
+{% endif %}
+
+
+<script type="text/javascript">
+$(function(){
+    var $search_form = $('#post-search-form');
+
+    $search_form.submit(function(e) {
+        // e.preventDefault();
+    });
+
+    $('#more').click(function(){
+        var search_text = $('#search_text', $search_form).val();
+
+        var $table = $('#posts-table');
+        var page = $table.data('page');
+        var project_id = $table.data('project-id');
+        var $more_button = $(this);
+        var lst_count = 0;
+        var url = Flask.url_for('board._posts', {project_id: project_id});
+
+        $more_button.attr('disabled', 'disabled');
+
+        $.get(url, { page: page+1, search_text: search_text })
+            .done(function(data) {
+                console.log($table, data);
+                $('tbody', $table).append(data);
+
+                // check the more
+                lst_count = (data.match(/href/g) || []).length;
+                if(lst_count < 5){
+                    $more_button.hide();
+                }
+                $table.data('page', page+1);
+                $more_button.removeAttr('disabled');
+            });
+    });
+
+    $(window).scroll(function() {
+        //REF: http://stackoverflow.com/questions/3898130/check-if-a-user-has-scrolled-to-the-bottom
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            //alert("bottom!");
+            //reload-timing
+            $('#more').click();
+        }
+    });
+});
+</script>
+{% endblock %}

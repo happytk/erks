@@ -1,0 +1,124 @@
+{% extends "login/base.html" %}
+
+{% block content %}
+
+
+        <!-- BEGIN LOGIN FORM -->
+        <form class="login-form" action="{{ url_for('.login') }}" method="post">
+            <h3 class="form-title">{{_('로그인')|capitalize}}</h3>
+            <!-- <h3 class="form-title">Login to your account</h3> -->
+            {% if form.errors %}
+            {% for e in form.errors %}
+                <div class="form-error alert alert-danger"><!-- display-hide -->
+                    <button class="close" data-close="form-error"></button>
+                    <span>{{ e }}</span>
+                </div>
+            {% endfor %}
+            {% endif %}
+
+            {% if form.email.errors %}
+            {% for e in form.email.errors %}
+                <div class="form-email alert alert-danger"><!-- display-hide -->
+                    <button class="close" data-close="form-email"></button>
+                    <span>{{ e }}</span>
+                </div>
+            {% endfor %}
+            {% endif %}
+
+            {% if form.password.errors %}
+            {% for e in form.password.errors %}
+                <div class="form-passwd alert alert-danger"><!-- display-hide -->
+                    <button class="close" data-close="form-passwd"></button>
+                    <span>{{ e }}</span>
+                </div>
+            {% endfor %}
+            {% endif %}
+
+            {% block flash %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-danger"><!-- display-hide -->
+                        <!-- <button class="close" data-close="alert"></button> -->
+                        <span>{{ message }}</span>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% endblock %}
+            {{ form.hidden_tag() if form.hidden_tag }}
+            <div class="form-group">
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <label class="control-label visible-ie8 visible-ie9">{{_('이메일')}}</label>
+                <!-- <label class="control-label visible-ie8 visible-ie9">Email</label> -->
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    {{ form.email(class_='form-control form-control-solid placeholder-no-fix', type="text", autocomplete="off", placeholder=_('이메일')) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">{{_('비밀번호')}}</label>
+                <!-- <label class="control-label visible-ie8 visible-ie9">Password</label> -->
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    {{ form.password(class_='form-control form-control-solid placeholder-no-fix', type="password", autocomplete="off", placeholder=_('비밀번호')) }}
+                </div>
+            </div>
+            <div class="form-actions">
+                <label class="checkbox">
+                    {{ form.remember_me }}
+                    <!-- <input type="checkbox" name="remember" value="1"/>  -->
+                    {{ form.remember_me.label }} 
+                </label>
+                <!-- <input type="checkbox" name="remember" value="1"/> Remember me </label> -->
+                <button type="submit" class="btn blue pull-right">
+                {{_('로그인')}} <i class="m-icon-swapright m-icon-white"></i>
+                <!-- Login <i class="m-icon-swapright m-icon-white"></i> -->
+                </button>
+            </div>
+            <!--
+            <div class="login-options">
+                <h4>Or login with</h4>
+                <ul class="social-icons">
+                    <li>
+                        <a class="social-icon-color facebook" data-original-title="facebook" href="javascript:;"></a>
+                    </li>
+                    <li>
+                        <a class="social-icon-color twitter" data-original-title="Twitter" href="javascript:;"></a>
+                    </li>
+                    <li>
+                        <a class="social-icon-color googleplus" data-original-title="Goole Plus" href="javascript:;"></a>
+                    </li>
+                    <li>
+                        <a class="social-icon-color linkedin" data-original-title="Linkedin" href="javascript:;"></a>
+                    </li>
+                </ul>
+            </div>  -->
+            <div class="forget-password">
+                <h4>{{_('비밀번호가 기억나지 않으시나요 ?')|capitalize}}</h4>
+                <!-- <h4>Forgot your password ?</h4> -->
+                <p>
+                    {{_('비밀번호를 초기화하시려면')|capitalize}} <a href="{{ url_for('.forget_password') }}" id="forget-password">
+                    {{_('여기를 누르세요.')}}</a>
+                </p>
+                <!-- <p>
+                     no worries, click <a href="{{ url_for('.forget_password') }}" id="forget-password">
+                    here </a>
+                    to reset your password.
+                </p> -->
+            </div>
+            <div class="create-account">
+                <p>
+                    {{_('아직 회원이 아니시라면 ?')}}&nbsp; <a href="{{ url_for('.signup', next=next) }}" id="register-btn">
+                    {{_('회원 가입하기')|capitalize}} </a>
+                </p>
+                <!-- <p>
+                     Don't have an account yet ?&nbsp; <a href="{{ url_for('.signup') }}" id="register-btn">
+                    Create an account </a>
+                </p> -->
+            </div>
+            <input type="hidden" value="{{ next or '' }}" name="next">
+        </form>
+        <!-- END LOGIN FORM -->
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        {% set category = (category == 'message') and 'info' or category %}
+        <script>
+        $(document).ready(function() {
+            App.alert({
+                container: '#alert_container', // alerts parent container
+                place: 'append', // append or prepent in container
+                type: '{{ category }}', // alert's type
+                message: '{{ message }}',  // alert's message
+                close: true, // make alert closable
+                reset: false, // close all previouse alerts first
+                focus: true, // auto scroll to the alert after shown
+                closeInSeconds: 5, // auto close after defined seconds
+                icon: 'fa fa-check' // put icon class before the message
+            });
+        });
+        </script>
+        {% endfor %}
+    {% endif %}
+{% endwith %}

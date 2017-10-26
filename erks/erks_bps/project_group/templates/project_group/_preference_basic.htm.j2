@@ -1,0 +1,26 @@
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield %}
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+
+<form
+    action="{{ url_for('project_group._preference_basic', slug=project_group.slug) }}"
+    class="form-horizontal form-bordered"
+    data-ajax="true"
+    enctype="multipart/form-data"
+    id="form-pg"
+    method="POST"
+    >
+    {{ form.hidden_tag() if form.hidden_tag }}
+    {{ render_39imgfield(form.brand_imgf, project_group.brand_imgf, None, url_for('project_group.delete_brand_img', slug=project_group.slug), config.PROJECT_GROUP_BRAND_IMAGE_MAX_CONTENT_LENGTH) }}
+    {{ render_39imgfield(form.banner_imgf, project_group.banner_imgf, project_group.banner_img_url, url_for('project_group.delete_banner_img', slug=project_group.slug), config.PROJECT_GROUP_BANNER_IMAGE_MAX_CONTENT_LENGTH) }}
+    {{ render_39field(form.title) }}
+    {{ render_39field(form.description) }}
+    {# render_39field(form.external_homepage_url) #}
+    {{ render_39field(form.color_theme) }}
+    {{ render_39field(form.theme_key) }}
+    {{ render_39field(form.use_glossary_master) }}
+    {{ render_39field(form.allow_subscribe_all_project_changes) }}
+    {{ render_39field(form.ban_create_project, class_='last') }}
+    {{ render_39submit() }}
+</form>
+{% endblock %}

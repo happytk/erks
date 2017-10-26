@@ -1,0 +1,49 @@
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield, render_39field_readonly %}
+{% from 'project/_form_helpers_product_billing.html' import render_product_description, render_product_amount, render_customer_form_groups, render_product_paybutton, render_proceed_to_pay %}
+
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption font-blue">
+            <i class="icon-settings font-blue"></i>
+            <span class="caption-subject bold uppercase">{{_('신규 프로젝트 그룹 생성')}}</span>
+            <span class="caption-helper"></span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <form {% if seq == 1 %} action="{{ url_for('project_group.pg_create_ksnet', seq=2, product_code=pg_create_form.sndOrdernumber.data) }}" {% endif %} id="pg_create_form" name="KSPayWeb" class="form-horizontal form-bordered" method="POST">
+            {{ pg_create_form.hidden_tag() if pg_create_form.hidden_tag }}
+
+            {% if seq == 1 %}
+            {{ render_39field(pg_create_form.title) }}
+            {{ render_39field(pg_create_form.slug) }}
+            {{ render_39field(pg_create_form.description) }}
+            {{ render_product_description(pg_create_form.product_obj) }}
+            {{ render_39field(pg_create_form.subscription_months) }}
+            {{ render_product_amount(pg_create_form.sndAmount)}}
+            {{ render_customer_form_groups(pg_create_form) }}
+            {{ render_proceed_to_pay() }}
+            {% else %}
+            {{ render_product_description(pg_create_form.product_obj, months=pg_create_form.subscription_months.data,
+            amount=pg_create_form.sndAmount.data) }}
+            {# render_39field_static(pg_create_form.sndServicePeriod.label, pg_create_form.sndServicePeriod.data) #}
+            {{ render_39field_readonly(pg_create_form.sndOrdername) }}
+            {{ render_39field_readonly(pg_create_form.sndMobile) }}
+            {{ render_39field_readonly(pg_create_form.sndEmail) }}
+            {{ render_39field(pg_create_form.sndPaymethod) }}
+            {{ render_product_paybutton(pg_create_form) }}
+            {% endif %}
+
+        </form>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#pg_create_form').parsley().on('form:submit', function() {
+        {% if seq == 2 %}
+        _pay(document.KSPayWeb);
+        return false;
+        {% endif %}
+    });
+});
+</script>

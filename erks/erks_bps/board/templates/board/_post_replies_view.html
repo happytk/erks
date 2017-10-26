@@ -1,0 +1,31 @@
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_title %}
+{{_('총 %(replies)d개의 대화가 있습니다.', replies=post.get_replies()|length)}}
+{% endblock %}
+{% block portlet_body %}
+    {% for o in replies %}
+    <div class="help-block">
+        <i class="fa fa-user"></i> {{ o.writer }}
+        <i class="fa fa-clock-o"></i> <span class="item-label">{{ o.created_at| naturalday }}</span>        </div>
+    <div class="bg-gray">
+        <p>
+            {{ o.contents }}
+        </p>
+    </div>
+    {% endfor %}
+
+    {% if can_write %}
+    <div class="post-comment">
+        <form role="form" method="POST" name="replyform"
+              data-ajax="true"
+              action="{{ url_for('.replysave', post_id=post.id)}}">
+            <div class="form-group">
+                <textarea name="reply" class="col-md-10 form-control" rows="3" placeholder="{{_('의견을 남겨주세요')}}"></textarea>
+            </div>
+            <div class="form-group form-actions">
+                <button class="margin-top-20 btn red btn-block">{{_('저장')}}</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+{% endblock %}

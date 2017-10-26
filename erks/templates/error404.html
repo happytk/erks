@@ -1,0 +1,50 @@
+{% if not project_group %}
+{% if project and project.project_group %}
+{% set project_group = project.project_group %}
+{% else %}
+{% set project_group = default_project_group %}
+{% endif %}
+{% endif %}
+
+
+{% extends project_group.base_html %}
+
+
+{% block script_head %}
+<link href="/comp/static/assets/pages/css/error.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block page_title %}
+{% endblock %}
+
+{% block page_breadcrumb %}
+{% endblock %}
+
+{% block content %}
+<div class="page-404">
+	<div class="number">
+		 404
+	</div>
+	<div class="details">
+		<h3>Oops! You're lost.</h3>
+		<p>
+			 We can not find the page you're looking for.<br/>
+			<a href="{{ url_for('portal.index') }}">
+			Return home </a>
+			<!-- or try the search bar below. -->
+		</p>
+<!-- 		<form action="#">
+			<div class="input-group input-medium">
+				<input type="text" class="form-control" placeholder="keyword...">
+				<span class="input-group-btn">
+				<button type="submit" class="btn blue"><i class="fa fa-search"></i></button>
+				</span>
+			</div>
+ -->			<!-- /input-group -->
+		<!-- </form> -->
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

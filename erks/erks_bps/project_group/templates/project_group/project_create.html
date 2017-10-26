@@ -1,0 +1,35 @@
+{% if not project_group %}
+{% if project and project.project_group %}
+{% set project_group = project.project_group %}
+{% else %}
+{% set project_group = default_project_group %}
+{% endif %}
+{% endif %}
+
+{% if project_group.has_theme() %}
+	{% extends "theme/{theme_key}/base_{theme_key}.html".format(theme_key=project_group.theme_key) %}
+{% else %}
+	{% extends "base.html" %}
+{% endif %}
+
+{% from '_helpers.html' import debuginfo %}
+
+{% block page_title %}
+{% endblock %}
+
+
+{% block content %}
+{{ debuginfo(self) }}
+{% include "project/project_create_form.html" %}
+{% endblock %}
+
+{% block script_foot %}
+<link href="/comp/static/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<script src="/comp/static/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="/comp/static/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {
+    $('.make-switch').bootstrapSwitch();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,46 @@
+<form class="form-horizontal form-bordered" id="invitation_by_user_search"
+      action="{{ url_for('project._invite', project_id=project.id) }}"
+      data-ajax="true"
+      method="POST">
+    <div class="form-body">
+        <div class="form-group last">
+            <div class="col-md-12">
+                <div id="user-search-table-toolbar" class="columns">
+                    <span class="label label-primary">{{_('그룹 사용자를 검색하여 초대할 수 있습니다.')}}</span>
+                </div>
+                <table id="user-search-table"
+                       data-toggle="table"
+                       data-click-to-select="table"
+                       data-search="true"
+                       data-search-align="right"
+                       data-side-pagination="server"
+                       data-pagination="true"
+                       data-page-size="5"
+                       data-url="/api_btstptbl/projectgroup/{{ project.project_group.slug }}/users"
+                       data-method="get"
+                       data-unique-id="id"
+                       data-toolbar="#user-search-table-toolbar"
+                       data-sort-name='created_at'
+                       data-sort-order='desc'
+                       data-show-columns="false">
+                <thead>
+                    <th data-field="selected" data-checkbox="true"></th>
+                    <th data-field="user_email" data-sortable="true">{{_('이메일')}}</th>
+                    <th data-field="user.name">{{_('이름')}}</th>
+                    <th data-field="created_at" data-sortable="true" data-formatter="btstrp_commonf_datetime">{{_('그룹가입일')}}</th>
+                </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="input-group-btn">
+                    <textarea class="form-control autosizeme display-hide" name="emails" id="emails" rows="4" placeholder="example@nexcore-erc.com">{{ form.emails.data or '' }}</textarea>
+                    <button type="submit" class="btn red btn-block" id="user-search-table-selector"><i class="fa fa-check"></i> {{_('초대하기')}}</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>

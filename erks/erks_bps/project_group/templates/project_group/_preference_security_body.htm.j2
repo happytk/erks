@@ -1,0 +1,12 @@
+{% from '_form_helpers.html' import render_39field, render_39fieldlist, render_39submit %}
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+
+<form action="{{ url_for('project_group._preference_security', slug=project_group.slug) }}" id="form-pg" class="form-horizontal form-bordered" data-ajax="true" enctype="multipart/form-data" method="POST">
+    {{ form.hidden_tag() if form.hidden_tag }}
+    {{ render_39field(form.use_firewall) }}
+    {{ render_39fieldlist(form.firewall_rules, class_="last") }}
+    {{ render_39submit() }}
+</form>
+
+{% endblock %}

@@ -1,0 +1,115 @@
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield %}
+
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+
+<link href="/comp/static/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
+
+<form
+    action="{{ url_for('._preference', project_id=project.id) }}"
+    id="prj_create_form"
+    data-ajax="true"
+    class="form-horizontal form-bordered"
+    enctype="multipart/form-data"
+    method="POST"
+>
+    {{ form.hidden_tag() if form.hidden_tag }}
+    {{ render_39imgfield(form.profile_imgf, project.profile_imgf, project.get_profile_img_url(False), url_for('.delete_profile_img', project_id=project.id), config.PROJECT_BRAND_IMAGE_MAX_CONTENT_LENGTH) }}
+    {{ render_39field(form.title) }}
+    {{ render_39field(form.description) }}
+    {{ render_39field(form.visible) }}
+    {{ render_39field(form.private) }}
+    {{ render_39field(form.contact, class_='last') }}
+    {{ render_39submit() }}
+</form>
+
+<div class="form-actions bg-grey-silver">
+    <div class="row">
+        <div class="col-md-3">&nbsp;</div>
+        <div class="col-md-9">
+            <a class="btn red" data-toggle="modal" href="#project_delegate_owner">{{_('프로젝트 관리자 변경하기')}} <i class="fa fa-refresh"></i></a>
+            <a class="btn red" data-toggle="modal" href="#project_destroy">{{_('프로젝트 삭제')}} <i class="fa fa-trash"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="project_delegate_owner" tabindex="-1" role="project_delegate_owner" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ url_for('.delegate_owner', project_id=project.id) }}" method='POST' id='owner_change_form'>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">{{_('프로젝트 관리자 변경하기')}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {{_('위임할 사용자의 EMAIL주소를 입력해주세요. 프로젝트 구성원이어야 합니다.')}}
+                    <div class="form-group">
+                        {{ project_owner_delegate_form.target_user_email(class_="form-control") }}
+                        <div class="help-block"></div>
+                    </div>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button> -->
+                <button id="btn_project_delegate_owner" class="btn green btn-block" type="submit">{{_('프로젝트 관리자를 변경하겠습니다.')}}</button>
+            </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="project_destroy" tabindex="-1" role="project_destroy" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ url_for('.destroy', project_id=project.id) }}" method='POST' id='project_delete_form'>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><i class="fa fa-bomb"></i> {{_('프로젝트 삭제')}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {{ project_delete_form.title_matched.label }}
+                    <div class="form-group">
+                        {{ project_delete_form.hidden_tag() if project_delete_form.hidden_tag }}
+                        {{ project_delete_form.title() }}
+                        {{ project_delete_form.title_matched(class_="form-control") }}
+                        <div class="help-block">
+                    {{_('경고! ERD를 포함한 모든 프로젝트 데이터가 삭제됩니다.
+                    삭제된 데이터는 복구가 불가능하니, 신중하게 결정하셔야 합니다.')}}
+                    <!-- Danger! This action cannot be recovered.
+                    All your project data, inculding er-d infomation will be erased completely and this action can't be recovered.
+                    please consider this and do your action carefully. -->
+                        </div>
+                    </div>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button> -->
+                <button id="btn_project_delete" class="btn green btn-block" type="submit" disabled>{{_('삭제에 대한 영향을 숙지했으며, 프로젝트를 삭제하겠습니다.')}}</button>
+            </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript" src="/comp/static/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+    $('#project_delete_form #title_matched').on('change keyup paste', function() {
+        var orig_title = $('#project_delete_form #title').val();
+        var inpt_title = $('#project_delete_form #title_matched').val();
+        if (inpt_title == orig_title) {
+            $('#project_delete_form #btn_project_delete').removeAttr('disabled');
+        }
+        else {
+            $('#project_delete_form #btn_project_delete').attr('disabled', true);
+        }
+    });
+});
+</script>
+{% endblock %}

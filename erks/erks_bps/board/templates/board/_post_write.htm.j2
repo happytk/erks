@@ -1,0 +1,81 @@
+{% extends "portlet-body.htm.j2" %}
+
+{% block portlet_helper %}
+{{ form.title.data or '' }}
+{% endblock %}
+
+{% block portlet_body %}
+<form method="POST" enctype="multipart/form-data" name="createform" id="post_create_form" class="form-horizontal" autocomplete="off" data-ajax="true" action="{{ action_url }}">
+    {{ form.hidden_tag() if form.hidden_tag }}
+    <div class="form-group">
+        <div class="col-md-12">
+            {{ form.title(class_="form-control", placeholder=_('제목을 입력하세요'), required='required') }}
+            {% if 'title' in form.errors %} {% for error_msg in form.errors['title'] %}
+            <span id="title-error" class="help-block font-red"><i class="fa fa-exclamation-circle blue"></i> {{ error_msg }}</span> {% endfor %} {% endif %}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            {{ form.contents(class_="form-control" ) }}
+            {% if 'contents' in form.errors %} {% for error_msg in form.errors['contents'] %}
+            <span id="contents-error" class="help-block font-red"><i class="fa fa-exclamation-circle blue"></i> {{ error_msg }}</span> {% endfor %} {% endif %}
+        </div>
+    </div>
+    {%- if False %}
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="input-group">
+                <input type="file" name="tmp_file" id="tmp_file" size="10" class="form-control">
+                <span class="input-group-addon input-circle-right">
+      <input type="button"  onclick="javascript:filedel();" value="{{_('파일삭제')}}" >
+      </span>
+            </div>
+        </div>
+    </div>
+    {%- else %}
+    <div class="display-hide">
+        <input type="file" name="tmp_file" id="tmp_file" size="10" class="form-control">
+    </div>
+    {% endif %}
+    <div class="form-actions right">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-block red {{ btn_class }}" id="post_write"><i class="fa fa-check"></i> {{_('저장')}}</button>
+                {# <a class="btn default" data-ajax="true" href="{{ url_for('._posts',project_id=project.id) }}">{{_('취소')}}</a> #}
+            </div>
+        </div>
+    </div>
+</form>
+
+<link rel="stylesheet" type="text/css" href="/comp/static/assets/global/plugins/bootstrap-summernote/summernote.css">
+<style>
+.note-editor.note-frame.panel.panel-default {
+    margin-bottom: 0px;
+}
+</style>
+<script src="/comp/static/assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {
+    $('div#contents').summernote({
+        height: 300,
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            // ['fontsize', ['fontsize']],
+            // ['color', ['color']],
+            // ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ],
+    });
+
+    $('#post_create_form').submit(function() {
+        $('textarea#contents').val($('div#contents').summernote('code'));
+        return true;
+    });
+});
+</script>
+
+<!-- <script src="/comp/static/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script> -->
+
+{% endblock portlet_body %}

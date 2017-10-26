@@ -1,0 +1,488 @@
+{# Renders field for bootstrap 3 standards.
+
+    Params:
+        field - WTForm field
+        kwargs - pass any arguments you want in order to put them into the html attributes.
+        There are few exceptions: for - for_, class - class_, class__ - class_
+
+    Example usage:
+        {{ macros.render_field(form.email, placeholder='Input email', type='email') }}
+#}
+
+
+{% macro render_39imgfield(field, exists_p, url_p, url_pd, max_size) -%}
+<div class="form-group {% if field.errors %} has-error {% endif %}">
+    {{ field.label(class_="control-label col-md-3") }}
+    <div class="col-md-9">
+        {% if exists_p and url_p %}
+        <div class="form-recaptcha-img" style="width: 295px">
+            <img src="{{ url_p }}" class="img-responsive">
+        </div>
+        {% endif %}
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+            {% if exists_p %}
+            <a class="btn red" href="{{ url_pd }}">
+                <i class="fa fa-trash"></i> {{_('이미지 삭제')}}</a>
+            {% endif %}
+            <span class="btn green btn-file">
+                <span class="fileinput-new"> Select file </span>
+            <span class="fileinput-exists"> Change </span> {{ field() }} </span>
+            <span class="fileinput-filename"> </span> &nbsp;
+            <a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"> </a>
+        </div>
+        {% for e in field.errors %}
+        <p class="help-block">{{ e }}</p>
+        {% endfor %}
+        <p class="help-block">
+            {{_('이미지파일만 업로드 가능하며, JPG, PNG 파일유형을 지원합니다. (최대크기: %(max_size)s), 최적 사이즈: 768x573)', max_size=max_size | naturalbsize )}}
+
+        </p>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro field_datetime(field) -%}
+<div class="input-group date form_datetime" data-date="{{ field.data and field.data.strftime('%Y-%m-%dT%H:%M:%S') }}">
+    <input type="text" size="16" readonly class="form-control" name="{{ field.id }}" id="{{ field.id }}" value="{{ field.data and field.data.strftime('%Y-%m-%dT%H:%M:%S') }}">
+    <span class="input-group-btn">
+        <button class="btn default date-reset" type="button">
+            <i class="fa fa-times"></i>
+        </button>
+        <button class="btn default date-set" type="button">
+            <i class="fa fa-calendar"></i>
+        </button>
+    </span>
+</div>
+<script>
+$(document).ready(function() {
+    if (!jQuery().datetimepicker) {
+        return;
+    }
+
+    $(".form_datetime").datetimepicker({
+        autoclose: true,
+        isRTL: false, //App.isRTL(),
+        format: "yyyy-mm-ddThh:ii:ssZ",
+        pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left")
+    });
+
+    $(".form_advance_datetime").datetimepicker({
+        isRTL: false, //App.isRTL(),
+        format: "yyyy-mm-ddThh:ii:ssZ",
+        autoclose: true,
+        todayBtn: true,
+        startDate: "2013-02-14 10:00",
+        pickerPosition: (false ? "bottom-right" : "bottom-left"),
+        minuteStep: 10
+    });
+});
+</script>
+{% endmacro %}
+
+
+
+{% macro render_field(field, label_visible=true) -%}
+    <div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+        {% if (field.type != 'HiddenField' and field.type !='CSRFTokenField') and label_visible %}
+            <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
+        {% endif %}
+        {% if field.errors %}
+            {{ field(class_='form-control validate invalid', **kwargs) }}
+            {% for e in field.errors %}
+            <p class="help-block">{{ e }}</p>
+            {% endfor %}
+        {% else %}
+            {{ field(class_='form-control', **kwargs) }}
+        {% endif %}
+    </div>
+{%- endmacro %}
+
+
+{% macro render_39field(field) -%}
+    <div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+        <label for="{{ field.id }}" class="control-label col-md-3">{{ field.label }}<span class="required">{% if kwargs.pop('required', False) or field.flags.required %}*{% endif %}</span>
+        </label>
+        <div class="col-md-9">
+            {% if caller %} {{ caller() }}
+            {% else %}
+                {% if field.type == 'BooleanField' %}
+                {{ field(class_='form-control make-switch', **kwargs) }}
+                {% elif field.type == 'DateTimeField' %}
+                {{ field_datetime(field) }}
+                {% else %}
+                {{ field(class_='form-control', **kwargs) }}
+                {% endif %}
+            {% endif %}
+            {% for e in field.errors %}
+            <p class="help-block">{{ e }}</p>
+            {% endfor %}
+            {% if field.description %}
+            <p class="help-block">{{ field.description | safe }}</p>
+            {% endif %}
+        </div>
+    </div>
+{%- endmacro %}
+
+
+
+
+
+{% macro render_39fields(fields, label='') -%}
+    {% set field_has_error = False %}
+    {% set required = False %}
+
+    {% for field in fields %}
+    {% if field.errors %}
+    {% set field_has_error = True %}
+    {% endif %}
+    {% endfor %}
+
+    {% if label == '' %}
+    {% set label = fields[0].label %}
+    {% set required = fields[0].flags.required %}
+    {% endif %}
+
+    <div class="form-group {% if field_has_error %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+        <label class="control-label col-md-3">{{ label }}<span class="required">{% if kwargs.pop('required', False) or required %}*{% endif %}</span>
+        </label>
+        <div class="col-md-9">
+            {% if caller %} {{ caller() }}
+            {% else %}
+            <div class="input-group">
+            <div class="icheck-inline">
+            {% for field in fields %}
+                {% if field.type == 'BooleanField' %}
+                <label>
+                {{ field(class_='icheck', **kwargs) }}
+                {{ field.label }}</label>
+                {% elif field.type == 'BooleanField-Switch' %}
+                {{ field(class_='form-control make-switch', **kwargs) }}
+                {% elif field.type == 'DateTimeField' %}
+                {{ field_datetime(field) }}
+                {% else %}
+                {{ field(class_='form-control', **kwargs) }}
+                {% endif %}
+
+                {% if field.description %}
+                <p class="help-block">{{ field.description | safe }}</p>
+                {% endif %}
+            {% endfor %}
+            </div>
+            </div>
+            {% endif %}
+            {% for field in fields %}
+                {% for e in field.errors %}
+                <p class="help-block">{{ e }}</p>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro render_submit(cancel_url) -%}
+    <div class="form-actions left">
+        <button type="submit" class="btn red "><i class="fa fa-check"></i>
+        {{_('저장')}}
+        </button>
+        {% if caller %} {{ caller() }}
+        {% endif %}
+        {% if cancel_url %}
+        <a href="{{ cancel_url }}" data-ajax="true" class="btn default">{{_('취소')}}</a>
+        {% endif %}
+    </div>
+{%- endmacro %}
+
+{% macro render_39submit(submit_text, cancel_url) -%}
+    <div class="form-actions">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-9">
+                <button type="submit" class="btn red "><i class="fa fa-check"></i>
+                {{ submit_text or _('저장')}}
+                </button>
+                {% if cancel_url %}
+                <a data-ajax="true" href="{{ cancel_url }}" class="btn default">{{_('취소')}}</a>
+                {% endif %}
+                {% if caller %} {{ caller() }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro render_39daterange(from_field, to_field) -%}
+<div class="form-group {% if from_field.errors or to_field.errors %} has-error {% endif %}">
+    <label for="{{ from_field.id }}" class="control-label col-md-3">{{ from_field.label }}<span class="required">{% if kwargs.pop('required', False) or from_field.flags.required %}*{% endif %}</span>
+    </label>
+    <div class="col-md-9">
+        <div class="input-group input-large date-picker input-daterange" data-date="20121022" data-date-format="yyyymmdd">
+            {{ from_field(class_="form-control") }}
+            <span class="input-group-addon">
+            to </span>
+            {{ to_field(class_="form-control") }}
+        </div>
+        <span class="help-block">
+            <button id="btn_code_range_default_set" class="btn btn-xs">
+            <i class="fa fa-check"></i> {{_('오늘부터 계속(99991231) 사용하는 것으로 설정')}}</button>
+        </span>
+        {% for e in from_field.errors %}<p class="help-block">{{ e }}</p>{% endfor %}
+        {% for e in to_field.errors %}<p class="help-block">{{ e }}</p>{% endfor %}
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro render_39fieldlist(field) -%}
+    <div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}" data-toggle="fieldset" id="{{ field.id }}-fieldset">
+        <label for="{{ field.id }}" class="control-label col-md-3">{{ field.label }}<span class="required">{% if kwargs.pop('required', False) or field.flags.required %}*{% endif %}</span>
+        </label>
+        <div class="col-md-9">
+            <table class="table">
+                {% if field.description or field.errors %}
+                <tr>
+                    <th colspan="2">{{ field.description | safe }}
+                    {% for e in field.errors %}
+                    <p class="help-block">{{ e }}</p>
+                    {% endfor %}
+                    </th>
+                </tr>
+                {% endif %}
+                <tr><td colspan="2"><button type="button" class="btn btn-primary" data-toggle="fieldset-add-row" data-target="#{{ field.id }}-fieldset">+{{_('새로운 항목 추가하기')}}</button></td></tr>
+                {% for entry in field %}
+                <tr data-toggle="fieldset-entry" >
+                    <td>{{ entry() }}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-toggle="fieldset-remove-row" id="{{ field.id }}-{{loop.index0}}-remove">-{{_('항목 삭제')}}</button>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr data-toggle="fieldset-entry-clonable" class="hide">
+                {% set f = field.append_entry() %}
+                    <td>
+                        {{ f() }}
+                    </td>
+                    <td><button type="button" class="btn btn-danger"  data-toggle="fieldset-remove-row" id="{{ field.id }}-[idx]-remove">-{{_('항목 삭제')}}</button>
+                {% set _ = field.pop_entry() %}
+                </tr>
+            </table>
+        </div>
+    </div>
+{%- endmacro %}
+
+
+
+{% macro render_39field_readonly(field) -%}
+    <div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+        <label for="{{ field.id }}" class="control-label col-md-3">{{ field.label }}<span class="required">{% if kwargs.pop('required', False) or field.flags.required %}*{% endif %}</span>
+        </label>
+        <div class="col-md-9">
+            {% if caller %} {{ caller() }}
+            {% else %}
+                {% if field.type == 'BooleanField' %}
+                {{ field(class_='form-control make-switch', readonly='readonly', **kwargs) }}
+                {% elif field.type == 'DateTimeField' %}
+                {{ field_datetime(field) }}
+                {% else %}
+                {{ field(class_='form-control', readonly='readonly', **kwargs) }}
+                {% endif %}
+            {% endif %}
+            {% for e in field.errors %}
+            <p class="help-block">{{ e }}</p>
+            {% endfor %}
+            {% if field.description %}
+            <p class="help-block">{{ field.description | safe }}</p>
+            {% endif %}
+        </div>
+    </div>
+{%- endmacro %}
+
+
+{% macro render_39static(label, value) -%}
+    <div class="form-group {{ kwargs.pop('class_', '') }}">
+        <label class="control-label col-md-3">{{ label }}</label>
+        <div class="col-md-9">
+            <span class="form-control-static">
+            {% if caller %} {{ caller() }}
+            {% else %}
+            {{ value or '-'}}
+            {% endif %}
+            </span>
+        </div>
+    </div>
+{%- endmacro %}
+
+
+{% macro render_39radio_field(field) -%}
+    <div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+        <label for="{{ field.id }}" class="control-label col-md-3">{{ field.label }}<span class="required">{% if kwargs.pop('required', False) or field.flags.required %}*{% endif %}</span>
+        </label>
+        <div class="col-md-9">
+            {% if caller %} {{ caller() }}
+            {% else %}
+                {% for value, label, _ in field.iter_choices() %}
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="{{ field.id }}" id="{{ field.id }}" value="{{ value }}"
+                                {% if field.default == value %}
+                                   checked="checked"
+                                {% else %}
+
+                                {% endif %}
+                            >
+                            {{ label }}
+                        </label>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% for e in field.errors %}
+            <p class="help-block">{{ e }}</p>
+            {% endfor %}
+            {% if field.description %}
+            <p class="help-block">{{ field.description | safe }}</p>
+            {% endif %}
+        </div>
+    </div>
+{%- endmacro %}
+
+
+{# Renders checkbox fields since they are represented differently in bootstrap
+    Params:
+        field - WTForm field (there are no check, but you should put here only BooleanField.
+        kwargs - pass any arguments you want in order to put them into the html attributes.
+        There are few exceptions: for - for_, class - class_, class__ - class_
+
+    Example usage:
+        {{ macros.render_checkbox_field(form.remember_me) }}
+ #}
+{% macro render_checkbox_field(field, label_visible=true) -%}
+    {% if label_visible %}
+    <div class="checkbox">
+    <label>
+        {{ field(type='checkbox', class_='form-control', **kwargs) }} {{ field.label }}
+    </label>
+    </div>
+    {% else%}
+        {{ field(type='checkbox', class_='form-control', **kwargs) }}
+    {% endif %}
+{%- endmacro %}
+
+{# Renders radio field
+    Params:
+        field - WTForm field (there are no check, but you should put here only BooleanField.
+        kwargs - pass any arguments you want in order to put them into the html attributes.
+        There are few exceptions: for - for_, class - class_, class__ - class_
+
+    Example usage:
+        {{ macros.render_radio_field(form.answers) }}
+ #}
+{% macro render_radio_field(field) -%}
+    {% for value, label, _ in field.iter_choices() %}
+        <div class="radio">
+            <label>
+                <input type="radio" name="{{ field.id }}" id="{{ field.id }}" value="{{ value }}">{{ label }}
+            </label>
+        </div>
+    {% endfor %}
+{%- endmacro %}
+
+{% macro render_file_field(field) -%}
+
+    <div class="file-field input-field">
+        <div>File</div>
+        <div class="btn">
+            {{ field(class_='form-control', **kwargs) }}
+        </div>
+        <!--
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+        </div>
+        -->
+    </div>
+<!-- <div class="file-field input-field">
+            <div class="btn">
+              <span>File</span>
+              <input type="file">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>-->
+{%- endmacro %}
+
+
+{# Renders WTForm in bootstrap way. There are two ways to call function:
+     - as macros: it will render all field forms using cycle to iterate over them
+     - as call: it will insert form fields as you specify:
+     e.g. {% call macros.render_form(form, action_url=url_for('login_view'), action_text='Login',
+                                        class_='login-form') %}
+                {{ macros.render_field(form.email, placeholder='Input email', type='email') }}
+                {{ macros.render_field(form.password, placeholder='Input password', type='password') }}
+                {{ macros.render_checkbox_field(form.remember_me, type='checkbox') }}
+            {% endcall %}
+
+     Params:
+        form - WTForm class
+        action_url - url where to submit this form
+        action_text - text of submit button
+        class_ - sets a class for form
+    #}
+{% macro render_form(form, action_url='',
+                           action_text='Submit',
+                           cancel_url='',
+                           cancel_text='Cancel',
+                           class_='',
+                           btn_class='btn btn-default',
+                           file_upload=false) -%}
+
+    <form method="POST" action="{{ action_url }}" role="form" class="{{ class_ }}" {% if file_upload %} enctype="multipart/form-data" {% endif %}>
+        {{ form.hidden_tag() if form.hidden_tag }}
+        {% if caller %}
+            {{ caller() }}
+        {% else %}
+            {% for f in form %}
+                {% if f.type == 'BooleanField' %}
+                    {{ render_checkbox_field(f) }}
+                {% elif f.type == 'RadioField' %}
+                    {{ render_radio_field(f) }}
+                {% elif f.type == 'FileField' %}
+                    {{ render_file_field(f) }}
+                {% else %}
+                    {{ render_field(f) }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <button type="submit" class="{{ btn_class }}">{{ action_text }} </button>
+        {% if cancel_url %}
+        <button type="cancel" class="{{ btn_class }}"><a href="{{ cancel_url }}">{{ cancel_text }}</a></button>
+        {% endif %}
+    </form>
+{%- endmacro %}
+
+{% macro render_table_forms(forms, new_inline_form) -%}
+    {% for form in forms[:1] %}
+    <thead>
+        <th>
+        {% for field in form %}
+            {% if (field.type != 'HiddenField' and field.type !='CSRFTokenField') %}
+            <td> {{ field.label }} </td>
+            {% endif %}
+        {% endfor %}
+        </th>
+    </thead>
+    {% endfor %}
+    <tbody>
+    {% for form in forms %}
+        <tr>
+        {% for field in form %}
+            {% if field.type == 'BooleanField' %}
+                <td>{{ render_checkbox_field(field, False) }}</td>
+            {% elif field.type == 'RadioField' %}
+                <td>{{ render_radio_field(field) }}</td>
+            {% elif field.type == 'FileField' %}
+                <td>{{ render_file_field(field) }}</td>
+            {% else %}
+                <td>{{ render_field(field, False) }}</td>
+            {% endif %}
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+{%- endmacro %}

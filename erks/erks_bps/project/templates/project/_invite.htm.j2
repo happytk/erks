@@ -1,0 +1,28 @@
+{% extends "portlet-body.htm.j2" %}
+
+{# <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button> #}
+{% block portlet_helper %}
+    {% if project.is_new_member_available() %}
+        <i class="fa fa-exclamation"></i>
+        <b><u>
+        {% if project.project_group.is_not_default %}
+        {{_('%(title)s 그룹에 소속된 사용자만  초대가능합니다.', title=project.project_group.title)}}
+        {% endif %}
+        {{_('초청된 사용자는 바로 프로젝트 멤버가 됩니다.')}}
+        </u></b>
+    {% else %}
+    {% endif %}
+{% endblock %}
+
+{% block portlet_body %}
+{%- if project.project_group.is_not_default %}
+{% include "project/_inviteform_for_projectgroup.htm.j2" %}
+{%- else %}
+{% include "project/_inviteform_for_project.htm.j2" %}
+{%- endif %}
+
+<script type='text/javascript'>
+ProjectShare.init('{{ project.id }}');
+</script>
+
+{% endblock %}

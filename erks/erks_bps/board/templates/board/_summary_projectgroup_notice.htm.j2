@@ -1,0 +1,31 @@
+{% from "_helpers.html" import modal_tmpl %}
+
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+<div class="table-responsive">
+<table class="table table-condensed">
+<thead>
+</thead>
+<tbody>
+    {% for post in g.project_group.queryset_notice(use_yn=True).order_by('-created_at').limit(3) %}
+    <tr>
+        <td>
+            <a data-target="#notice_modal_for_{{ unique_id }}" href="{{ url_for('board._notice_view', post_id=post.id) }}" data-toggle="modal">{{ post.title }}</a>
+            <span class="help-block">
+                <i class="fa fa-user"></i> {{ post.writer }}
+                <i class="fa fa-clock-o"></i> {{ post.created_at | naturalday }}
+            </span>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% if can_be_pg_moderator() %}
+<div class="text-right">
+<a data-target="#notice_modal_for_{{ unique_id }}" class="btn btn-primary btn-sm" data-toggle="modal" href="{{ url_for('board._notice_write', slug=slug) }}">
+공지사항글 작성 <i class="fa fa-pencil"></i></a>
+</div>
+{% endif %}
+{{ modal_tmpl('notice_modal_for_' + unique_id, portlet_reload=True) }}
+
+{% endblock %}

@@ -1,0 +1,150 @@
+{% if not project_group %}
+{% if project and project.project_group %}
+{% set project_group = project.project_group %}
+{% else %}
+{% set project_group = default_project_group %}
+{% endif %}
+{% endif %}
+
+<div class="hor-menu hidden-sm hidden-xs">
+    <ul class="nav navbar-nav">
+        {% if project_group.is_default %}
+        <li class="classic-menu-dropdown {% if request.path.endswith('/about') %}active{% endif %}">
+            {% if project_group.is_default %}
+            <a href="{{ url_for('portal.about') }}">{{_('ER-C 소개') }}</a>
+            {% else %}
+            <a href="{{ url_for('portal.about', slug=project_group.slug) }}">{{_('ER-C 소개') }}</a>
+            {% endif %}
+        </li>
+        {% if config['BILLING'] %}
+        <li class="classic-menu-dropdown {% if request.path.endswith('/services') %}active{% endif %}">
+            {% if project_group.is_default %}
+            <a href="{{ url_for('portal.services') }}">{{_('상품소개') | capitalize}}</a>
+            {% else %}
+            <a href="{{ url_for('portal.services', slug=project_group.slug) }}">{{_('상품소개') | capitalize}}</a>
+            {% endif %}
+        </li>
+        {% endif %}
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <li class="classic-menu-dropdown hidden-xs {% if request.path.endswith('/projects') %}active{% endif %}">
+            {% if project_group.is_default %}
+            <a href="{{ url_for('project_group.list_projects', slug='default') }}">{{_('전체 프로젝트') | capitalize}}</a>
+            {% else %}
+            <a href="{{ url_for('project_group.list_projects', slug=project_group.slug) }}">{{_('전체 프로젝트') | capitalize}}</a>
+            {% endif %}
+        </li>
+        <li class="classic-menu-dropdown hidden-xs">
+            <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true"> {{_('나의 프로젝트') | capitalize}}<i class="fa fa-angle-down"></i></a>
+            <ul class="dropdown-menu pull-left">
+                {% for project_user in Project.my_belonged(project_group=project_group)|sort(attribute='project') %}
+                    <li>
+                        <a class="" href="{{ url_for('project.index', project_id=project_user.project.id) }}">
+                            {{ project_user.project.title }}
+                            <br/>
+                            {% if project_group.is_default and config['BILLING'] %}
+                                {% if project_user.project.is_billed %}
+                                <span class="badge badge-info badge-roundless"> <i>Paid</i> </span>
+                                {% elif project_user.project.is_expired_soon %}
+                                <span class="badge badge-warning badge-roundless"> <i>Expired-soon</i> </span>
+                                {% elif project_user.project.is_expired %}
+                                <span class="badge badge-danger badge-roundless"> <i>Expired</i> </span>
+                                {% endif %}
+                            {% endif %}
+                            {% if project_user.is_owner %} [{{_('관리자')}}]
+                            {% elif project_user.is_termer %} [{{_('용어관리자')}}]
+                            {% elif project_user.is_modeler %} [{{_('모델러')}}]
+                            {% endif %}
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a>{{_('프로젝트가 없습니다.')}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {#<li class="classic-menu-dropdown hidden-xs">
+            <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true"> {{_('나의 용어사전') | capitalize}}<i class="fa fa-angle-down"></i></a>
+            <ul class="dropdown-menu pull-left">
+                {% for glossary in current_user.context_glossary | sort(attribute='glossary_name') %}
+                <li>
+                    <a class="gnb_project" href="{{ glossary.url }}">
+                        {{ glossary.glossary_name }}
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a>{{_('용어사전이 없습니다.')}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>#}
+        {% if project_group.use_glossary_master %}
+        <li class="classic-menu-dropdown hidden-xs {% if request.endpoint.startswith('glossary_master.') %}active{% endif %}">
+            <a href="{{ url_for('glossary_master.glossary_master', slug=project_group.slug) }}">{{_('전사 용어사전')| capitalize}}</a>
+        </li>
+        {% endif %}
+        {% set my_pgs = ProjectGroup.my()|list|sort(attribute='title') %}
+        {% if my_pgs|count > 1 %}
+        <li class="classic-menu-dropdown hidden-xs">
+            <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="page-direct-go"> {{_('그룹전환') | capitalize}}<i class="fa fa-angle-down"></i></a>
+            <ul class="dropdown-menu pull-left">
+                {% for pg in my_pgs %}
+                    <li>
+                        <a class="" href="{{ pg.url }}">{{pg.title}}
+                        {% if pg.is_not_default and config['BILLING'] %}
+                            {% if pg.is_expired_soon %}
+                            <span class="badge badge-warning badge-roundless"> Expired-soon </span>
+                            {% elif pg.is_expired %}
+                            <span class="badge badge-danger badge-roundless"> Expired </span>
+                            {% endif %}
+                        {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endif %}
+        <!-- <li style="padding-left: 20px;">
+            <a class="btn btn-circle btn-default btn-transparent" href="{{ url_for('login.logout') }}">
+                    {{_('로그아웃') | title}}</a>
+        </li> -->
+        <li class="classic-menu-dropdown hidden-xs">
+            <a href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true" class="">{{ current_user }}<i class="fa fa-angle-down"></i></a>
+            <ul class="dropdown-menu pull-left">
+                <li>
+                    <a href="{{ url_for('login.profile') }}" class="">
+                        <i class="fa fa-user"></i>
+                        {{ _('마이 페이지')| title }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('login.logout') }}" class="">
+                        <i class="fa icon-logout"></i>
+                        {{_('로그아웃') | title}}
+                    </a>
+                </li>
+            </ul>
+        </li>
+        {% else %}
+        <li class="">
+            <a href="{{ url_for('login.login') }}" class="">{{_('로그인') | title}}
+                <!-- <a href="{{ url_for('login.login') }}" class="btn btn-primary">Login -->
+                <!-- <span class="glyphicon glyphicon-user"></span> -->
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ url_for('login.signup') }}" class="">{{_('회원가입') | title}}
+                <!-- <a href="{{ url_for('login.signup') }}" class="btn btn-primary">Signup -->
+            </a>
+        </li>
+        <!-- <li style="padding-left: 30px;">
+            <a href="{{ url_for('login.login') }}" class="btn btn-circle btn-default btn-transparent">{{_('로그인') | title}}</a>
+        </li>
+        <li style="">
+            <a href="{{ url_for('login.signup') }}" class="btn btn-circle btn-default btn-transparent">{{_('회원가입') | title}}</a>
+        </li> -->
+        {% endif %}
+    </ul>
+</div>

@@ -1,0 +1,1004 @@
+# English translations for PROJECT.
+# Copyright (C) 2017 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-09-20 18:41+0900\n"
+"PO-Revision-Date: 2017-07-27 14:02+0900\n"
+"Last-Translator: \n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ercc/ercc_bps/erc/static/js/er-cAbandonedObjects.js:52
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3516
+msgid "최신 모델에 대한 모델-Schema 비교 데이터가 없습니다. 지금 비교작업을 시작할까요?"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cAbandonedObjects.js:62
+#: ercc/ercc_bps/erc/static/js/er-cAbandonedObjects.js:84
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3525
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3546
+msgid "작업에 실패했습니다.<br>"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cAbandonedObjects.js:64
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3527
+msgid "모델에 지정된 Schema수집기가 아직 한번도 Schema수집을 하지 않았습니다."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cAbandonedObjects.js:67
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3530
+msgid "모델에 지정된 Schema수집기가 없습니다."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:105
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:104
+msgid "관계그리기가 취소되었습니다."
+msgstr "The relationship drawing has been canceled."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:119
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:118
+msgid "Edge그리기가 취소되었습니다."
+msgstr "Edge drawing has been canceled."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:131
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:130
+msgid "embeding이 취소되었습니다."
+msgstr "embeding has been canceled."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:144
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:143
+msgid "unembeding이 취소되었습니다."
+msgstr "umembeding has been canceled."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:387
+msgid "데이터모델과 주제영역의 구조를 수정할 수 있습니다."
+msgstr "You can modify the data model and structure of subject area."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:398
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:443
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:378
+msgid "Read Only 상태로 ERD를 조회하고 있습니다."
+msgstr "ERD is being viewed in Read Only state."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:412
+msgid "Editable 상태로 ERD를 수정할 수 있습니다."
+msgstr "ERD can be modified in Editable state."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1047
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:70
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:281
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:347
+msgid "속성명이 중복됩니다."
+msgstr "Attribute names are duplicated."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1055
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:204
+msgid "컬럼명이 중복됩니다."
+msgstr "column names are duplicated."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1154
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:828
+msgid "CheckOut 후에 사용해 주세요."
+msgstr "Use after checkout."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1246
+msgid "동일 엔티티간의 관계입니다. Non-Identifying 관계로 그릴까요?"
+msgstr ""
+"Relationships between same entities. Would you draw in a non-identifying "
+"relationship?"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1283
+msgid "선택한 부모 엔티티가 Sybtype입니다. Subtype작성 버튼을 이용해 주세요."
+msgstr "The selected parent entity is Sybtype. Please use Subtype button."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1471
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:997
+msgid "신규 엔티티에 대한 메모는 저장할 수 없습니다. 먼저 ERD를 Save 해주세요."
+msgstr "Memos for new entities cannot be saved. Please save ERD first."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1499
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:1025
+msgid "메모 저장에 실패했습니다."
+msgstr "Failed to save note."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1721
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:2914
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:1220
+msgid "자식 속성은 삭제할수 없습니다."
+msgstr "Child attribute cannot be deleted."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1730
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:1229
+msgid "주제영역내 모든 테이블의 컬럼순서가 Reset 됩니다."
+msgstr "The column order of all tables in the subject area is reset."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1746
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:1245
+msgid "선택한 테이블의 컬럼순서가 Reset 됩니다."
+msgstr "The column order of the selected table is reset."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1762
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:1261
+msgid "주제영역내 모든 테이블의 크기가 Reset 됩니다."
+msgstr "The size of all tables in the subject area is reset."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1781
+#: ercc/ercc_bps/erc/static/js/er-cSimpleViewer.js:1280
+msgid "주제영역내 모든 엔티티의 크기가 Reset 됩니다."
+msgstr "The size of all entities in the subject area is reset."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1913
+msgid "이미 읽어온 용어사전이 있습니다. 새로 읽습니까?"
+msgstr ""
+"you have term dictionary that you are reading. do you want to read new "
+"one?"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1933
+msgid "먼저 주제영역을 선택하여 ERD를 열어 주세요."
+msgstr "open the ERD by selecting the subject area."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1942
+msgid "Edit모드를 종료합니다."
+msgstr "Exit Edit mode."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1955
+msgid "저장되지 않은 ERD 수정사항이 있습니다. Save 해주세요."
+msgstr "There are unsaved ERD works. Please save."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1977
+msgid "편집중인 Project Tree 를 먼저 Check Out 해주세요."
+msgstr "Please check out the project tree you are editing."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1982
+msgid "모델을 수정할 권한이 없습니다."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1991
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:869
+msgid "Edit모드를 시작합니다. 데모버전에서는 저장이 되지 않습니다."
+msgstr "Start Edit mode. It cannot be saved in demo version."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:1995
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:933
+msgid "Edit모드를 시작합니다."
+msgstr "Start Edit mode."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:2246
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:2249
+msgid "저장 후 용어사전의 표준용어를 적용합니다."
+msgstr "apply standard term of the term dictionary after saving."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:2430
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:2435
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:2440
+msgid "아직 지원되지 않는 기능입니다."
+msgstr "This feature is not supported yet."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:2650
+msgid "저장에 실패했습니다."
+msgstr "fail to save."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:2862
+msgid "먼저 저장된 다른 주제영역이 있습니다만 충돌은 없습니다. 저장합니까?"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:2951
+msgid "주제영역에 새로 넣을 엔티티 갯수가 50개 이상입니다.작업에 오랜 시간이 걸릴 수 있습니다."
+msgstr ""
+"There are more than 50 entities to be added to the subject area. please "
+"wait."
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3035
+msgid "<div>Edge를 삭제합니까?</div><br>"
+msgstr "delete Edge"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3038
+msgid "<div>Relation을 삭제합니까?</div><br>"
+msgstr "delete Relation"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3040
+msgid "상속된 자식 속성도 자동으로 삭제"
+msgstr "Automatically delete inherited child attributes"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3041
+msgid "상속된 자식 속성을 삭제하지 않고 방치"
+msgstr "Leave the inherited child attribute without deleting it"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3074
+msgid ""
+"<div>내부에 embed된 object가 있는 엔티티입니다.</div><div>엔티티를 주제영역에서만 제거하거나, 혹은 전체 "
+"모델에서 완전히 삭제할 수 있습니다.</div><div>내부에 embed 되어있는 object에 대해서도 동일하게 "
+"적용됩니다.</div><br>"
+msgstr ""
+"Entities with embedded objects . Entities can be removed only in the "
+"subject area or completely removed from the entire model. The same "
+"applies to objects that are embedded inside"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3076
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3153
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3211
+msgid "주제영역에서만 제거"
+msgstr "Remove only from subject area"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3077
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3154
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3212
+msgid "전체모델에서 완전 삭제"
+msgstr "Delete entirely from entire model"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3151
+msgid ""
+"<div>Embed된 엔티티입니다. 전체 모델에서 완전히 삭제됩니다.</div><div>내부에 embed된 엔티티가 있다면 그 역시"
+" 전체 모델에서 완전히 삭제됩니다.</div><br>"
+msgstr ""
+"The embedded entity. It will be completely removed from the entire model."
+" If you have an embedded entity inside, it will also be completely "
+"removed from the entire model"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3155
+msgid "자식 엔티티에 migrate된 속성도 자동으로 삭제"
+msgstr "Automatically delete attributes migrated to child entities"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3155
+msgid "migrate된 자식 속성을 삭제하지 않고 방치"
+msgstr "leave the migrated child attribute without deleting it"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3209
+msgid "<div>엔티티를 주제영역에서만 제거하거나, 혹은 전체 모델에서 완전히 삭제할 수 있습니다.</div><br>"
+msgstr ""
+"Entities can be removed from the subject area only, or completely removed"
+" from the entire model"
+
+#: ercc/ercc_bps/erc/static/js/er-cApp.js:3554
+msgid "모델-Schema 비교 데이터가 없습니다."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:34
+msgid "엔티티명은 비어있을수 없습니다."
+msgstr "The entity name cannot be empty."
+
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:40
+msgid "embed되어있는 부모 Entity의 속성명과 중복됩니다."
+msgstr "it is duplicated with the attribute name of the embeded parent Entity."
+
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:58
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:269
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:335
+msgid "속성명은 비어있을수 없습니다."
+msgstr "The attribute name cannot be empty."
+
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:167
+msgid "테이블명은 비어있을수 없습니다."
+msgstr "The table name cannot be empty."
+
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:173
+msgid "embed되어있는 부모 Entity의 컬럼명과 중복됩니다."
+msgstr "it is duplicated with the column name of the embed parent Entity."
+
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:191
+msgid "컬럼명은 비어있을수 없습니다."
+msgstr "The column name cannot be empty."
+
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:264
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:330
+msgid "Edge명은 비어있을수 없습니다."
+msgstr "The Edge name cannot be empty."
+
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:415
+msgid "해당 속성명은 embed된 Object가 사용중입니다."
+msgstr "The attribute name is used by embeded object."
+
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:942
+msgid "중복된 UDP Name 이 있습니다."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:967
+msgid "Model의 UDP가 변경되었습니다."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cDtl.js:1854
+msgid "메모 읽기에 실패했습니다."
+msgstr "Failed to read note."
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:107
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:185
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:274
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-codeterms.js:63
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-codeterms.js:92
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-nonstrdtermmaps.js:102
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-codeterms.js:73
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-infotypes.js:92
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-terms.js:144
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-terms.js:174
+#: ercc/ercc_bps/infotype/static/js/infotype_list.js:131
+#: ercc/ercc_bps/term/static/js/term_list.js:122
+#: ercc/ercc_bps/term/static/js/term_list.js:154
+#: ercc/ercc_bps/term/static/js/term_list.js:187
+msgid "업로드할 파일을 선택해 주세요."
+msgstr "Please select a file to upload."
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:122
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:203
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:290
+msgid "파일을 서버로 전송하고 있습니다"
+msgstr "The file is being sent to the server"
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:137
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:222
+msgid "다음과 같은 문제로 ERD파일을 읽을 수 없습니다. <br> "
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:167
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:255
+msgid "서버호출 중 문제가 발생했습니다. "
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:363
+msgid "Editable 상태로 File 주제영역을 Drag&Drop 하여 Project를 구성할 수 있습니다."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:381
+msgid "Read Only 상태로 ERD File을 Upload하여 주제영역과 ERD를 조회할 수 있습니다."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:482
+msgid "먼저 CheckIn 해주세요."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:503
+msgid ""
+"ERWin의 &lt;Main Subject Area&gt;는 자동으로 등록하지 않습니다. 꼭 필요하다면 Drag&Drop 기능을 "
+"이용해 주세요."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:516
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:102
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:419
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:608
+msgid "엔터티"
+msgstr "entity"
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:517
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:103
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:523
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:609
+msgid "용어사전"
+msgstr "term dictionary"
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:518
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:104
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:610
+msgid "버려진엔터티들"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:519
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:105
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:611
+#: ercc/ercc_bps/model_mgmt/static/js/jquery.ui.timemark.js:145
+#: ercc/ercc_bps/report/static/js/report.js:24
+#: ercc/ercc_bps/report/static/js/report.js:358
+msgid "주제영역"
+msgstr "subject area"
+
+#: ercc/ercc_bps/erc/static/js/er-cErdMgmt.js:535
+msgid "모델로 추가할 주제영역이 없습니다. 먼저 파일을 업로드하여 주제영역을 Import해주세요."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cLock.js:48
+msgid "주제영역 Tree를 CheckOut한 기록이 있습니다."
+msgstr "There is a record of CheckOut in the subject area Tree."
+
+#: ercc/ercc_bps/erc/static/js/er-cLock.js:56
+msgid "모델을 CheckOut한 기록이 있습니다."
+msgstr "There is a CheckOut record in the model."
+
+#: ercc/ercc_bps/erc/static/js/er-cRelationCheck.js:195
+msgid "부모,자식간 순환구조의 관계가 있습니다."
+msgstr "There is a relationship of circulation between parent and child."
+
+#: ercc/ercc_bps/erc/static/js/er-cSearch.js:23
+msgid "검색하시려면 아래의 빈칸에 검색어를 입력하세요."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSearch.js:23
+msgid "[검색초기화]"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSearch.js:76
+#: ercc/ercc_bps/report/static/js/report.js:363
+msgid "엔티티명"
+msgstr "Entity name"
+
+#: ercc/ercc_bps/erc/static/js/er-cSearch.js:77
+#: ercc/ercc_bps/report/static/js/report.js:368
+msgid "테이블명"
+msgstr "Table name"
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:72
+msgid "엔터티 (loading...)"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:98
+msgid "새 데이터모델을 만드시겠습니까? 데이터모델은 엔티티와 릴레이션을 공유하는 주제영역의 집합입니다."
+msgstr ""
+"Create a new data model? A data model is a collection of subject areas "
+"that share relationships with entities."
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:133
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:289
+msgid "생성할 위치를 확인해주세요. (주제영역 또는 폴더 선택)"
+msgstr "Please check the location to create it. (Select subject area or folder)"
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:174
+msgid "선택한 데이터모델 전체를 삭제합니다. 주제영역과 엔티티, 릴레이션이 모두 삭제됩니다."
+msgstr ""
+"Delete the entire selected data model. All subject areas, entities, and "
+"relations are deleted."
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:174
+msgid "주의! 이 작업은 모든 데이터를 영구적으로 삭제합니다. 복구가 불가능합니다."
+msgstr "caution! This action permanently deletes all data. Cannot be recovered."
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:176
+msgid "모델명과 Tree 구조는 남겨둠"
+msgstr "remain the model name and tree structure"
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:177
+msgid "모델명과 Tree구조까지 모두 삭제"
+msgstr "Delete both model name and tree structure"
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:215
+msgid ""
+"주제영역을 삭제합니다.\n"
+"모델에 속해있는 엔티티와 릴레이션은 삭제되지 않지만 이들의 배치 구조와 주제영역의 정의 등은 삭제됩니다."
+msgstr ""
+"Delete the subject area.\n"
+"Entities and relations that belong to the model are not deleted, but "
+"their layout and subject area definitions are deleted."
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:226
+msgid ""
+"Tree Node를 삭제합니다. Node 아래에 주제영역이 있다면 같이 삭제됩니다.\n"
+"이 경우 모델에 속해있는 엔티티와 릴레이션은 삭제되지 않지만 이들의 배치 구조와 주제영역의 정의 등은 삭제됩니다."
+msgstr ""
+"Delete the Tree Node. If there is a subject area under Node, it will be "
+"deleted as well.\n"
+"In this case, the entities and relations belonging to the model are not "
+"deleted, but their layout and subject area definitions are deleted."
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:363
+msgid "주제영역을 저장하고 있습니다"
+msgstr "saving subject area"
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:439
+msgid "미사용엔터티"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:440
+msgid "미등록테이블"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:445
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:464
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:483
+msgid "Checkout 중에는 사용할 수 없습니다."
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:448
+msgid "미사용 엔터티 뷰를 여시겠습니까?"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:450
+msgid "Checkout만 하고 저장하지 않은 변경사항이 있습니다.<br> 변경사항을 버리고 미사용 엔터티 뷰를 여시겠습니까?"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:467
+msgid "미등록 테이블 뷰를 여시겠습니까?"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:469
+msgid "Checkout만 하고 저장하지 않은 변경사항이 있습니다.<br> 변경사항을 버리고 미등록 테이블 뷰를 여시겠습니까?"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:485
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:790
+msgid "선택한 주제영역을 여시겠습니까?"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:487
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:792
+msgid "Checkout만 하고 저장하지 않은 변경사항이 있습니다.<br> 변경사항을 버리고 선택한 주제영역을 여시겠습니까?"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:722
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:825
+msgid "복사_"
+msgstr "copy_"
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:785
+msgid "ERD 수정중에는 새로운 주제영역을 열 수 없습니다."
+msgstr "You cannot open a new subject area during ERD modification."
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:834
+msgid "Project Tree 의 변경사항을 저장합니다."
+msgstr "Save changes in the Project Tree."
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:836
+msgid ""
+"Checkout만 하고 저장하지 않은 ERD변경사항이 있습니다.<br> ERD변경사항을 버리고 Project Tree를 "
+"저장하시겠습니까?"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:882
+msgid "Project Tree에 변경된 사항이 있습니다. 저장하지않고 완료하면 변경사항을 잃어버립니다."
+msgstr ""
+"Project Tree has changed. If you finish without saving, your changes will"
+" be lost."
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:883
+msgid "<br>수정을 완료하시겠습니까?"
+msgstr "Are you sure you want to finish editing?"
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:930
+msgid "편집중인 ERD 를 먼저 Check Out 해주세요."
+msgstr "Please check out the editing ERD."
+
+#: ercc/ercc_bps/erc/static/js/er-cSubjTree.js:934
+msgid "<br> Project의 데이터모델 Tree가 잠금상태로 전환됩니다."
+msgstr "The data model tree of Project is converted into lock status"
+
+#: ercc/ercc_bps/erc/static/js/er-cUtil.js:2532
+msgid "전체 모델을 erc 포맷으로 export"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cUtil.js:2533
+msgid "전체 모델을 erWin7.2 XML 포맷으로 export"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cUtil.js:2534
+msgid "전체 모델을 erWin9.7 XML 포맷으로 export"
+msgstr ""
+
+#: ercc/ercc_bps/erc/static/js/er-cUtil.js:2536
+msgid "현재 열린 주제영역을 png 파일로 저장"
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-codeterms.js:26
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-nonstrdtermmaps.js:46
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-codeterms.js:36
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-infotypes.js:54
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-terms.js:51
+#: ercc/ercc_bps/infotype/static/js/infotype_list.js:89
+#: ercc/ercc_bps/term/static/js/term_list.js:26
+msgid "<p>시작합니다.</p>"
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-codeterms.js:35
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-nonstrdtermmaps.js:55
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-codeterms.js:45
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-infotypes.js:63
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-terms.js:60
+#: ercc/ercc_bps/infotype/static/js/infotype_list.js:101
+#: ercc/ercc_bps/term/static/js/term_list.js:35
+msgid "엑셀 업로드에 실패했습니다."
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-codeterms.js:73
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-codeterms.js:102
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-nonstrdtermmaps.js:113
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-codeterms.js:83
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-infotypes.js:102
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-terms.js:154
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-terms.js:184
+#: ercc/ercc_bps/infotype/static/js/infotype_list.js:147
+#: ercc/ercc_bps/term/static/js/term_list.js:132
+#: ercc/ercc_bps/term/static/js/term_list.js:164
+#: ercc/ercc_bps/term/static/js/term_list.js:197
+msgid "<p> 엑셀데이터를 등록하고 있습니다.</p>"
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-codeterms.js:85
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-codeterms.js:114
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-nonstrdtermmaps.js:125
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-codeterms.js:95
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-infotypes.js:113
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-terms.js:167
+#: ercc/ercc_bps/infotype/static/js/infotype_list.js:165
+#: ercc/ercc_bps/term/static/js/term_list.js:147
+#: ercc/ercc_bps/term/static/js/term_list.js:180
+#: ercc/ercc_bps/term/static/js/term_list.js:213
+msgid "서버호출에 실패했습니다."
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-nonstrdtermmaps.js:7
+#: ercc/ercc_bps/infotype/static/js/infotype_list.js:10
+#: ercc/static_new/js/bootstrap-table-ercc-formatter.js:42
+msgid "변경"
+msgstr "change"
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-nonstrdtermmaps.js:15
+msgid "삭제"
+msgstr "delete"
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-nonstrdterms.js:14
+msgid "전사용어신청"
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-nonstrdterms.js:26
+msgid "맵핑"
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-term-requests.js:5
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-term-requests.js:5
+msgid "신규요청"
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-term-requests.js:8
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-term-requests.js:8
+msgid "변경요청"
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-derived-term-requests.js:11
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-term-requests.js:11
+msgid "삭제요청"
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-form-strdterm.js:198
+#: ercc/ercc_bps/term/static/js/strd_term_regist.js:222
+msgid "아직 도메인정보가 설정되지 않았습니다. 표준용어 조합을 먼저 시도해주세요."
+msgstr ""
+"No domain information has been set. Please try the standard term "
+"combination."
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-form-strdterm.js:590
+#: ercc/ercc_bps/term/static/js/strd_term_regist.js:643
+msgid "코드용어를 검색하여 선택해주세요."
+msgstr "Please search code term and select."
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-form-unitterm.js:25
+msgid "도메인용어는 대표인포타입이 반드시 지정되어야 합니다."
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-terms.js:4
+#: ercc/static_new/js/bootstrap-table-ercc-formatter.js:80
+msgid "표준단어"
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-terms.js:7
+#: ercc/static_new/js/bootstrap-table-ercc-formatter.js:83
+msgid "표준용어"
+msgstr ""
+
+#: ercc/ercc_bps/glossarymaster/static/js/glossary-master-terms.js:10
+#: ercc/static_new/js/bootstrap-table-ercc-formatter.js:86
+msgid "금칙어"
+msgstr ""
+
+#: ercc/ercc_bps/model_mgmt/static/js/Timeline.js:232
+msgid "선택한 버전의 모델을 다시 최신버전으로 만듭니다. 모델을 수정중인 사용자가 만들어놓은 Lock은 삭제됩니다."
+msgstr ""
+
+#: ercc/ercc_bps/model_mgmt/static/js/Timeline.js:235
+msgid "Rollback중입니다. 잠시만 기다려주세요."
+msgstr ""
+
+#: ercc/ercc_bps/model_mgmt/static/js/jquery.ui.timemark.js:101
+msgid "&nbsp; 변경사항이 기록되지 않은 버전 입니다."
+msgstr ""
+
+#: ercc/ercc_bps/model_mgmt/static/js/jquery.ui.timemark.js:141
+msgid "모델"
+msgstr ""
+
+#: ercc/ercc_bps/model_mgmt/static/js/jquery.ui.timemark.js:149
+#: ercc/ercc_bps/report/static/js/report.js:14
+msgid "엔티티"
+msgstr "entity"
+
+#: ercc/ercc_bps/model_mgmt/static/js/jquery.ui.timemark.js:153
+msgid "트리구조"
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/billing-ksnet.js:23
+msgid "팝업이 차단되어 결제를 진행할 수 없습니다."
+msgstr "Pop-up is blocked and cannot proceed payment."
+
+#: ercc/ercc_bps/project/static/js/members.js:66
+msgid "성공적으로 저장되었습니다."
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:129
+#: ercc/static_new/js/global-custom-app.js:241
+msgid "실행"
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:143
+msgid "초대메일 재발송"
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:144
+msgid "초대 취소"
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:151
+msgid "초대 승인"
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:152
+msgid "초대 거절"
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:162
+#: ercc/ercc_bps/project_group/static/js/pg_members.js:31
+msgid "권한설정"
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:172
+msgid "초대(expired)"
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:181
+msgid "<b><u>모델러</u></b> "
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:184
+msgid "<b><u>용어관리자</u></b> "
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:187
+msgid "<b><u>프로젝트관리자</u></b> "
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:190
+#: ercc/ercc_bps/project_group/static/js/pg_members.js:14
+msgid "일반사용자"
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/members.js:197
+msgid "가입요청중"
+msgstr ""
+
+#: ercc/ercc_bps/project/static/js/project-common.js:64
+msgid "등록된 주제영역이 없습니다."
+msgstr "No subject areas registered."
+
+#: ercc/ercc_bps/project/static/js/project-common.js:241
+#: ercc/ercc_bps/project_group/static/js/pg_members.js:212
+msgid "검토 후 초대가능합니다."
+msgstr ""
+
+#: ercc/ercc_bps/project_group/static/js/pg_members.js:5
+msgid "<b><u>그룹소유자</u></b>"
+msgstr ""
+
+#: ercc/ercc_bps/project_group/static/js/pg_members.js:8
+msgid "<b><u>전사관리자</u></b>"
+msgstr ""
+
+#: ercc/ercc_bps/project_group/static/js/pg_members.js:11
+msgid "<b><u>전사용어관리자</u></b>"
+msgstr ""
+
+#: ercc/ercc_bps/report/static/js/report.js:19
+msgid "테이블"
+msgstr "table"
+
+#: ercc/ercc_bps/report/static/js/report.js:29
+msgid "생성일"
+msgstr "produced date"
+
+#: ercc/ercc_bps/report/static/js/report.js:34
+msgid "수정일"
+msgstr "Modified date"
+
+#: ercc/ercc_bps/report/static/js/report.js:77
+msgid "속성명[논리]"
+msgstr "Attribute name [Logic]"
+
+#: ercc/ercc_bps/report/static/js/report.js:82
+msgid "컬럼명[물리]"
+msgstr "Column name [Physical]"
+
+#: ercc/ercc_bps/report/static/js/report.js:87
+msgid "Data Type[물리]"
+msgstr "Data Type [Physical]"
+
+#: ercc/ercc_bps/report/static/js/report.js:92
+msgid "PK 여부[물리]"
+msgstr "PK or not [Physical]"
+
+#: ercc/ercc_bps/report/static/js/report.js:97
+msgid "Null 구분[물리]"
+msgstr "Null classification [Physical]"
+
+#: ercc/ercc_bps/report/static/js/report.js:102
+msgid "순서[물리]"
+msgstr "Order [Physical]"
+
+#: ercc/ercc_bps/report/static/js/report.js:219
+#: ercc/ercc_bps/report/static/js/report.js:288
+msgid "테이블 선택"
+msgstr "Select table"
+
+#: ercc/ercc_bps/report/static/js/report.js:239
+msgid "--선택--"
+msgstr "-select-"
+
+#: ercc/ercc_bps/report/static/js/report.js:246
+#: ercc/ercc_bps/report/static/js/report.js:280
+msgid "주제영역이 선택되지 않았습니다."
+msgstr "The subject area is not selected."
+
+#: ercc/ercc_bps/report/static/js/report.js:252
+#: ercc/ercc_bps/report/static/js/report.js:323
+msgid "모델이 선택되지 않았습니다."
+msgstr "No model selected."
+
+#: ercc/ercc_bps/report/static/js/report.js:302
+msgid "테이블 해제"
+msgstr "Release the table"
+
+#: ercc/ercc_bps/report/static/js/report.js:353
+msgid "테이블 명"
+msgstr "Table name"
+
+#: ercc/ercc_bps/report/static/js/report.js:373
+msgid "속성명"
+msgstr "Attribute name"
+
+#: ercc/ercc_bps/report/static/js/report.js:378
+msgid "컬럼명"
+msgstr "Column name"
+
+#: ercc/ercc_bps/report/static/js/report.js:388
+msgid "점검내용"
+msgstr "Checklist"
+
+#: ercc/ercc_bps/schema/static/js/schema_collector_formats.js:30
+msgid "조회"
+msgstr ""
+
+#: ercc/ercc_bps/schema/static/js/schema_collector_formats.js:33
+msgid "예외추가"
+msgstr ""
+
+#: ercc/ercc_bps/schema/static/js/schema_collector_formats.js:47
+msgid "상세조회"
+msgstr ""
+
+#: ercc/static_new/js/bootstrap-table-ercc-formatter.js:65
+msgid "삭제의뢰중"
+msgstr ""
+
+#: ercc/static_new/js/bootstrap-table-ercc-formatter.js:68
+msgid "변경의뢰중"
+msgstr ""
+
+#: ercc/static_new/js/bootstrap-table-ercc-formatter.js:71
+msgid "신규의뢰중"
+msgstr ""
+
+#: ercc/static_new/js/bootstrap-table-ercc-formatter.js:108
+msgid "정말로 삭제하시겠습니까?"
+msgstr ""
+
+#: ercc/static_new/js/bootstrap-table-ercc-formatter.js:109
+msgid "삭제된 리소스는 다시 복구할 수 없습니다!"
+msgstr ""
+
+#: ercc/static_new/js/bootstrap-table-ercc-formatter.js:113
+msgid "네, 지우겠습니다!"
+msgstr ""
+
+#: ercc/static_new/js/bootstrap-table-ercc-formatter.js:114
+msgid "아니요!"
+msgstr ""
+
+#: ercc/static_new/js/global-custom-app.js:60
+msgid "입력폼 중 확인이 필요한 부분이 있습니다."
+msgstr ""
+
+#: ercc/static_new/js/global-custom-app.js:239
+msgid "정말 이 동작을 수행하시겠습니까?"
+msgstr ""
+
+#: ercc/static_new/js/global-custom-app.js:308
+msgid "존재하지 않는 리소스이거나 혹은 문제가 발생해서 페이지를 열 수 없습니다."
+msgstr ""
+
+#: ercc/static_new/js/global-custom-app.js:351
+msgid "데이터를 불러오는 중입니다..."
+msgstr ""
+
+#: ercc/static_new/js/global-custom-app.js:360
+msgid "검색"
+msgstr ""
+
+#: ercc/static_new/js/global-custom-app.js:363
+msgid "조회된 데이터가 없습니다."
+msgstr ""
+
+#: ercc/static_new/js/global-custom-app.js:366
+msgid "새로 고침"
+msgstr ""
+
+#: ercc/static_new/js/global-custom-app.js:369
+msgid "전환"
+msgstr ""
+
+#: ercc/static_new/js/global-custom-app.js:372
+msgid "컬럼 필터링"
+msgstr ""
+
+#: ercc/static_new/js/login.js:37 ercc/static_new/js/login.js:98
+#: ercc/static_new/js/login.js:254
+msgid "이메일을 입력해 주세요."
+msgstr ""
+
+#: ercc/static_new/js/login.js:40 ercc/static_new/js/login.js:257
+msgid "비밀번호를 입력해 주세요."
+msgstr ""
+
+#: ercc/static_new/js/login.js:260
+msgid "비밀번호를 다시 한번 입력해 주세요."
+msgstr ""
+
+#: ercc/static_new/js/login.js:263
+msgid "서비스 이용 약관 및 개인정보 정책을 동의해주세요."
+msgstr ""
+
+#: ercc/static_new/js/login.js:266
+msgid "개인정보 처리방침을 동의해주세요."
+msgstr ""
+
+#: ercc/static_new/js/login.js:269
+msgid "개인정보의 수집∙이용 동의서에 동의해주세요."
+msgstr ""
+
+#: ercc/static_new/js/login.js:341
+msgid "NEXCORE ER-C 서비스 이용 약관"
+msgstr ""
+
+#: ercc/static_new/js/login.js:357
+msgid "NEXCORE ER-C 개인정보 처리방침"
+msgstr ""
+
+#: ercc/static_new/js/login.js:373
+msgid "NEXCORE ER-C 개인정보 수집∙이용 동의서"
+msgstr ""
+
+#: ercc/static_new/js/login.js:377
+msgid "닫기"
+msgstr ""
+
+#~ msgid "ERD 수정중에는 사용할 수 없습니다."
+#~ msgstr "Cannot be used during ERD modification."
+
+#~ msgid "저장"
+#~ msgstr "save"
+
+#~ msgid "취소"
+#~ msgstr "cancel"
+
+#~ msgid "이전 데이터가 저장되지 않았습니다."
+#~ msgstr "Previous data was not saved."
+
+#~ msgid "선택한 줄을 삭제하시겠습니까 ?"
+#~ msgstr "Are you sure you want to delete the selected line?"
+
+#~ msgid "선택해주세요."
+#~ msgstr "please select."
+
+#~ msgid "파일을 서버로 전송하고 있습니다."
+#~ msgstr "The file is being transferred to the server."
+

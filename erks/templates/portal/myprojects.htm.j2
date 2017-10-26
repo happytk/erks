@@ -1,0 +1,74 @@
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield %}
+{% extends "portal/_base.htm.j2" %}
+
+{% block page_settings %}
+{% set active_menu = 'createproject'%}
+{% endblock %}
+
+{% block mainContent %}
+        <div class="contentsWrap">
+            <div class="contents myProject">
+                <div class="leftDiv">
+                    <h3 class="title">나의 프로젝트
+                        <div class="btnArea inlineBlock floatR">
+                            <a href="{{ url_for('project.create_project') }}" data-target="#modal-ajax" data-toggle="modal" class="btn navy h35 w120">프로젝트 생성</a>
+                        </div>
+                    </h3>
+                    <div class="projectList {% if current_user.queryset_project.count() == 0 %}none{% endif %}">
+                        <ul>
+                        {% for project in current_user.queryset_project %}
+                            <li>
+                                <div><a href="{{ project.url }}" class="tit">{{ project.title }}</a>
+                                    <div class="btnArea">
+                                        <a href="#" class="btn skyblue w120">ER-KS 시작하기</a>
+                                        <a href="{{ project.url }}" class="btn white3 w120">커뮤니티</a>
+                                    </div>
+                                </div>
+                                <p class="desc">{{ project.description }}</p>
+                            </li>
+                        {% else %}
+                        <p class="txt1">소속된 프로젝트가 없습니다!</p>
+                        <p class="txt2">프로젝트를 생성해 보세요.</p>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="contentsDiv">
+                    <h3 class="title">커뮤니티 최신 글</h3>
+                    <ul class="communityList">
+                        <li>
+                            <a href="#" class="tit">안녕하세요. ER-KS 입니다.</a><span class="cnt">(3)</span><span class="attach"></span>
+                            <p class="desc">프로젝트 멤버 이외의 사용자가 모델과 커뮤니티글을 열람할 수 있습니다. 내용프로젝트 멤버 이외의 사용자가 모델과 커뮤니티글을 열람할 수 있습니다. 내용프로젝트 멤버 이외의 사용자가 모델과 커뮤니티글을 열람할 수 있습니다. 내용</p>
+                            <p class="info">ER-KS 관리자, 2017-08-24</p>
+                            <a href="#" class="project"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="tit">안녕하세요. ER-KS 입니다.</a><span class="cnt">(3)</span><span class="attach"></span>
+                            <p class="desc">프로젝트 멤버 이외의 사용자가 모델과 커뮤니티글을 열람할 수 있습니다. </p>
+                            <p class="info">ER-KS 관리자, 2017-08-24</p>
+                            <a href="#" class="project"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="tit">안녕하세요. ER-KS 입니다.</a><span class="cnt">(3)</span><span class="attach"></span>
+                            <p class="desc">프로젝트 멤버 이외의 사용자가 모델과 커뮤니티글을 열람할 수 있습니다. </p>
+                            <p class="info">ER-KS 관리자, 2017-08-24</p>
+                            <a href="#" class="project"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="tit">안녕하세요. ER-KS 입니다.</a><span class="cnt">(3)</span><span class="attach"></span>
+                            <p class="desc">프로젝트 멤버 이외의 사용자가 모델과 커뮤니티글을 열람할 수 있습니다. </p>
+                            <p class="info">ER-KS 관리자, 2017-08-24</p>
+                            <a href="#" class="project"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="tit">안녕하세요. ER-KS 입니다.</a><span class="cnt">(3)</span><span class="attach"></span>
+                            <p class="desc">프로젝트 멤버 이외의 사용자가 모델과 커뮤니티글을 열람할 수 있습니다. </p>
+                            <p class="info">ER-KS 관리자, 2017-08-24</p>
+                            <a href="#" class="project"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

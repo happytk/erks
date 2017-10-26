@@ -1,0 +1,73 @@
+{% extends "login/_base.htm.j2" %}
+{% set popup_id = 'join'%}
+
+{% block mainContent %}
+        <div class="subDiv">
+            <h5 class="title">회원가입</h5>
+            <div class="loginDiv">
+            <form class="form-horizontal" action="{{ url_for('login.signup') }}" method="post">
+                {{ form.hidden_tag() if form.hidden_tag }}
+                <div class="form-group">
+                    <label for="name" class="control-label">이메일
+                        <span class="errMsg">올바르지 않은 이메일 주소입니다.</span>
+                    </label>
+                    <div class="floatL">
+                        {{ form.email(class_='form-control inputTxt w340', type="text") }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="control-label">비밀번호
+                        <span class="errMsg">비밀번호를 입력해 주세요.</span>
+                    </label>
+                    <div class="floatL">
+                        {{ form.password(class_='form-control inputTxt w340', type="password", autocomplete="off", id="register_password") }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="control-label">비밀번호 재입력
+                        <span class="errMsg">비밀번호를 다시 한번 입력해 주세요.</span>
+                    </label>
+                    <div class="floatL">
+                        {{ form.password_confirm(class_='form-control inputTxt w340', type="password", autocomplete="off", id="register_password_check") }}
+                    </div>
+                </div>
+                <div class="overHidden">
+                    <div class="checkbox floatL">
+                        <label>
+                            <input type="checkbox" name="options" id="options1" value="option1">
+                            <span></span>
+                        </label>
+                        <p class="txt"><span class="bold">서비스 이용 약관</span>에 동의합니다.</p>
+                    </div>
+                    <div class="checkbox floatL mt5">
+                        <label>
+                            <input type="checkbox" name="options" id="options1" value="option1">
+                            <span></span>
+                        </label>
+                        <p class="txt"><span class="bold">개인정보 처리방침</span>에 동의합니다.</p>
+                    </div>
+                    <div class="checkbox floatL mt5">
+                        <label>
+                            <input type="checkbox" name="options" id="options1" value="option1">
+                            <span></span>
+                        </label>
+                        <p class="txt"><span class="bold">개인정보의 수집·이용 동의서</span>에 동의합니다.</p>
+                    </div>
+                </div>
+                <p class="infoTxt">상기 약관 / 개인정보 처리방침 및 수집이용에 대한 내용을<br />
+                숙지 후, 동의 하셔야만 회원가입을 하실 수 있습니다.</p>
+                <div class="btnArea alignR floatR mt15">
+                    <button type="submit" class="btn medium red w140">가입하기</button>
+                </div>
+            </form>
+            </div>
+            <p class="msg">서비스 이용 약관 및 개인정보 정책을 동의해 주세요.</p>
+            <p class="msg">개인정보 처리방침을 동의해 주세요.</p>
+            <p class="msg">개인정보의 수집·이용 동의서에 동의해 주세요.</p>
+        </div>
+        <ul class="menu type3">
+            <li><a href="{{ url_for('portal.index') }}">메인</a></li>
+            <li><a href="{{ url_for('login.login') }}">로그인</a></li>
+            <li><a href="{{ url_for('login.forget_password') }}">비밀번호 재설정</a></li>
+        </ul>
+{% endblock %}

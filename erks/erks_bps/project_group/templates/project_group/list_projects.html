@@ -1,0 +1,466 @@
+{% extends "base.html" %}
+{% block script_head %}
+{{ super() }}
+<link href="/comp/static/assets/pages/css/search.min.css" rel="stylesheet" type="text/css" />
+<style>
+.bg_jumbotron {
+/*    height: 600px; */
+    height: 300px;
+    /*padding-top: 0px;*/
+    /*margin-top: 0px;*/
+    /*background: url({{ project_group.banner_img_url }});*/
+    /*background: url(/static/img/r3/main_banner_01.jpg);*/
+    /*background-position: top;*/
+    /*background-position-y: 100px;*/
+    /*background-position-x: -160px;*/
+    /*background-repeat: no-repeat;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /* height: 280px; */
+    /* or other desired height */
+    overflow: hidden;
+    /*background: none;*/
+}
+.bg_jumbotron img {
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*top: 180px; /*50%;*/*/
+    /*-webkit-transform: translateY(-50%) translateX(-50%);*/
+}
+.title-box {
+    background-color: #48a8f6;
+}
+.main_jumbotron h1 {
+    text-shadow: 2px 2px gray;
+}
+.mt-element-list .list-news.ext-2.mt-list-container ul > .mt-list-item > .list-datetime, .mt-element-list .list-news.ext-2.mt-list-container ul > .mt-list-item > .list-item-content {
+    padding-left: 200px;
+}
+.mt-element-list .list-news.ext-2 .list-thumb {
+    width: 190px;
+    height: 100px;
+    overflow: hidden;
+    float: left;
+}
+.mt-element-list .list-news.ext-2 .list-thumb img {
+    width: 100%;
+    height: 100%;
+}
+@media (max-width: 500px) {
+    .mt-element-list .list-news.ext-2.mt-list-container ul > .mt-list-item > .list-datetime, .mt-element-list .list-news.ext-2.mt-list-container ul > .mt-list-item > .list-item-content {
+        padding-left: 90px;
+    }
+    .mt-element-list .list-news.ext-2 .list-thumb {
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
+        float: left;
+    }
+}
+</style>
+{% endblock %}
+
+{% block container_wrapper %}
+<div class="main_jumbotron bg_jumbotron" >
+{% if project_group.is_not_default %}
+{% else %}
+    <!-- <img src="/static/img/r3/main_banner_01_text.png"/> -->
+    <div class="container" style="display: table; height: 300px;">
+    <div style="display: table-cell; vertical-align: middle; text-align: left; color:white; padding-top: 50px;">
+    <h1>
+    {{_('ER-C는')}}<br/>
+    {{_('온라인 기반의') | capitalize }}<br/>
+    {{_('통합데이터 모델링 솔루션입니다.') | capitalize }}</h1>
+    </div>
+    </div>
+{% endif %}
+</div>
+
+<!-- BEGIN PAGE BASE CONTENT -->
+<div class="container margin-top-20">
+    <div class="row">
+        <div class="col-md-7">
+            <div id="alert_container"></div>
+
+            <div class="portlet">
+                <form id="prj_search_form" data-parsley-validate>
+                    <div class="input-group">
+                        <input id="prj_search_value"
+                               name="search_value"
+                               type="text"
+                               class="form-control"
+                               placeholder="{{_('프로젝트명으로 검색 가능합니다.')}}"
+                               data-parsley-required="true"
+                               data-parsley-required-message="{{_('검색명을 입력해주세요.')}}"
+                               data-parsley-minlength="2"
+                               data-parsley-minlength-message="{{_('검색어는 2자이상 입력해주세요')}}">
+                        <span class="input-group-btn">
+                            <button class="btn blue uppercase bold" type="submit" form="prj_search_form">Search</button>
+                        </span>
+                    </div>
+                    <div class="help-block"></div>
+                </form>
+            </div>
+            <div class="btn-group btn-group-solid">
+                {% set visited_projects = Project.my_visit_log(1, project_group=project_group) %}
+                <button type="button" class="btn blue" id="list_project_all">{{_('전체')|capitalize}}</button>
+                <!-- <button type="button" class="btn red" id="list_project_recommend">추천</button> -->
+                <!-- <button type="button" class="btn yellow" id="list_project_picked">관리자선정</button> -->
+                {# if current_user.my_projects_count(project_group) > 0 #}
+                <button type="button" class="btn green" id="list_project_mine">{{_('나의 프로젝트')|capitalize}}</button>
+                {# endif #}
+                {% if visited_projects | list | count %}
+                <button type="button" class="btn red" id="list_project_visited">{{_('최근방문')|capitalize}}</button>
+                {% endif %}
+                <button type="button" class="btn" id="list_project_search" style="display:none;">{{_('검색결과..')|capitalize}}</button>
+            </div>
+            <div class="pull-right hidden-xs">
+                <a class="btn default" href="{{ url_for('project.create_project', slug=project_group.slug) }}">
+                    {{_('신규프로젝트 생성')|capitalize}}
+                <i class="fa fa-plus"></i>
+                </a>
+            </div>
+            <div id="project-button-sep" class="bg-blue" style="margin: 0px; padding-top: 4px;">
+                <div class="portlet light mt-element-list" style="margin-bottom: 0px;">
+                    {% if project_group.is_not_default %}
+                    <div class="mt-list-head list-news ext-1 bg-blue-hoki font-default">
+                        <div class="list-head-title-container">
+                            <!-- <h3 class="list-title"> -->
+                            {{ project_group.title }} {{_('소속 프로젝트만 노출됩니다.')}}
+                            <!-- <span class="font-blue-oleo">최근 수정일 순서로 나열됩니다.</span> -->
+                            <!-- </h3> -->
+                        </div>
+                        <!-- <div class="list-count pull-right bg-yellow-saffron">
+                    </div> -->
+                    </div>
+                    {% endif %}
+                    <div class="mt-list-container list-news ext-2">
+                        <ul id="projects-list" data-url="" style="border-top: 1px solid; border-color: #e7ecf1;">
+                        </ul>
+                        <div class="search-pagination" style="margin-bottom:0px;">
+                            <button class="btn default btn-block bg-default" id="project_more_btn"> more..</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20"></div>
+        </div>
+        <div class="col-md-5">
+            {% if project_group.is_not_default %}
+            {{ Portlet('project_group._info', slug=project_group.slug).render() | safe }}
+            {% endif %}
+            {{ Portlet('login._profile', slug=project_group.slug).render() | safe }}
+            {{ Portlet('board._summary_projectgroup_notice', slug=project_group.slug).render() | safe }}
+            {# {{ Portlet('board._summary_projectgroup_qna', slug=project_group.slug).render() | safe }} #}
+        </div>
+    </div>
+</div>
+<!-- END PAGE BASE CONTENT -->
+
+{# include "_promotion.html" #}
+
+{% endblock %}
+{% block script_foot %}
+<!-- <link href="/comp/static/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" /> -->
+<!-- <script src="/comp/static/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script> -->
+<!-- <script src="/comp/static/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script> -->
+<!-- <script src="/comp/static/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script> -->
+<script src="/comp/static/assets/global/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
+<script>
+
+$(function() {
+
+    var slug = '{{ project_group.slug }}';
+    // $('.make-switch').bootstrapSwitch();
+    $('#prj_search_form').parsley({errorsContainer: function(parsleyfield) {
+        var $container = parsleyfield.$element.closest('form').find(".help-block");
+        if ($container.length === 0) {
+            $container = $("<span class='help-block'></span>").insertAfter(parsleyfield.$element);
+        };
+        $container.addClass('font-red');
+        return $container;
+    }, }).on('form:submit', function() {
+        var text = $('#prj_search_value').val();
+        var page = 1;
+        text = $.trim(text);
+        if (text.length) {
+            $.get(Flask.url_for("portal.search", {
+                "search_string": text,
+                slug: slug,
+                "page": page
+            }), function(data) {
+                $('#project-button-sep').removeAttr('class').attr('class', 'bg-default');
+                $('#list_project_search').show().html('검색결과: ' + text);
+                $('#projects-list').empty().slideDown().append(data);
+            });
+        }
+
+        return false;
+    });
+
+    // $('#prj_search_form').validate({
+    //     debug: false,
+    //     rules: {
+    //         search_value: {
+    //             required: true,
+    //             minlength: 2
+    //         }
+    //     },
+    //     messages: {
+    //         search_value: {
+    //             required: '검색명을 입력해주세요.',
+    //             minlength: $.validator.format('{0}글자 이상의 검색명이 필요합니다.'),
+    //         }
+    //     },
+    //     errorPlacement: function(error, element) {
+    //         error.insertAfter(element.closest('form').find('.help-block:first'));
+    //     },
+    //     invalidHandler: function(form, validator) {
+    //         var errors = validator.numberOfInvalids();
+    //         if (errors) {
+    //             // alert(validator.errorList[0].message);
+    //             validator.errorList[0].element.focus();
+    //         }
+    //     },
+    //     submitHandler: function(form) {
+    //         var text = $('#prj_search_value').val();
+    //         var page = 1;
+
+    //         text = $.trim(text);
+    //         if (text.length) {
+    //             $.get(Flask.url_for("portal.search", {
+    //                 "search_string": text,
+    //                 slug: slug,
+    //                 "page": page
+    //             }), function(data) {
+    //                 $('#project-button-sep').removeAttr('class').attr('class', 'bg-default');
+    //                 $('#list_project_search').show().html('검색결과: ' + text);
+    //                 $('#projects-list').empty().slideDown().append(data);
+    //             });
+    //         }
+    //     }
+    // });
+
+    $('#project_more_btn').click(function() {
+        var skip_cnt,
+            url,
+            search_text;
+
+        $('#project_more_btn').attr('disabled', 'disabled');
+
+        search_string = $('#prj_search_value').val();
+        skip = $('#projects-list .mt-list-item').size();
+
+        if (search_string.length) {
+            url = Flask.url_for("portal.search", {
+                slug: slug,
+                search_string: search_string,
+                skip: skip
+            });
+        } else {
+            url = $('#projects-list').attr("data-url");
+            url = Flask.url_for(url, {
+                skip: skip,
+                slug: slug
+            });
+        }
+
+        $.get(url, function(data) {
+            if (data) {
+                $('#projects-list').append(data);
+                $('#project_more_btn').removeAttr('disabled');
+            } else {
+                $('#project_more_btn').removeAttr('disabled');
+                $('#project_more_btn').hide();
+            }
+        });
+    });
+
+    $('#list_project_recommend').click(function() {
+        $('#project-button-sep').removeAttr('class').attr('class', 'bg-red');
+        $('#list_project_search').hide();
+        $('#project_more_btn').hide();
+        $.get(Flask.url_for("portal._projects_recommend", {
+            slug: slug
+        }), function(data) {
+            if (data) {
+                $('#projects-list').empty().slideDown().append(data);
+                $('#projects-list').attr("data-url", "portal._projects_recommend");
+            }
+        })
+    });
+
+    $('#list_project_picked').click(function() {
+        var el = $("#project-button-sep .portlet");
+
+        App.blockUI({
+            target: el,
+            animate: true,
+            overlayColor: 'none'
+        });
+
+        $('#project-button-sep').removeAttr('class').attr('class', 'bg-yellow');
+        $('#list_project_search').hide();
+        $('#project_more_btn').hide();
+
+        $.get(Flask.url_for("portal._projects_picked", {
+            slug: slug
+        }), function(data) {
+            App.unblockUI(el);
+            $('#projects-list').empty().slideDown().append(data);
+            $('#projects-list').attr("data-url", "portal._projects_picked");
+        })
+    });
+
+    $('#list_project_mine').click(function() {
+        var el = $("#project-button-sep .portlet");
+
+        App.blockUI({
+            target: el,
+            animate: true,
+            overlayColor: 'none'
+        });
+
+        $('#project-button-sep').removeAttr('class').attr('class', 'bg-green');
+        $('#list_project_search').hide();
+        $('#project_more_btn').hide();
+        $.get(Flask.url_for("portal._projects_mine", {
+            slug: slug
+        }), function(data) {
+            App.unblockUI(el);
+            $('#projects-list').attr("data-url", "portal._projects_mine");
+            if (data.length == 0) {
+                $('#project_more_btn').hide();
+                $('#projects-list').empty().append('<center><h2>OOPS, NO PROJECT</h2></center>')
+            } else {
+                $('#projects-list').empty().slideDown().append(data);
+            }
+        })
+    });
+
+    $('#list_project_all').click(function() {
+        var el = $("#project-button-sep .portlet");
+
+        App.blockUI({
+            target: el,
+            animate: true,
+            overlayColor: 'none'
+        });
+
+        $('#project-button-sep').removeAttr('class').attr('class', 'bg-blue');
+        $('#list_project_search').hide();
+        $('#project_more_btn').show();
+        $.get(Flask.url_for("portal._projects_all", {
+            slug: slug
+        }), function(data) {
+            App.unblockUI(el);
+            $('#projects-list').attr("data-url", "portal._projects_all");
+
+            if (data.length == 0) {
+                $('#project_more_btn').hide();
+                $('#projects-list').empty().append('<center><h2>OOPS, NO PROJECT</h2></center>')
+            } else {
+                $('#projects-list').empty().slideDown().append(data);
+            }
+        })
+    });
+
+    $('#list_project_visited').click(function() {
+        var el = $("#project-button-sep .portlet");
+
+        App.blockUI({
+            target: el,
+            animate: true,
+            overlayColor: 'none'
+        });
+
+        $('#project-button-sep').removeAttr('class').attr('class', 'bg-red');
+        $('#list_project_search').hide();
+        $('#project_more_btn').show();
+        $.get(Flask.url_for("portal._projects_visited", {
+            slug: slug
+        }), function(data) {
+            App.unblockUI(el);
+            $('#projects-list').empty().slideDown().append(data);
+            $('#projects-list').attr("data-url", "portal._projects_visited");
+        })
+    });
+
+    // $('#list_project_invited').click(function() {
+    //     var el = $("#project-button-sep .portlet");
+
+    //     App.blockUI({
+    //         target: el,
+    //         animate: true,
+    //         overlayColor: 'none'
+    //     });
+
+    //     $('#project-button-sep').removeAttr('class').attr('class', 'bg-yellow');
+    //     $('#list_project_search').hide();
+    //     $('#project_more_btn').show();
+    //     $.get(Flask.url_for("portal._projects_invited", {
+    //         slug: slug
+    //     }), function(data) {
+    //         App.unblockUI(el);
+    //         $('#projects-list').empty().slideDown().append(data);
+    //         $('#projects-list').attr("data-url", "portal._projects_invited");
+    //     })
+    // });
+
+    $('body').on('click', 'button.make_this_default_pg', function(e) {
+        // $('button.make_this_default_pg').removeAttr("disabled");
+        $(this).attr("disabled", "disabled");
+        $.get(Flask.url_for('project_group.change_default_projectg', {slug: slug}));
+    });
+
+    if ($('#list_project_visited').is(":visible")) {
+        $('#list_project_visited').click();
+    }
+    else {
+        $('#list_project_all').click();
+    }
+
+    {% if project_group.is_not_default %}
+    {% if project_group.banner_imgf %}
+    {% set banners = [ project_group.banner_img_url, ] %}
+    {% else %}
+    {% set banners = [
+        "/static/img/r3/banner_b01.jpg",
+        "/static/img/r3/banner_b02.jpg",
+        "/static/img/r3/banner_b03.jpg",
+        "/static/img/r3/banner_b04.jpg",
+        "/static/img/r3/banner_b05.jpg",
+        "/static/img/r3/banner_p01.jpg",
+        "/static/img/r3/banner_p02.jpg",
+        "/static/img/r3/banner_p03.jpg",
+        "/static/img/r3/banner_p04.jpg",
+        "/static/img/r3/banner_p05.jpg"] | shuffle %}
+    {% endif %}
+    {% else %}
+    {% set banners = ["/static/img/r3/main_banner_02.jpg",
+                      "/static/img/r3/main_banner_01.jpg",
+                      "/static/img/r3/banner_p02.jpg",
+                      "/static/img/r3/banner_p04.jpg"] | shuffle %}
+    {% endif %}
+    $(".bg_jumbotron").backstretch([{%- for banner in banners %}
+        '{{ banner }}',
+        {%- endfor %}
+    ], {
+            fade: 1000,
+            duration: 8000
+        });
+
+    // $('body').on('mouseenter', '.mt-list-item', function() {
+    //     var img = $(this).data('bgimg');
+    //     $(this).css('background-image', 'linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), ' + img);
+    //     // console.log(img);
+    //     //background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("the-image.png");
+    // }).on('mouseleave', '.mt-list-item', function() {
+    //     var img = $(this).data('bgimg');
+    //     $(this).css('background-image', img);
+    // });
+});
+</script>
+{% include "_flash_ajax.html" %}
+{% endblock %}
+

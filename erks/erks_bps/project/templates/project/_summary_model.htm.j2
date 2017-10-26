@@ -1,0 +1,90 @@
+{% extends "portlet-body.htm.j2" %}
+
+{% block portlet_body %}
+<div class="scroller"  data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+    {% if entities_info['subjects']|count %}
+    <div class="row list-separated profile-stat">
+        <div class="col-md-4 col-sm-4 col-xs-6">
+            <div class="uppercase profile-stat-title">
+                 {{ format_3s(entities_info['models_cnt'] or 0) }}
+            </div>
+            <div class="uppercase profile-stat-text">
+                 {{_('모델')}}
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-6">
+            <div class="uppercase profile-stat-title">
+                 {{ format_3s(entities_info['subjects_cnt'] or 0) }}
+            </div>
+            <div class="uppercase profile-stat-text">
+                 {{_('주제영역')}}
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-6">
+            <div class="uppercase profile-stat-title">
+                  {{ format_3s(entities_info['entities_cnt'] or 0) }}
+            </div>
+            <div class="uppercase profile-stat-text">
+                 {{_('엔티티')}}
+            </div>
+        </div>
+    </div>
+    <div class="table-scrollable table-scrollable-borderless">
+        <table class="table table-hover table-light">
+        <thead>
+        <tr class="uppercase">
+            <th width="20%">
+                 {{_('주제영역')}}
+            </th>
+            <th width="25%">
+                 {{_('엔티티 수')}}
+            </th>
+            <th width="25%">
+                 {{_('변경일시')}}
+            </th>
+        </tr>
+        </thead>
+        {% if entities_info['subjects']|count %}
+        {% for subject in entities_info['subjects'] %}
+            <tr>
+                <td>
+                    <a href="{{ url_for('erc.ercapp', project_id=project.id, subjId=subject.id) }}" class="primary-link">{{ subject['name'] }}</a>
+                </td>
+                <td>
+                     {{ subject['entities_count'] }}
+                </td>
+                <td>
+                    <span class="bold theme-font">{{ subject['modified'] | naturalday(short=True) }}</span>
+                </td>
+            </tr>
+        {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">
+                    {{_('주제영역이 없습니다.')}}
+                </td>
+            </tr>
+        {% endif %}
+        </table>
+    </div>
+    {% elif can_be_p_modeler() %}
+    <div class="note note-danger">
+        <h4 class="block">{{_('아직 ER 다이어그램이 준비되지 않았습니다.')}}</h4>
+        <p>
+            {{_('기존의 ERWIN으로 작성된 파일이나 엑셀 산출물 정보를 가지고 계시다면 <a href="%(erdMgmt_url)s">가져오기 작업을 수행하시고</a>, 없다면 <a href="%(ercapp_url)s">새로운 주제영역을 만들어 ERD를 그려보세요</a>. 기존의 ERWIN 파일은 XML 포맷으로 내보내기 작업을 수행한 후 등록할 수 있습니다.', erdMgmt_url=url_for('erc.erdMgmt', project_id=project.id), ercapp_url=url_for('erc.ercapp', project_id=project.id))}}
+        </p>
+        <p style="padding-top: 15px;">
+            <a class="btn blue" href="{{ url_for('erc.ercapp', project_id=project.id) }}">
+            {{_('새로 시작하기')}} </a>
+            <a class="btn green" href="{{ url_for('erc.erdMgmt', project_id=project.id) }}">
+            {{_('기존자료를 이용해서 시작하기')}} </a>
+        </p>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <b>{{_('아직 ER 다이어그램이 준비되지 않았습니다.')}}</b> {{_('프로젝트 관리자 혹은 프로젝트 모델러가 ER 다이어그램을 준비할때까지 기다려주세요.')}}
+    </div>
+
+    {% endif %}
+</div>
+{% endblock %}

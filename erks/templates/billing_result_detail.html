@@ -1,0 +1,155 @@
+<script language="javascript">
+function CashreceiptView(tr_no)
+{
+    receiptWin = "http://pgims.ksnet.co.kr/pg_infoc/src/bill/ps2.jsp?s_pg_deal_numb="+tr_no;
+    window.open(receiptWin , "" , "scrollbars=no,width=434,height=580");
+}
+function receiptView(tr_no)
+{
+    receiptWin = "http://pgims.ksnet.co.kr/pg_infoc/src/bill/credit_view.jsp?tr_no="+tr_no;
+    window.open(receiptWin , "" , "scrollbars=no,width=434,height=700");
+}
+</script>
+
+{% if purchased_project %}
+<div class="note note-success">
+    <h4 class="block">{{_('결제가 완료되었습니다!')}}</h4>
+    <p>
+        {{_('프로젝트를 이용해주셔서 감사합니다. 이 프로젝트는 %(billed_expired_when)s까지 이용하실 수 있으며, 이후에는 사용이 제한됩니다.', billed_expired_when=purchased_project.billed_expired_when | naturalday)}} <a href="{{ url_for('project.preference', project_id=purchased_project.id) }}">{{_('환경설정</a>에서 사용기간을 확인하시고 이용기간을 연장하실 수도 있습니다. 감사합니다.')}}
+    </p>
+    <p>
+        <a class="btn green" href="{{ url_for('project.index', project_id=purchased_project.id) }}">
+        {{_('프로젝트 바로가기')}} </a>
+    </p>
+</div>
+{% endif %}
+
+{% if purchased_project_group %}
+<div class="note note-success">
+    <h4 class="block">{{_('결제가 완료되었습니다!')}}</h4>
+    <p>
+        {{_('프로젝트그룹을 이용해주셔서 감사합니다. 이 프로젝트 그룹은 %(billed_expired_when)s까지 이용하실 수 있으며, 이후에는 사용이 제한됩니다.', billed_expired_when=purchased_project.billed_expired_when | naturalday)}} <a href="{{ url_for('project_group.preference', slug=purchased_project_group.slug) }}">{{_('환경설정</a>에서 사용기간을 확인하시고 이용기간을 연장하실 수도 있습니다. 감사합니다.')}}
+    </p>
+    <p>
+        <a class="btn green" href="{{ url_for('project_group.index', slug=purchased_project_group.slug) }}">
+        {{_('프로젝트그룹 바로가기')}} </a>
+    </p>
+</div>{% endif %}
+
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption font-blue">
+            <i class="icon-settings font-blue"></i>
+            <span class="caption-subject bold uppercase">{{_('결제하신 상세정보')}}</span>
+            <span class="caption-helper"></span>
+        </div>
+    </div>
+    <div class="portlet-body table">
+        <table class="table table-striped table-hover">
+            <tr>
+                <td> {{_('결제방법')}}</td>
+                <td>
+                    {% if result and result|length == 4 %}
+                        {% if result[0] == "1" or result[0] == "I" %}{{_('신용카드')}}
+                        {% elif result[0] == "2" %}{{_('실시간계좌이체')}}
+                        {% elif result[0] == "6" %}{{_('가상계좌발급')}}
+                        {% elif result[0] == "M" %}{{_('휴대폰결제')}}
+                        {% elif result[0] == "G" %}{{_('상품권')}}
+                        {% else %}(????)
+                        {% endif %}
+                    {% else %}
+                    (????)
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td> {{_('성공여부')}}</td>
+                <td>
+                    {{ authyn }}({% if authyn == 'O' %}승인성공{% else %}{{_('승인거절')}}{% endif %})
+                </td>
+            </tr>
+            <tr>
+                <td> {{_('응답코드')}}</td>
+                <td>
+                    {{ resultcd }}
+                </td>
+            </tr>
+            <tr>
+                <td> {{_('주문번호')}}</td>
+                <td>
+                    {{ ordno }}
+                </td>
+            </tr>
+            <tr>
+                <td> {{_('금액')}}</td>
+                <td>
+                    {{_('%(amt)s원', amt=amt | currency)}}
+                </td>
+            </tr>
+            <tr>
+                <td> {{_('거래번호')}}</td>
+                <td>
+                    {{ trno }}
+                </td>
+            </tr>
+            <tr>
+                <td> {{_('거래일자')}}</td>
+                <td>
+                    {{ trddt }}
+                </td>
+            </tr>
+            <tr>
+                <td> {{_('거래시간')}}</td>
+                <td>
+                    {{ trdtm }}
+                </td>
+            </tr>
+            {% if authyn == "O" %}
+            <tr>
+                <td> {{_('카드사 승인번호/은행 코드번호')}}</td>
+                <td>
+                    {{ authno }}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td> {{_('발급사코드/가상계좌번호/계좌이체번호')}}</td>
+                <td>
+                    {{ isscd }}
+                </td>
+            </tr>
+            <tr>
+                <td> {{_('매입사코드')}}</td>
+                <td>
+                    {{ aqucd }}
+                </td>
+            </tr>
+            <tr>
+                <td> {{_('메시지1')}}</td>
+                <td>
+                    {{ msg1 }}
+                </td>
+            </tr>
+            <tr>
+                <td> {{_('메시지2')}}</td>
+                <td>
+                    {{ msg2 }}
+                </td>
+            </tr>
+            {% if authyn == "O" and trno[0] == "1" %}
+            {#-- 정상승인의 경우만 영수증출력: 신용카드의 경우만 제공 #}
+                <tr>
+                    <td width="400" colspan="2" align="center">
+                        <input type="button" value="{{_('영수증출력')}}" onClick="javascript:receiptView('{{ trno }}')"> </td>
+                </tr>
+            {% endif %}
+            {% if authyn == "O" and trno[0] == "2" %}
+            {#-- 정상승인의 경우만 영수증출력: 계좌이체의 경우만 제공 #}
+                <tr>
+                    <td width="400" colspan="2" align="center">
+                        <input type="button" value="{{_('현금영수증출력')}}" onClick="javascript:CashreceiptView('{{ cbtrno }}')"> </td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>

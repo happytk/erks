@@ -1,0 +1,33 @@
+{% extends "project_group/preference.html" %}
+{% from '_helpers.html' import debuginfo %}
+
+{% block project_content %}
+{{ debuginfo(self) }}
+<div class="portlet box red-sunglo">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Nestable accordions </div>
+    </div>
+    <div class="portlet-body">
+        <div class="panel-group accordion" id="accordion3">
+            {% for portlet in portlets %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_{{ loop.index }}"> {{ portlet.caption_subject }} </a>
+                    </h4>
+                </div>
+                <div id="collapse_3_{{ loop.index }}" class="panel-collapse {% if loop.index == 1 %} in {% else %} collapse {% endif %}">
+                    <div class="panel-body">
+                    <!-- BEGIN PORTLET-->
+                    {{ portlet.render(display_header=False) | safe }}
+                    <!-- END PORTLET-->
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

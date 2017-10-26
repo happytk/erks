@@ -1,0 +1,33 @@
+{% from '_helpers.html' import debuginfo %}
+{% extends "project_group/preference.html" %}
+{% set active_page = 'members' -%}
+{% block project_content %}
+
+
+<!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
+<div class="modal fade" id="role-changer-modal" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content portlet-wrapper">
+            <div class="modal-body">
+                <img src="/comp/static/assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
+                <span> &nbsp;&nbsp;Loading... </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
+<!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
+<div class="modal fade" id="project-group-share" role="basic" aria-hidden="true" data-project-group-slug="{{ project_group.slug }}">
+    <div class="modal-dialog">
+        <div class="modal-content portlet-wrapper">
+            <div class="modal-body">
+                <img src="/comp/static/assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
+                <span> &nbsp;&nbsp;Loading... </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+{{ Portlet('project_group._preference_members', slug=project_group.slug).render() | safe }}
+{% endblock %}

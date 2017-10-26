@@ -1,0 +1,67 @@
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+<link href="/static/css/profile.css" rel="stylesheet" type="text/css">
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet sale-summary">
+            <div class="portlet-body">
+                <ul class="list-unstyled">
+                    <li>
+                        <span class="sale-info">
+                            {{_('이름')}} <i class="fa fa-img-up"></i>
+                        </span>
+                        <span class="sale-num">
+                            {{ current_user.name }} </span>
+                    </li>
+                    <!-- <li>
+                        <span class="sale-info">
+                            {{_('사번')}} <i class="fa fa-img-up"></i>
+                        </span>
+                        <span class="sale-num">
+                            {{ current_user.user_no }} </span>
+                    </li> -->
+                    <li>
+                        <span class="sale-info">
+                            {{_('이메일')}} <i class="fa fa-img-down"></i>
+                        </span>
+                        <span class="sale-num">
+                            {{ current_user.email }} </span>
+                    </li>
+                    {% if current_user.profile %}
+                    <li>
+                        <span class="sale-info">
+                            {{_('자기소개')}} </span>
+                        <span class="sale-num">
+                            {{ current_user.profile or '' }} </span>
+                    </li>
+                    {% endif %}
+                    {% if g.project_group.is_not_default %}
+                    <li>
+                        <span class="sale-info">
+                            {{_('나의 권한')}} </span>
+                        <span class="sale-num">
+                            {% set mygrade = g.project_group.my_grade %}
+                            {% if mygrade == 'termer' %}
+                            {{_('전사용어관리자')}}
+                            {% elif mygrade == 'owner' %}
+                            {{_('관리자/소유자')}}
+                            {% elif mygrade == 'moderator' %}
+                            {{_('관리자')}}
+                            {% else %}
+                            {{_('멤버')}}
+                            {% endif %}
+                        </span>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="pull-right">
+                <a href="{{ url_for('login._change_password') }}" data-ajax="true" class="btn btn-default">
+                    <i class="fa fa-plus"></i> {{_('비밀번호 변경')}} </a>
+                <a href="{{ url_for('login._profile_edit') }}" data-ajax="true" class="btn btn-default">
+                    <i class="fa fa-pencil"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

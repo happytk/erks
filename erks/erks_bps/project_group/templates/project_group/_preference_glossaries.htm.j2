@@ -1,0 +1,35 @@
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+{#
+project-group-preference의 project관리화면.
+관리자만 들어올 수 있습니다.
+#}
+
+<table id="project-group-glossaries-table"
+       data-toggle="table"
+       data-search="true"
+       data-side-pagination="server"
+       data-pagination="true"
+       data-page-list="[5, 10, 20, 50, 100, 200]"
+       data-page-size="10"
+       data-url="/api_btstptbl/projectgroup/{{ project_group.slug }}/glossaries"
+       data-method="get"
+       data-show-columns="true"
+       data-project-group-slug="{{ project_group.slug }}">
+    <thead>
+    <tr>
+        <th data-checkbox="true"></th>
+        <th data-field="glossary_name" data-sortable="true" data-formatter="btstrp_commonf_url_linker_no_ajax">{{ _('용어사전명') }}</th>
+        <th data-field="project.title" data-sortable="true" data-formatter="projectLinkFormatter">{{ _('프로젝트명') }}</th>
+        <th data-field="project.private" data-sortable="true" data-formatter="btstrp_commonf_checked">{{ _('프로젝트공개여부') }}</th>
+        <th data-field="created_at" data-sortable="true" data-formatter="btstrp_commonf_datetime">{{ _('생성일') }}</th>
+    </tr>
+    </thead>
+</table>
+
+<script type="text/javascript" src="/comp/static/assets/global/plugins/moment.min.js"></script>
+<script src="{{ url_for('.static', filename='js/pg_glossaries.js') | autoversion }}" type="text/javascript"></script>
+<script type="text/javascript">
+ProjectGroupPreferenceGlossaries.init();
+</script>
+{% endblock %}

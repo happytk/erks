@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <!-- 부트스트랩 -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='bootstrap-table/css/bootstrap-table.min.css') }}" rel="stylesheet" type="text/css"  />
+    <link href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{ url_for('static', filename='css/animate.css') }}" rel="stylesheet">  <!-- 20171022 추가 -->
+
+    <!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
+    <!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.10.2.min.js') }}"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-table/js/bootstrap-table.js') | autoversion }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='bootstrap-table/js/bootstrap-table-formatter.js') }}" type="text/javascript"></script>
+    {# <script src="{{ url_for('static', filename='bootstrap-table/js/extensions/flat-json/bootstrap-table-flat-json.js"></script> #}
+    <script src="{{ url_for('static', filename='js/jquery.fittext.js') }}"></script>          <!-- 20171022 추가 -->
+    <script src="{{ url_for('static', filename='js/jquery.lettering.js') }}"></script>        <!-- 20171022 추가 -->
+    <script src="{{ url_for('static', filename='js/jquery.textillate.js') }}"></script>       <!-- 20171022 추가 -->
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+</head>
+<body>
+    <div class="wrapDiv">
+        {% if current_user.is_active %}
+        {% set _header_cls = 'Sub' %}
+        {% else %}
+        {% set _header_cls = '' %}
+        {% endif %}
+        <header class="{{ _header_cls | lower }}">
+            <div class="headerSub">
+                <a href="{{ url_for('portal.index') }}" class="topLogo"><img src="{{ url_for('static', filename='images/img_topLogo' + _header_cls + '.png') }}" alt="ER-KS" /></a>
+                <ul class="rightMenu">
+                    <!-- 로그인 전
+                    <li><a href="#">ER-KS 소개</a></li>
+                    <li><a href="#">회원가입</a></li>
+                    <li><a href="#" class="btn">로그인</a></li>
+                    <!-- 로그인 전 끝 //-->
+                    <!-- 로그인 후 //-->
+                    {% if current_user.is_active %}
+                    <li><a href="javascript:popSlide('myInfo1');" class="on">내정보</a></li>       <!-- 20171023_2 수정 -->
+                    <li>
+                        <div class="dropdown">
+                        <button class="btn dropdown-toggle selectbox" type="button" id="msglist" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">나의 프로젝트</button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            {% for project in current_user.queryset_project %}
+                            <li><a href="{{ project.url }}">{{ project.title }}</a></li>
+                            {% endfor %}
+                            <!-- <li class="on"><a href="#">홈</a></li> -->
+                        </ul>
+                        </div>
+                    </li>
+                    {% endif %}
+                    <li><a href="{{ url_for('portal.about') }}">ER-KS 소개</a></li>
+                    {% if current_user.is_active %}
+                    <li><a href="{{ url_for('login.logout') }}" class="btn">LOGOUT</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('login.login') }}" class="btn">LOGIN</a></li>
+                    {% endif %}
+                    <!-- 로그인 후 끝 //-->
+                </ul>
+            </div>
+        </header>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                {% set category = (category == 'message') and 'info' or category %}
+                <script>
+                $(document).ready(function() {
+                    alert('{{ message }}');
+                });
+                </script>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block mainContent %}
+        {% endblock %}
+        <footer>
+            <div class="footerSub">
+                <ul class="footerMenu">
+                    <li><a href="{{ url_for('portal.dialog_privacy_policy') }}" data-target="#footer-privacy_policy-ajax" data-toggle="modal">개인정보 처리 방침</a></li>
+                    <li><a href="{{ url_for('portal.dialog_toc') }}" data-target="#footer-toc-ajax" data-toggle="modal">이용약관</a></li>
+                    <li><a href="{{ url_for('portal.dialog_dont_collect_emails') }}" data-target="#footer-dont_collect_emails-ajax" data-toggle="modal">이메일 무단수집 거부</a></li>
+                </ul>
+                <p class="copyright">COPYRIGHTⓒ2017 BY SK HOLDINGS CO., LTD. ALL RIGHTS RESERVED</p>
+            </div>
+            <!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
+            <div class="modal fade" id="footer-privacy_policy-ajax" role="basic" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div style="text-align: center"> Loading... </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+            <!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
+            <div class="modal fade" id="footer-toc-ajax" role="basic" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div style="text-align: center"> Loading... </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+            <!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
+            <div class="modal fade" id="footer-dont_collect_emails-ajax" role="basic" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div style="text-align: center"> Loading... </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+            <!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
+            <div class="modal fade" id="footer-privacy_policy-agree-ajax" role="basic" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div style="text-align: center"> Loading... </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+            <!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
+            <div class="modal fade" id="modal-ajax" role="basic" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div style="text-align: center"> Loading... </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </footer>
+        <div class="dim"></div>
+        <div class="dim3"></div>    <!-- 20171023_2 추가 -->
+        <div class="popup login myInfo1">
+            <a href="#" class="popClose3">close</a>     <!-- 20171023_2 수정 -->
+            <div class="loginDiv">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="name" class="control-label floatL">닉네임</label>
+                        <!-- 20171023_2 수정 -->
+                        <div class="floatL txt">
+                            user1
+                        </div>
+                        <!-- 20171023_2 수정 끝 //-->
+                        <div class="btnArea floatR">
+                            <a href="#" class="btn h35 navy w80">수정</a>
+                        </div>
+                    </div>
+                    <!-- 20171023_2 삭제
+                    <p class="successMsg">닉네임이 수정되었습니다.</p> //-->
+                    <div class="form-group">
+                        <label for="name" class="control-label floatL">이메일</label>
+                        <!-- 20171023_2 수정 -->
+                        <div class="floatL txt">
+                            user1@sk.com
+                        </div>
+                        <!-- 20171023_2 수정 끝 //-->
+                    </div>
+                    <a href="#" class="changeBtn">비밀번호 변경</a>
+                </form>
+                <div class="changeDiv">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="name" class="control-label">현재 비밀번호
+                            <span class="errMsg">비밀번호를 입력해 주세요.</span>
+                        </label>
+                        <div class="floatL">
+                            <input type="password" id="name" class="form-control inputTxt w280" value="mastername@sk.com" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="control-label">새 비밀번호
+                            <span class="errMsg">비밀번호와 동일한 값을 입력해 주세요.</span>
+                        </label>
+                        <div class="floatL">
+                            <input type="password" id="name" class="form-control inputTxt w280" value="mastername@sk.com" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="control-label">새 비밀번호 재입력
+                            <span class="errMsg">비밀번호와 동일한 값을 입력해 주세요.</span>
+                        </label>
+                        <div class="floatL">
+                            <input type="password" id="name" class="form-control inputTxt w280" value="mastername@sk.com" placeholder="">
+                        </div>
+                    </div>
+                    <div class="errMsgArea">
+                    </div>
+                    <div class="btnArea">
+                        <a href="#" class="btn medium navy w100p">비밀번호 저장</a>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

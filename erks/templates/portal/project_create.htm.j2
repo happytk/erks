@@ -1,0 +1,34 @@
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield %}
+
+    <!-- <a href="#" class="popClose">close</a> -->
+    <h4 class="title">프로젝트 생성</h4>
+    <div class="communityWriteDiv">
+        <form
+            action="{{ url_for('project.create_project') }}"
+            id="prj_create_form"
+            class="form-horizontal form-bordered"
+            method="POST"
+            data-parsley-validate=''>
+            <div class="contentsArea project">
+                {{ form.hidden_tag() if form.hidden_tag }}
+                {{ render_39field(form.title) }}
+                {{ render_39field(form.description) }}
+                <div class="form-group">
+                    <label for="name" class="control-label">컴포넌트 유형</label>
+                    <div class="floatL">
+                        <input type="text" id="name" class="form-control inputTxt w317" value="TEST 프로젝트 1" placeholder="">
+                    </div>
+                    <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="options" id="options1" value="option1">커뮤니티 공개 설정
+                        <span></span>
+                    </label>
+                    </div>
+                </div>
+            </div>
+            <div class="btnArea">
+                <a href="#" class="btn medium gray  w140">취소</a>
+                <a href="#" class="btn medium  navy w140">생성</a>
+            </div>
+        </form>
+    </div>

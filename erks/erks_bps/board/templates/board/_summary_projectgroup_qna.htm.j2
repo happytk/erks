@@ -1,0 +1,23 @@
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+<div class="table-responsive">
+    <div id="model-glossary-report-table-toolbar" class='columns'>
+        <table id="qna_summary_table"
+               data-side-pagination="server"
+               data-toggle="table"
+               data-url="/api_btstptbl/projectgroup/{{ slug }}/qna?limit=3"
+               data-height="155"
+               >
+            <thead>
+                <tr>
+                    <th data-field="row" class="col-md-2"><i class="fa fa-sort-amount-desc"></i> NO</th>
+                    <th data-field="title" class="col-md-6"><i class="fa fa-briefcase"></i> {{_('제목')}} </th>
+                    <th data-field="created_at" data-formatter="btstrp_commonf_datetime"><i class="fa fa-calendar"></i> {{_('최초생성일자')}}</th>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>    
+</div>
+
+{% endblock %}

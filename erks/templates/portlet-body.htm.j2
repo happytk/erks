@@ -1,0 +1,126 @@
+{% from '_helpers.html' import debuginfo %}
+
+
+{% set fa, title, helpertext, fclses, clses = ercc_portlets.get(request.endpoint, ('', '', '', '', '')) %}
+{% set unique_id = uuid() %}
+<div class="portlet {{ fclses or 'light' }}">
+    <div class="portlet-title {% if tabbable %}tabbable-line {% endif %}">
+        <div class="caption font-blue">
+            <span class="caption-subject uppercase">
+            {% block portlet_title %}
+                <i class="fa {{ fa }}"></i>
+                {{ title }}
+            {% endblock %}
+            </span>
+            <span class="caption-helper">
+            {% block portlet_helper %}
+                {{ helpertext }}
+            {% endblock %}
+            </span>
+        </div>
+        <div class="tools">
+            {% block portlet_tools %}
+            {% endblock %}
+            <a data-for-dialog="false" href="javascript:;" class="collapse"> </a>
+            <a href="javascript:;" data-url="{{ request.url }}" data-load="true" class="reload"> </a>
+            <a data-for-dialog="true" href="javascript:;" class="remove" style="display:none;" data-dismiss="modal" aria-hidden="true"></a>
+            <!-- <a data-for-dialog="false" href="#portlet-config" data-toggle="modal" class="config"> </a> -->
+            <a data-for-dialog="false" href="javascript:;" class="fullscreen"> </a>
+            <a data-for-dialog="false" href="javascript:;" class="remove"> </a>
+        </div>
+        {% if tabbable %}
+        {% block tabbable_tabs %}
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#portlet_tab1" data-toggle="tab"> Tab 1 </a>
+            </li>
+            <li>
+                <a href="#portlet_tab2" data-toggle="tab"> Tab 2 </a>
+            </li>
+            <li>
+                <a href="#portlet_tab3" data-toggle="tab"> Tab 3 </a>
+            </li>
+        </ul>
+        {% endblock %}
+        {% endif %}
+    </div>
+    <div class="portlet-body portlet-empty {{ clses }}" id='{{ unique_id }}'>
+    {% block portlet_body %}
+    {% endblock portlet_body %}
+    {{ debuginfo(self) }}
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        if ($().bootstrapSwitch) {
+            var toggle_description = function($switch, state) {
+                var $helpblock;
+                $helpblock = $switch.closest('.col-md-9').find('.help-block');
+                // console.log($helpblock);
+                if (state) {
+                    if ($switch.data('switch-on-text')) {
+                        $helpblock.html($switch.data('switch-on-text'));
+                    }
+                } else {
+                    if ($switch.data('switch-off-text')) {
+                        $helpblock.html($switch.data('switch-off-text'));
+                    }
+                }
+            };
+            var $switch = $('.make-switch', $('#{{ unique_id }} form'));
+            $switch.on('init.bootstrapSwitch', function(event, state) {
+                // console.log('init', $(this), $(this).attr('checked') === 'checked');
+                if (!$switch.closest('.col-md-9').find('.help-block').length) {
+                    $switch.closest('.col-md-9').append('<span class="help-block"></span>');
+                }
+                toggle_description($(this), $(this).attr('checked') === 'checked');
+            });
+            $switch.on('switchChange.bootstrapSwitch', function(event, state) {
+                // console.log('change', $(this), state);
+                toggle_description($(this), state);
+            });
+            $switch.bootstrapSwitch();
+            // toggle_description($switch,
+            //     $switch.bootstrapSwitch('state'));
+
+        }
+        if ($().bootstrapTable) {
+            $('table[data-toggle="table"]', $('#{{ unique_id }}')).bootstrapTable();
+        }
+        if ($('#{{ unique_id }}').closest('.portlet-wrapper').data('display-header') == "False") {
+            $('#{{ unique_id }}').prev().hide();
+        }
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            {% set category = (category == 'message') and 'info' or category %}
+            App.alert({
+                container: '#{{ unique_id }}', // alerts parent container
+                place: 'prepend', // append or prepent in container
+                type: '{{ category }}', // alert's type
+                message: '{{ message }}',  // alert's message
+                reset: false, // close all previouse alerts first
+                focus: true, // auto scroll to the alert after shown
+                {% if category != 'danger' %}
+                closeInSeconds: 5, // auto close after defined seconds
+                close: true,
+                {% else %}
+                close: false,
+                {% endif %}
+                icon: 'fa fa-check' // put icon class before the message
+            });
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% if debug %}
+        $('#{{ unique_id }}').append('<span style="font-size:11px; color: gray; background-color: #efefef;">loaded. <b>#{{ unique_id }}</b></span>');
+        {% endif %}
+        if ($('#{{ unique_id }}').closest('.portlet-wrapper').hasClass('modal-content')) {
+            $('#{{ unique_id }}').closest('.portlet').find('.tools > a[data-for-dialog]').toggle();
+        }
+        {% if portlet_tools_hide %}
+        $('#{{ unique_id }}').closest('.portlet').find('.tools > a').hide();
+        {% endif %}
+    });
+    </script>
+</div>

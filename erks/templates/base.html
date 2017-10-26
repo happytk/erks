@@ -1,0 +1,248 @@
+{% if not project_group  %}
+{% set project_group = g.project_group %}
+{% endif %}
+
+<!DOCTYPE html>
+<!--[if lt IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if lt IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+
+<title>{% block title %} {{_('온라인 데이터모델링 솔루션 (NEXCORE ER-C)') | title}} {% endblock %}</title>
+
+<meta charset="utf-8"/>
+<meta name="google-site-verification" content="6c2go_-3LCBVZPITue9pJxKlqBun2F1hskr7ImSqrSo" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="description" content="SaaS형 DB모델링 도구. ERD뷰어 및 Editor, 표준Meta 관리, 실시간 공유/협업. 온라인 회원가입 후 바로 사용가능." />
+<meta name="naver-site-verification" content="95d8e6091219beb16595b88d49a9698b09b92fc7"/>
+<meta content="skholdings_da" name="author"/>
+
+
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/> -->
+<link href="/comp/static/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="/comp/static/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="/comp/static/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="/comp/static/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- <link href="/comp/static/assets/global/plugins/ladda/ladda-themeless.min.css" rel="stylesheet" type="text/css" /> -->
+<link href="/comp/static/assets/global/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" type="text/css"  />
+<link href="/comp/static/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN JQUERY SCRIPTS -->
+<script src="/comp/static/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="/comp/static/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- END JQUERY SCRIPTS -->
+
+<!-- BEGIN THEME GLOBAL STYLES -->
+<link href="/comp/static/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+<!-- END THEME GLOBAL STYLES -->
+<!-- BEGIN THEME LAYOUT STYLES -->
+
+<!-- BEGIN JSGETTEXT SCRIPTS -->
+{% include "_gettext_js.html" %}
+<!-- END JSGETTEXT SCRIPTS -->
+
+<!-- BEGIN THEME STYLES -->
+<!-- <link href="/comp/static/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/> -->
+{% block style_theme %}
+<link href="/comp/static/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+<link href="/comp/static/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
+
+{% if project_group and project_group.is_not_default and project_group.color_theme %}
+<link href="/comp/static/assets/layouts/layout/css/themes/{{ project_group.color_theme }}.min.css" rel="stylesheet" type="text/css" id="style_color">
+{% else %}
+<!-- <link href="/comp/static/assets/layouts/layout/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color" /> -->
+<link href="/static/css/default.dsn.css" rel="stylesheet" type="text/css" id="style_color" />
+{% endif %}
+<link href="/static/css/custom.css" rel="stylesheet" type="text/css"/>
+</style>
+
+<!-- BEGIN PAGE LEVEL STYLES -->
+{% block script_head %}
+{% endblock %}
+<!-- END PAGE LEVEL SCRIPTS -->
+{% endblock %}
+
+{% block shortcut_icon %}
+<!-- END THEME STYLES -->
+{% endblock %}
+
+{% block style_pagelevel %}
+{% endblock %}
+
+<!-- BEGIN JSGLUE -->
+{{ JSGlue.include() }}
+<!-- END JSGLUE -->
+
+</head>
+<!-- END HEAD -->
+
+{% block body %}
+<!-- BEGIN BODY -->
+<body class="page-sidebar-closed page-sidebar-hide page-header-fixed page-content-white page-boxed {% block body_additional_class %}{% endblock %}"><!-- page-container-bg-solid -->
+
+    <div class="page-wrapper">
+
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner">
+                <div class="page-container-cls-check {{ container_cls or 'container' }}">
+                {% block header %}
+                {% include "_header.html" %}
+                {% endblock %}
+                <!-- END HEADER TOP -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span></span>
+                </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN HEADER MENU -->
+                {% block nav %}
+                {% include "_nav.html" %}
+                {% endblock %}
+                <!-- END HEADER MENU -->
+                </div>
+            </div>
+        </div>
+        <!-- END HEADER -->
+        <div class="clearfix"> </div>
+
+        {% include "_sidebar.html" %}
+
+        {% block container_wrapper %}
+        <div class="page-container-cls-check {{ container_cls or 'container' }}">
+            <div class="page-container">
+
+                <!-- BEGIN SIDEBAR -->
+                <!-- END SIDEBAR -->
+
+                {% block container %}
+                <!-- BEGIN CONTENT -->
+                <div class="page-content-wrapper">
+                    <div class="page-content">
+                        <!-- BEGIN PAGE BAR -->
+                        {% block page_bar %}
+                        {% endblock %}
+                        <!-- END PAGE BAR -->
+                        <!-- BEGIN PAGE TITLE-->
+                        <h1 class="page-title"> {% block page_title %}
+                            <small></small> {% endblock %}
+                        </h1>
+                        <!-- END PAGE TITLE-->
+                        <!-- END PAGE HEADER-->
+
+                        {% block flash %}
+                        {% include "_flash_ajax.html" %}
+                        {% endblock %}
+
+                        <!-- BEGIN PAGE CONTENT INNER -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                 {% block content %}
+                                 {% endblock %}
+                            </div>
+                        </div>
+                        <!-- END PAGE CONTENT INNER -->
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT -->
+                {% endblock %}
+            </div>
+            <!-- END PAGE CONTAINER -->
+        </div>
+        {% endblock %}
+        <!-- BEGIN FOOTER -->
+        <div class="page-container-cls-check {{ container_cls or 'container' }}">
+            {% block footer %}
+            {% include "_footer.html" %}
+            {% endblock %}
+        </div>
+        <!-- END FOOTER -->
+    </div>
+
+    <!-- BEGIN JAVASCRIPTS -->
+    <!-- BEGIN CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    <script src="/comp/static/assets/global/plugins/respond.min.js"></script>
+    <script src="/comp/static/assets/global/plugins/excanvas.min.js"></script>
+    <script src="/comp/static/assets/global/plugins/ie8.fix.min.js"></script>
+    <![endif]-->
+
+    <script>
+    window.EventSource || document.write('<script src="/static/js/eventsource.min.js"><\/script>');
+    </script>
+    <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="/comp/static/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="/comp/static/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="/comp/static/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- <script src="/comp/static/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script> -->
+    <script src="/comp/static/assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-table.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-table-ercc-formatter.js') | autoversion }}" type="text/javascript"></script>
+    <script src="/comp/static/assets/global/plugins/bootstrap-table/extensions/flat-json/bootstrap-table-flat-json.js"></script>
+    <script src="{{ url_for('static', filename='js/extensions/export-serverside/bootstrap-table-exporter.js') }}" type="text/javascript"></script>
+    <script src="/comp/static/assets/global/plugins/moment.min.js" type="text/javascript" ></script>
+
+    <!-- form -->
+    <!-- <script src="/comp/static/assets/global/plugins/ladda/spin.min.js" type="text/javascript"></script> -->
+    <!-- <script src="/comp/static/assets/global/plugins/ladda/ladda.min.js" type="text/javascript"></script> -->
+    <script src="{{ url_for('static', filename='js/parsley.js') }}" type="text/javascript"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.7.2/parsley.min.js" type="text/javascript"></script> -->
+    <!-- END CORE PLUGINS -->
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    {% block script_foot %}
+    {% endblock %}
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- END PAGE LEVEL SCRIPTS -->
+
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <!-- <script type="text/javascript" src="/comp/static/assets/global/scripts/app.js"></script> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') | autoversion }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/global-custom-app.js') | autoversion }}"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    {% if no_layout_js %}
+    {% else %}
+    <script src="/comp/static/assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
+    {% endif %}
+    <!-- <script src="/comp/static/assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script> -->
+    <!-- <script src="/comp/static/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script> -->
+    <!-- <script src="/comp/static/assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script> -->
+    <!-- END THEME LAYOUT SCRIPTS -->
+    <!-- END JAVASCRIPTS -->
+
+</body>
+{% endblock %}
+<!-- END BODY -->
+
+{% if not debug and config["SENTRY_USE"] %}
+<!-- sentry -->
+<script type="text/javascript" src="https://cdn.ravenjs.com/3.15.0/raven.min.js"></script>
+<script type="text/javascript">
+Raven.config('https://0962d28b208d4c47949981b8cafcb4bc@sentry.io/93685').install();
+</script>
+
+<!-- google analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80059926-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+{% endif %}
+
+</html>

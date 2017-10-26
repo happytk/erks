@@ -1,0 +1,22 @@
+{% from '_form_helpers.html' import render_39field %}
+
+<table id="{{ field_id }}" class="table table-bordered form-group {{ ul_class }} has-error">
+<thead>
+	{% for k, v in field._fields.items() %}
+		{% if k not in ['csrf_token'] %}
+		<th>{{ k.label }}</th>	
+		{% endif %}
+	{% endfor %}
+</thead>
+<tbody>
+	{% for k, v in field._fields.items() %}
+		{% if k not in ['csrf_token'] %}
+		<td> {{ render_39field(v) }} 
+		{% if k in field.errors %}
+		{{ field.errors[k] | join('<br/>') }}
+		{% endif %}
+		</td>
+		{% endif %}
+	{% endfor %}
+</tbody>
+</table>

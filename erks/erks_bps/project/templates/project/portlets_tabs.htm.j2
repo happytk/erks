@@ -1,0 +1,35 @@
+{% extends g.project.base_html %}
+{% set active_page = active_page -%}
+
+{% block project_content %}
+<div class="portlet box blue-steel">
+    <div class="portlet-title">
+        <div class="caption">
+            {{ title | safe }}
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs tabs-top">
+                    {% for portlet in portlets %}
+                    <li {% if loop.index == 1 %} class="active" {% endif %}>
+                        <a href="#tab_6_{{ loop.index }}" data-toggle="tab"> {{ portlet.caption_subject }} </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="tab-content">
+                    {% for portlet in portlets %}
+                    <div class="tab-pane {% if loop.index == 1 %} active {% endif %}" id="tab_6_{{ loop.index }}">
+                    <!-- BEGIN PORTLET-->
+                    {{ portlet.render() | safe }}
+                    <!-- END PORTLET-->
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

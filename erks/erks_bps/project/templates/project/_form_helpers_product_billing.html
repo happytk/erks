@@ -1,0 +1,134 @@
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield, render_39field_readonly %}
+
+{% macro render_product_description(field, months=0, amount=0) -%}
+<div class="form-group">
+    <label class="control-label col-md-3">
+    {{_('상품정보 및 구매내역')}}
+    </label>
+    <div class="col-md-9 font-red-sunglo">
+        <table class="table">
+            <tr><td>{{_('상품명')}}</td><td>{{_('사용자수')}}</td><td>{{_('프로젝트개수')}}</td><td>{{_('단가')}}</td>
+            {% if months %}<td>{{_('개월')}}</td>{% endif %}
+            {% if amount %}<td>{{_('총금액')}}</td>{% endif %}
+            </tr>
+            <tr><td>{{ field.data.product_name }}</td>
+                <td>{% if field.data.member_cnt_limit %}{{_('%(cnt)d명', cnt=field.data.member_cnt_limit)}}{% else %}{{_('무제한')}}{% endif %}
+                </td>
+                <td>{% if field.data.project_cnt_limit %}{{_('%(cnt)d개', cnt=field.data.project_cnt_limit)}}{% else %}{{_('무제한')}}{% endif %}
+                </td>
+                <td>{{_('월 %(price)s원', price=field.data.price | currency)}}</td>
+                {% if months %}<td>{{_('%(months)d개월', months=months)}}</td>{% endif %}
+                {% if amount %}<td>총 {{_('%(amount)s원', amount=amount | currency)}}</td>{% endif %}
+            </tr>
+        </table>
+
+        <ul>
+        <li>{{_('ER-C에서 기본으로 제공하는 기본 프로젝트 그룹외 비공개로 프로젝트를 그룹핑 할 수 있는 프로젝트 그룹을 구매합니다.')}}</li>
+        <li>{{_('서비스 철회 및 환불은 구매일로부터 7일 이내에 가능합니다. 자세한 철회 및 환불 조건에 대해서는 이용약관을 참조하시기 바랍니다.')}}</li>
+            <li>{{_('서비스 종료후에는 프로젝트 관리자 외에는 프로젝트 공간 접속이 불가능하며, 모델 및 용어 데이타 열람 및 사용도 불가능합니다.')}}</li>
+        </ul>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro render_products_selection(products) -%}
+<div class="form-group">
+    <label class="control-label col-md-3">
+    {{_('상품정보 및 구매내역')}}
+    </label>
+    <div class="col-md-9">
+        <div class="help-block"></div>
+        <table class="table">
+            <tr><td>-</td><td>{{_('상품명')}}</td><td>{{_('사용자수')}}</td><td>{{_('프로젝트개수')}}</td><td>{{_('단가')}}</td>
+            </tr>
+            {% for product in products %}
+            <tr><td><input type="radio" id="product_code_user_choice" name="product_code_user_choice" value="{{ product.product_code }}" data-product-price="{{ product.price }}" data-parsley-required="true" data-parsley-required-message="구입상품을 선택해주세요."></td>
+                <td>{{ product.product_name }}</td>
+                <td>{% if product.member_cnt_limit %}{{_('%(cnt)d명', cnt=product.member_cnt_limit)}}{% else %}{{_('무제한')}}{% endif %}
+                </td>
+                <td>{% if product.project_cnt_limit %}{{_('%(cnt)d개', cnt=product.project_cnt_limit)}}{% else %}{{_('무제한')}}{% endif %}
+                </td>
+                <td>{{_('월 %(price)s원', price=product.price | currency)}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <script>
+$(document).ready(function() {
+    var list_price_update = function(unit_price) {
+        var form = $('form');
+        // var unit_price = form.find('input[id=unit_price]').val();
+        var val = $('#subscription_months').val() || 0;
+        form.find('input[id=sndAmount]').val(unit_price*val);
+        form.find('.list_price').html((unit_price*val).toLocaleString() + "{{_('원')}}");
+    }
+
+    $('input[id=product_code_user_choice]').click(function() {
+        var val = $(this).data("product-price") || 0;
+        if (val) {
+            $('input[id=unit_price]').val(val);
+        }
+        list_price_update(val);
+    });
+
+    //초기화시에 기본단가입력
+    list_price_update(parseInt($('#subscription_months').val()));
+});
+        </script>
+        <ul>
+        <li>{{_('ER-C에서 기본으로 제공하는 기본 프로젝트 그룹외 비공개로 프로젝트를 그룹핑 할 수 있는 프로젝트 그룹을 구매합니다.')}}</li>
+        <li>{{_('서비스 철회 및 환불은 구매일로부터 7일 이내에 가능합니다. 자세한 철회 및 환불 조건에 대해서는 이용약관을 참조하시기 바랍니다.')}}</li>
+            <li>{{_('서비스 종료후에는 프로젝트 관리자 외에는 프로젝트 공간 접속이 불가능하며, 모델 및 용어 데이타 열람 및 사용도 불가능합니다.')}}</li>
+        </ul>
+    </div>
+</div>
+{%- endmacro %}
+
+
+{% macro render_product_amount(field) -%}
+<div class="form-group">
+    <label class="control-label col-md-3">
+    {{_('총 결제금액<br/>(VAT포함)')}}
+    </label>
+    <div class="col-md-9 bg-red font-white">
+        <span class="list_price" style="font-size:40px;">{{ field.data | currency }}{{_('원')}}</span>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro render_customer_form_groups(form) -%}
+<div class="form-group">
+    <label class="control-label col-md-3"></label>
+    <div class="col-md-9 font-red-sunglo">
+    {{_('상품구매를 위한 결제자 정보를 입력해주세요. 결제자 정보는 PG사로 전송되며, NEXCORE-ERC에서는 저장하지 않습니다.')}}
+    </div>
+</div>
+{{ render_39field(form.sndOrdername) }}
+{{ render_39field(form.sndMobile) }}
+{{ render_39field(form.sndEmail) }}
+{%- endmacro %}
+
+{%- macro render_product_paybutton(form) -%}
+<div class="form-actions">
+   <label class="control-label col-md-3">
+    {{_('총 결제금액<br/>(VAT포함)')}}
+    </label>
+    <div class="col-md-9">
+         <span class="list_price" style="font-size:30px;">{{ form.sndAmount.data | currency }}{{_('원')}}</span>
+         <br/>
+            <input type="submit" value="결제하기" onclick="javascript:_pay(document.KSPayWeb);" class="btn btn-lg green mt-ladda-btn ladda-button">
+    </div>
+</div>
+{%- endmacro %}
+
+{%- macro render_proceed_to_pay() -%}
+<div class="form-actions">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-9">
+            <button type="submit" class="btn red mt-ladda-btn ladda-button" data-style="expand-right"><i class="fa fa-check"></i>
+            <span class="ladda-label">{{_('결제하겠습니다.')}}</span>
+            <span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div>
+            </button>
+        </div>
+    </div>
+</div>
+{%- endmacro %}

@@ -1,0 +1,51 @@
+{% extends "project_group/preference.html" %}
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield, render_39field_readonly %}
+{% from 'project/_form_helpers_product_billing.html' import render_product_description, render_product_amount, render_customer_form_groups, render_product_paybutton %}
+
+{% block project_content %}
+
+
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption font-blue">
+            <i class="icon-settings font-blue"></i>
+            <span class="caption-subject bold uppercase">{{_('구독 상품 선택')}}</span>
+            <span class="caption-helper"></span>
+        </div>
+    </div>
+    <div class="table">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>{{_('상품명')}}</th>
+                    <th>{{_('가격(월별)')}}</th>
+                    <th>{{_('사용자수')}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{_('기업50')}}</td><td>{{_('매달20만원')}}</td><td>50 Members</td>
+                    <td><a class="btn green featured-price uppercase" href="{{ url_for('project_group.pg_subscription', slug=project_group.slug, product_code='group_50') }}">CREATE</a></td>
+                </tr>
+                <tr>
+                    <td>{{_('기업100')}}</td><td>{{_('매달30만원')}}</td><td>100 Members</td>
+                    <td><a class="btn green featured-price uppercase" href="{{ url_for('project_group.pg_subscription', slug=project_group.slug, product_code='group_100') }}">CREATE</a></td>
+                </tr>
+                <tr>
+                    <td>{{_('기업200')}}</td><td>{{_('매달30만원')}}</td><td>100 Members</td>
+                    <td><a class="btn green featured-price uppercase" href="{{ url_for('project_group.pg_subscription', slug=project_group.slug, product_code='group_200') }}">CREATE</a></td>
+                </tr>
+                <tr>
+                    <td>{{_('기업300')}}</td><td>{{_('매달30만원')}}</td><td>100 Members</td>
+                    <td><a class="btn green featured-price uppercase" href="{{ url_for('project_group.pg_subscription', slug=project_group.slug, product_code='group_300') }}">CREATE</a></td>
+                </tr>
+                <tr>
+                    <td>{{_('기업1000')}}</td><td>{{_('매달30만원')}}</td><td>100 Members</td>
+                    <td><a class="btn green featured-price uppercase" href="{{ url_for('project_group.pg_subscription', slug=project_group.slug, product_code='group_unlimited') }}">CREATE</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

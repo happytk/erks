@@ -1,0 +1,17 @@
+<!-- BEGIN PRE-FOOTER(EVENT) -->
+{% set coupon_event_id = config['EVENT_170322_COUPON_ID'] %}
+
+{% if coupon_event_id and ProjectGroup.default() == g.project_group and current_user.is_active and  Coupon.available_to_get(coupon_event_id, current_user) %}
+<div class="page-prefooter page-prefooter-promotion bg-red" style="bottom: 0px; height: 80px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 footer-block text-center">
+                {{_('[이벤트] 지금 유료 프로젝트 상품을 3개월간 무료로 사용하실 수 있습니다. (-6/30까지, 선착순 100명)')}}
+                <br/>
+                <a href="{{ url_for('project.create_project_plus', coupon_event_id=coupon_event_id) }}" class="btn btn-default btn-transparent"> {{_('지금 체험하기')}} </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<!-- END PRE-FOOTER(EVENT) -->

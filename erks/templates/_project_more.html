@@ -1,0 +1,42 @@
+{% for project in projects %}
+{% set grades = project.get_grades(current_user) %}
+<li class="mt-list-item">
+    <div class="list-icon-container">
+        {% if (project.GUEST in grades or project.WAITING_MEMBER in grades) and project.private %}
+            <i class="fa fa-lock"></i>
+        {% else %}
+        <a href="{{ project.url }}">
+            <i class="fa fa-angle-right"></i>
+        </a>
+        {% endif %}
+    </div>
+    <div class="list-thumb">
+        <a href="{{ project.url }}">
+            <img src="{{ project.get_profile_img_url() }}" alt="{{ project.title }}" />
+        </a>
+    </div>
+    <div class="list-item-content">
+        <a href="{{ project.url }}">
+        <h2 class="uppercase bold">
+            {{ project.title }}
+            {% for user_grade in grades %}
+            <span class="badge badge-primary badge-roundless">{{ user_grade.grade }}</span>
+            {% endfor %}
+<!--             {% if project.ORGANIZER in grades %}{% endif %}
+            {% if project.MODELER in grades %}<span class="badge badge-primary badge-roundless">modeler</span>{% endif %}
+            {% if project.TERM_MANAGER in grades %}<span class="badge badge-primary badge-roundless">term manager</span>{% endif %}
+            {% if project.MEMBER in grades %}<span class="badge badge-primary badge-roundless">member</span>{% endif %}
+            {% if current_user in project.waiting_members %}<span class="badge badge-warning badge-roundless">waiting</span>{% endif %} -->
+            <p class="help-block">{{ project.description or '<font color="white">-</font>'|safe }}</p>
+        </h2>
+        </a>
+    </div>
+    {% set owner = project.owner %}
+    <div class="list-datetime bold uppercase font-yellow-casablanca"> <u>{{ project.created_at | naturalday }}</u> {{_('생성')}}, {{_('<u>%(user)s</u>님이 관리', user=owner.name or owner.email)}}{% if project.private %}, <u>{{_('비공개')}}</u>{% endif %}
+    {% if project.contact %}
+    <br/><i class="fa fa-check"></i> {{ project.contact }}
+    {% endif %}
+    </div>
+    <!-- {{ project.members | count }}명의 사용자 -->
+</li>
+{% endfor %}

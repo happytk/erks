@@ -1,0 +1,44 @@
+{% from '_form_helpers.html' import render_39field, render_39fields, render_39submit %}
+{% extends "portlet-body.htm.j2" %}
+
+{% block portlet_title %}
+<i clsas="fa fa-user"></i> {{ project_group_user.user_email }} {{_('사용자의 권한 설정')}}
+{% endblock %}
+
+{% block portlet_body %}
+<form action="{{ url_for('project_group._user_role_changer', project_group_user_id=project_group_user.id) }}"
+    class="form-horizontal form-bordered"
+    id="project-group-user-role-changer-form"
+    data-ajax="true"
+    method="post"
+    >
+    {{ render_39field(form.is_moderator) }}
+    {{ render_39field(form.is_termer) }}
+
+    {% if project_group_user.project_group == ProjectGroup.default() %}
+    <div class="form-group">
+        <label for="" class="control-label col-md-3"></label>
+        <div class="col-md-9">
+            <p>{{_('사용자의 비밀번호를 임시로 발급합니다.')}}
+                <b>{{_('버튼 클릭 즉시 처리됩니다.')}}</b></p>
+            <p>
+            <a class="btn red" data-ajax="true" href='{{ url_for("project_group._user_password_reset", project_group_user_id=project_group_user.id) }}'><i class="fa fa-sign-out"></i> {{_('이 사용자의 비밀번호를 임시발급합니다.') }}</a>
+        </div>
+    </div>
+    {% endif %}
+    <div class="form-group bg-red-pink last">
+        <label for="" class="control-label col-md-3"></label>
+        <div class="col-md-9">
+            <p>{{_('사용자가 더 이상 프로젝트그룹의 구성원이 아니더라도, 해당 사용자가 작성한 데이터는 유지됩니다.')}}
+                <b>{{_('버튼 클릭 즉시 처리됩니다.')}}</b></p>
+            <p>
+            <a class="btn red-thunderbird" href='{{ url_for("project_group.user_leave", project_group_user_id=project_group_user.id) }}'><i class="fa fa-sign-out"></i> {{_('이 사용자를 탈퇴처리합니다.') }}</a>
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn red"><i class="fa fa-check"></i> {{_('저장합니다.')}}</button>
+        <button type="button" class="btn dark" data-dismiss="modal">Close</button>
+    </div>
+</form>
+{% endblock %}

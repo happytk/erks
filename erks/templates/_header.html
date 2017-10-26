@@ -1,0 +1,21 @@
+{% if not project_group and project and project.project_group %}
+{% set project_group = project.project_group %}
+{% endif %}
+<!-- BEGIN LOGO -->
+<div class="page-logo">
+	{% if project_group and project_group.is_not_default %}
+	<a href="{{ url_for('project_group.index', slug=project_group.slug) }}">
+	{% else %}
+	<a href="{{ url_for('portal.default_project_group_index') }}">
+	{% endif %}
+		<!-- <div class="logo-title-small">NEXCORE</div><div class="logo-title-big">ER-</div><div class="logo-title-img">
+			<img src="/static/img/logo_icon_only.png" alt="logo" class="logo-default" style="width: 25px;height: 25px;">
+		</div> -->
+		<img src="/static/img/r3/logo_png.png" alt="logo" class="logo-default">
+	</a>
+	<span style="margin-top: 23px; color:white; float: left; text-decoration: italic;">
+	{% if project_group and project_group.is_not_default %} for <strong>{{ project_group.title }}</strong> {% endif %}
+	</span>
+</div>
+
+<!-- END LOGO -->

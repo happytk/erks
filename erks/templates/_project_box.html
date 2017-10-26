@@ -1,0 +1,31 @@
+{% macro render_project_box(project, user) -%}
+<div class="dashboard-stat">
+    <div class="visual">
+        {% if project %}
+        <div class="visual_gradient">
+        </div>
+        <a href="{{ url_for('project.index', project_id=project.id) }}">
+            <img src="{{ project.get_profile_img_url(True) }}" />
+        </a>
+        {% if project.owner == user %}
+        <div class="corner-ribbon top-left red shadow">OWNED</div>
+        {% endif %}
+        {% endif %}
+    </div>
+    <div class="details">
+        <h3 class="number">
+        {% if project %}
+        <a href="{{ url_for('project.index', project_id=project.id) }}">{{ project.title }}
+        </a>
+        <br/>
+        <span style="font-size:13px; font-weight: normal; color:white;">
+            {{_('%(cnt)d 명의 회원', cnt=project.members|count )}}
+            {% if project.private %}
+            <span class="glyphicon glyphicon-lock"></span>
+            {% endif %}
+        </span>
+        {% endif %}
+        </h3>
+    </div>
+</div>
+{% endmacro %}

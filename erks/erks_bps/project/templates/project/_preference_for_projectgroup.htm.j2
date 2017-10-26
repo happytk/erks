@@ -1,0 +1,56 @@
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield, render_39fieldlist %}
+
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+
+<form class="form-horizontal form-bordered"
+      id="project-group-project-pref-form"
+      data-project-id='{{ project.id }}'
+      method="post"
+      data-ajax="true"
+      action="{{ url_for('project._preference_for_projectgroup', project_id=project.id) }}"
+      >
+    <div class="form-body">
+        {{ form.hidden_tag() if form.hidden_tag }}
+        {{ render_39field(form.title) }}
+        {{ render_39field(form.description) }}
+        {{ render_39field(form.visible) }}
+        {{ render_39field(form.private) }}
+        {{ render_39field(form.project_group_managed, class_='last') }}
+    </div>
+    {{ render_39submit() }}
+{#     <div class="modal-footer">
+        <button type="button" class="btn red btn-outline"><i class="fa fa-check"></i> {{_('저장합니다.')}}</button>
+        <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+    </div> #}
+</form>
+{% endblock %}
+{# <script type="text/javascript">
+$(document).ready(function() {
+    var $form = $('#project-group-project-pref-form');
+    var $modal = $('.modal-body', $form);
+    var project_id = $form.data('project-id');
+
+    $('.make-switch', $modal).bootstrapSwitch();
+    $('.modal-footer .red').click(function(e) {
+
+        e.preventDefault();
+        console.log($form);
+        $.post(Flask.url_for('project._preference_for_projectgroup', {project_id: project_id}),
+            $form.serialize(),
+            function() {
+                App.alert({
+                    container: $modal, // alerts parent container
+                    place: 'prepend', // append or prepent in container
+                    type: 'success', // alert's typexxxx
+                    message: _('성공적으로 저장되었습니다.'),  // alert's message
+                    close: true, // make alert closable
+                    reset: false, // close all previouse alerts first
+                    focus: true, // auto scroll to the alert after shown
+                    closeInSeconds: 5, // auto close after defined seconds
+                    icon: 'fa fa-check' // put icon class before the message
+                });
+            });
+    });
+});
+</script> #}

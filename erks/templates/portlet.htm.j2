@@ -1,0 +1,25 @@
+<div class="portlet-wrapper" id="{{ uuid }}" data-display-header="{{ display_header }}">
+    <div class="portlet {{ portlet_cls or 'light'}}">
+        <div class="portlet-title {% if not display_header %} display-hide {% endif %}">
+            <div class="caption font-blue">
+                <span class="caption-subject bold uppercase">
+                <i class="fa {{ icon_cls }} font-blue"></i> {{ caption_subject }}</span>
+                <span class="caption-helper">{{ caption_helper }}</span>
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"> </a>
+                <!-- <a href="#portlet-config" data-toggle="modal" class="config"> </a> -->
+                <a href="javascript:;" data-url="{{ url }}" data-load="true" class="reload"> </a>
+                <a href="javascript:;" class="fullscreen"> </a>
+                <a href="javascript:;" class="remove"> </a>
+            </div>
+        </div>
+        <div class="portlet-body portlet-empty {{ portlet_body_cls }}">
+        </div>
+    </div>
+</div>
+{% if direct %}
+<script>
+$('#{{ uuid }} .portlet .portlet-title .tools a.reload').click();
+</script>
+{% endif %}

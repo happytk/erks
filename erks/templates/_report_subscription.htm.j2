@@ -1,0 +1,54 @@
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+<div class="table-responsive">
+    <form data-ajax="true" method="POST" action="{{ url_for('._report_subscription', slug=slug) }}">
+        <div class="form-body">
+            <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <th>{{_('프로젝트그룹')}}</th>
+                <th>{{_('프로젝트명')}}</th>
+                <th>{{_('권한')}}</th>
+                <th>{{_('모델표준용어통계')}}</th>
+                <th>{{_('모델스키마통계')}}</th>
+                <th>{{_('모델변경사항')}}</th>
+            </thead>
+            <tbody>
+            {% for project_user in project_user_objs %}
+            <tr>
+                <td>{{ project_user.project.project_group }}</td>
+                <td><a href="{{ project_user.project.url }}">{{ project_user.project }}</a></td>
+                <td>
+                    {% for grade in project_user.project.get_grades(current_user) %}
+                    <span class="label {{ grade['label'] }}">{{ grade['grade'] }}</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    <input {% if project_user.subscribed_report_model_glossary %} checked {% endif %}
+                        name='{{project_user.id}}'
+                        value="model_glossary" type="checkbox" class="make-switch" data-size="mini"/>
+                </td>
+                <td>
+                    <input {% if project_user.subscribed_report_model_schema %} checked {% endif %}
+                        name='{{project_user.id}}'
+                        value="model_schema" type="checkbox" class="make-switch" data-size="mini"/>
+                </td>
+                <td>
+                    <input {% if project_user.subscribed_report_model_change %} checked {% endif %}
+                        name='{{project_user.id}}'
+                        value="model_change" type="checkbox" class="make-switch" data-size="mini"/>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" class="text-center">
+                {{_('구독중인 프로젝트가 없습니다.')}}
+            </td></tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+        <div class="form-actions fluid text-right">
+            <button type="submit" class="btn btn-sm red"><i class="fa fa-check"></i> {{_('저장하기')}}</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

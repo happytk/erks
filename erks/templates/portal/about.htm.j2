@@ -1,0 +1,72 @@
+{% extends "portal/_base.htm.j2" %}
+
+{% block page_settings %}
+{% set active_menu = 'createproject'%}
+{% endblock %}
+{% block mainContent %}
+        <div class="contentsWrap">
+            <div class="contents overVisible">
+                <div class="introduceDiv">
+                    <h2 class="title">ER-Knowledge Studio 소개</h2>
+                    <div class="introduceSub01">
+                        <p class="txt1">비정형 데이터의 가치와 기회</p>
+                        <p class="txt2">매일 2.5quintillion byte의  바이트의 새로운 데이터가 생성된다고 합니다.<br />
+                        이중 대부분의 데이터는 도서, 기사, 헬스 데이터, 이메일, 블로그, 트위터 등의 비정형 데이터 입니다. <br />
+                        <br />
+                        데이터를 통해 수많은 비즈니스 기회와 가능성을 발견할 수 있습니다.<br />
+                        현실에서는 데이터 사용에 대한 이해 부족으로 충분히 활용하고 있지 못합니다.<br />
+                        <br />
+                        비정형 데이터는 자연어 처리(Natural Language Processing)라는 핵심 기능을 통해 수많은 데이터 중 중요한 단어<br />
+                        분석하고, 이해할 수 있습니다. 그리고 비즈니스 인사이트를 발굴할 수 있도록 도와줄 것입니다. </p>
+                        <div class="bg"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="introduceDiv02">
+                <p class="txt1">ER-Knowledge Studio</p>
+                <p class="txt2">작업을 한국어 환경에서 쉽고 더욱 정확하게  진행할 수 있도록 제공되는 서비스 입니다. Human Annotation은 Watson을 트레이닝 하기 위한 데이터 기반 작업입니다. <br />
+                전문 영역이 무엇이든 비정형데이터에서 엔터티와 엔터티 간의 관계를 확인하는 클라우드 기반의 인터페이스를 통해 직관적으로 학습시킬 수 있습니다.<br />
+                <br />
+                학습대상 예제를 만들 수 있고, 엔터티와 엔터티간의 관계가 정의되는 방식을 일관성 있게 관리하기 위한 협업 환경을 제공합니다. <br />
+                ER- Knowledge Studio를 사용하기 위해서 인공지능 박사학위는 물론 프로그램 코드를 작성할 필요도 없습니다. ER-KS에서 작업된 데이터를 Watson Knowledge Studio에 임포트하면, WKS는 <br />
+                트레이닝을 통해 머신러닝 모델을 생성합니다. 이렇게 생성된 어노테이터는 특정 산업이나 도메인에 특화된 데이터를 분석하는 어플리케이션을 만드는데 사용됩니다. <br />
+                <br />
+                Watson Knowledge Studio와 함께 사용할 수 있는 서비스에는 Watson Discovery, Watson Explorer 및 Alchemy Language Service가 있습니다.</p>
+                <img src="{{ url_for('static', filename='images/img_introduce_03.jpg') }}" />
+            </div>
+            <div class="contents">
+                <div class="introduceDiv introduceDiv03">
+                    <p class="txt1 alignC">서비스 특징</p>
+                    <ul class="info">
+                        <li>
+                            <p class="no">01</p>
+                            <p class="tit">직관적인 UI</p>
+                            <p class="desc">단 한 줄의 코드도 작성할 필요가 없는 <br />
+                            최신 UI를 사용하여 Watson에 자연어<br />
+                            뉘앙스를 도입합니다.</p>
+                        </li>
+                        <li>
+                            <p class="no">02</p>
+                            <p class="tit">협업 지원</p>
+                            <p class="desc">코그너티브 애플리케이션에 도메인<br />
+                            지식을 접목하면서 주제별 전문가<br />
+                            동료들과 협업할 수 있습니다.</p>
+                        </li>
+                        <li>
+                            <p class="no">03</p>
+                            <p class="tit">비용 효용 증대</p>
+                            <p class="desc">통합 개발 환경을 사용하기 전에 도메인<br />
+                            지식이 접목된 어노테이터를 이전보다<br />
+                            더 빠르게 작성 및 배치합니다.</p>
+                        </li>
+                    </ul>
+                    <p class="txt1 alignC">예시</p>
+                    <img src="{{ url_for('static', filename='images/img_introduce_04.jpg') }}" />
+                    <p class="txt1 alignC mt61">더 자세한 내용은 ER-KS Community에서 확인하세요.</p>
+                    <div class="btnArea mt36">
+                        <a href="#" class="btn medium w228 red radius">ER-KS Community 바로가기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

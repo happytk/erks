@@ -1,0 +1,56 @@
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield, render_39field_readonly %}
+{% from 'project/_form_helpers_product_billing.html' import render_product_description, render_product_amount, render_customer_form_groups, render_product_paybutton, render_proceed_to_pay %}
+
+<script src="{{ url_for('project.static', filename='js/billing-ksnet.js') }}" type="text/javascript"></script>
+
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption font-blue">
+            <i class="icon-settings font-blue"></i>
+            <span class="caption-subject bold uppercase">{{_('신규 프로젝트 생성')}}</span>
+            <span class="caption-helper">{{_('유료 사용자로 등록하셔서 더 많은 기능을 사용해보세요')}}</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <form id="prj_create_form" class="form-horizontal form-bordered" name="KSPayWeb" method="POST" {% if seq == 1 and coupon_event_id %} action="{{ url_for('project.create_project_plus_coupon_result') }}" {% elif seq == 1 %} action="{{ url_for('project.create_project_plus', seq=2) }}" {% endif %}>
+            {{ project_create_form.hidden_tag() if project_create_form.hidden_tag }}
+
+            {% if seq == 1 and coupon_event_id %}
+            {{ render_39field(project_create_form.title) }}
+            {{ render_39field(project_create_form.description) }}
+            {{ render_39field(project_create_form.visible) }}
+            {{ render_39field(project_create_form.private) }}
+            {{ render_product_description(project_create_form.product_obj, months=project_create_form.subscription_months.data, amount=project_create_form.sndAmount.data) }}
+            {{ render_proceed_to_pay() }}
+            {% elif seq == 1 %}
+            {{ render_39field(project_create_form.title) }}
+            {{ render_39field(project_create_form.description) }}
+            {{ render_39field(project_create_form.visible) }}
+            {{ render_39field(project_create_form.private) }}
+            {{ render_product_description(project_create_form.product_obj) }}
+            {{ render_39field(project_create_form.subscription_months) }}
+            {{ render_product_amount(project_create_form.sndAmount)}}
+            {{ render_customer_form_groups(project_create_form) }}
+            {{ render_proceed_to_pay() }}
+            {% else %}
+            {{ render_product_description(project_create_form.product_obj, months=project_create_form.subscription_months.data, amount=project_create_form.sndAmount.data) }}
+            {{ render_39field_readonly(project_create_form.sndOrdername) }}
+            {{ render_39field_readonly(project_create_form.sndMobile) }}
+            {{ render_39field_readonly(project_create_form.sndEmail) }}
+            {# render_39field_static(project_create_form.sndServicePeriod.label, project_create_form.sndServicePeriod.data) #}
+            {{ render_39field(project_create_form.sndPaymethod) }}
+            {{ render_product_paybutton(project_create_form) }}
+            {% endif %}
+        </form>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    $('#prj_create_form').parsley().on('form:submit', function() {
+        {% if seq == 2 %}
+        _pay(document.KSPayWeb);
+        return false;
+        {% endif %}
+    });
+});
+</script>

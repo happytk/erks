@@ -1,0 +1,15 @@
+{% extends g.project.base_html %}
+{% set active_page = active_page -%}
+{% from '_helpers.html' import debuginfo %}
+
+{% block project_content %}
+
+{% for portlet in portlets %}
+<!-- BEGIN PORTLET-->
+{{ portlet.render() | safe }}
+<!-- END PORTLET-->
+{% endfor %}
+
+{{ debuginfo(self) }}
+
+{% endblock project_content %}

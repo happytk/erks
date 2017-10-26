@@ -1,0 +1,105 @@
+{% if not project_group %}
+{% if project and project.project_group %}
+{% set project_group = project.project_group %}
+{% else %}
+{% set project_group = default_project_group %}
+{% endif %}
+{% endif %}
+
+        <div class="page-sidebar-wrapper">
+            <!-- BEGIN SIDEBAR -->
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <div class="page-sidebar navbar-collapse collapse">
+                <!-- BEGIN SIDEBAR MENU -->
+                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px; padding-bottom: 20px;">
+                    <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <li class="sidebar-toggler-wrapper hide">
+                        <div class="sidebar-toggler">
+                            <span></span>
+                        </div>
+                    </li>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                    <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+                    <li class="nav-item start ">
+                        {% if project_group and project_group.not_default %}
+                        <a href="{{ url_for('portal.about', slug=project_group.slug) }}"><span class="title">{{_('ER-C 소개')}}</span></a>
+                        {% else %}
+                        <a href="{{ url_for('portal.about') }}"><span class="title">{{_('ER-C 소개')}}</span></a>
+                        {% endif %}
+                    </li>
+                    {% if config['BILLING'] %}
+                    <li class="nav-item start ">
+                        {% if project_group.not_default %}
+                        <a href="{{ url_for('portal.services', slug=project_group.slug) }}">{{_('상품소개')}}</a>
+                        {% else %}
+                        <a href="{{ url_for('portal.services') }}">{{_('상품소개')}}</a>
+                        {% endif %}
+                    </li>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item start ">
+                        {% if project_group and project_group.not_default %}
+                        <a href="{{ url_for('project_group.list_projects', slug=project_group.slug) }}">{{_('전체 프로젝트')}}</a>
+                        {% else %}
+                        <a href="{{ url_for('project_group.list_projects', slug='default') }}">{{_('전체 프로젝트')}}</a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="{{ url_for('login.logout') }}">
+                                {{_('로그아웃')}}</a>
+                    </li>
+                    <li class="nav-item start ">
+                       <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-home"></i>
+                            <span class="title">{{_('프로젝트 바로가기')}}</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item start ">
+                                <a class="gnb_project_group" href="{{ url_for('portal.default_project_group_index') }}">{{_('기본')}}</a>
+                            </li>
+                            {% for prj in Project.my() %}
+                            <li class="nav-item start ">
+                                <a class="gnb_project" href="{{ url_for('project.index', project_id=prj.id) }}">
+                                    {{ prj.title }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                            {% for pg in ProjectGroup.my() %}
+                            <li class="nav-item start ">
+                                <a class="gnb_project_group" href="{{ pg.url }}">
+                                         {{pg.title}} </a>
+                            </li>
+                            {% for prj in Project.my(project_group=pg) %}
+                            <li class="nav-item start ">
+                                <a class="gnb_project" href="{{ url_for('project.index', project_id=prj.id) }}">
+                                    {{ prj.title }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item start ">
+                        <a href="{{ url_for('login.login') }}" class="nav-link nav-toggle">
+                        <span class="title">{{_('로그인')}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
+                        <a href="{{ url_for('login.signup') }}" class="nav-link nav-toggle">
+                        <span class="title">{{_('회원가입')}}</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>

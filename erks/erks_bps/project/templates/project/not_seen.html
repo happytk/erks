@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% from '_project_box.html' import render_project_box %}
+
+{% block page_title %}
+{% if not current_user.is_active %}
+{{_('프로젝트는 ER-C의 회원이 되신 후에 사용할 수 있습니다.')}}
+{% else %}
+{{_('비공개로 운영되는 프로젝트입니다.')}}
+<small>{{_('프로젝트 구성원이 되셔야 사용하실 수 있습니다.')}}</small>
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+<!-- py-test-tag: not-seen -->
+<style>
+.dashboard-stat {
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    height: 220px;
+}
+</style>
+<div class="row">
+	<div class="col-md-3">
+		<div class="margin-top-20" id="project">
+			{{ render_project_box(project) }}
+		</div>
+	</div>
+</div>
+{% if current_user.is_active and current_user.to_dbref() in project.waiting_requested_members %}
+<button class="btn btn-lg blue" disabled>{{_('프로젝트 관리자의 승인을 기다리는 중입니다.')}}</button>
+<!-- <button class="btn btn-lg blue" disabled>you are waiting to join</button> -->
+{% elif current_user.is_active %}
+<a class="btn btn-lg blue" data-toggle="modal" href="#join_request">{{_('프로젝트 가입요청')}}</a>
+<!-- <a class="btn btn-lg blue" data-toggle="modal" href="#join_request">you can request to join this project</a> -->
+{% else %}
+<a class="btn btn-lg blue" href="{{ url_for('login.signup', project_id=project.id)}}">{{_('프로젝트 가입요청 전, NEXCORE ER-C 회원가입을 해주세요!')}}</a>
+<!-- <a class="btn btn-lg blue" href="{{ url_for('login.signup', project_id=project.id)}}">Join our site! then you can request to join this project</a> -->
+<br/>
+or
+<br/>
+<a class="btn btn-lg blue" href="{{ url_for('login.login', project_id=project.id)}}">{{_('로그인')}}</a>
+{% endif %}
+
+<a href="{{ url_for('portal.index') }}" class="btn btn-lg red" >{{_('홈으로 돌아가기')}}</a>
+
+{% include "project/join.html" %}
+
+{% endblock content %}
+
+{% block footer %}
+{% endblock %}

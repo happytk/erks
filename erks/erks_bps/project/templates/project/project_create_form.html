@@ -1,0 +1,38 @@
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield %}
+
+<div class="portlet light form-fit">
+    <div class="portlet-title">
+        <div class="caption font-blue">
+            <i class="icon-settings font-blue"></i>
+            <span class="caption-subject bold uppercase">{{_('신규 프로젝트 생성')}}</span>
+            <span class="caption-helper">{% if project_group.is_default %}
+            {{_('가입 사용자에게 무료로 제공되는 서비스입니다.')}}{% endif %}</span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <form
+            action="{{ url_for('project.create_project', slug=project_group.slug) }}"
+            id="prj_create_form"
+            class="form-horizontal form-bordered"
+            method="POST"
+            data-parsley-validate=''>
+            {{ project_create_form.hidden_tag() if project_create_form.hidden_tag }}
+            {% if project_group.is_not_default %}
+            {% call render_39field(project_create_form.project_group) %}
+                <span class="form-control-static">
+                {{ project_group.title }}</span>
+                {{ project_create_form.project_group() }}
+            {% endcall %}
+            {% endif %}
+            {{ render_39field(project_create_form.title) }}
+            {{ render_39field(project_create_form.description, class_='last') }}
+            {# render_39field(project_create_form.visible, class_="last") #}
+            {# render_39field(project_create_form.private) #}
+            {% call render_39submit('프로젝트를 생성합니다.') %}
+                <div class="pull-right">
+                    <a class="btn btn-default" href='{{ project_group.url }}'><i class="fa fa-mail-forward"></i> {{_('프로젝트 목록으로 돌아가기')}}</a>
+                </div>
+            {% endcall %}
+        </form>
+    </div>
+</div>

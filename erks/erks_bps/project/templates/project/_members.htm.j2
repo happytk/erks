@@ -1,0 +1,131 @@
+{% from '_form_helpers.html' import render_39field, render_39fields %}
+{% extends "portlet-body.htm.j2" %}
+
+{% block portlet_helper %}
+{% if config['BILLING'] %}
+{{_('총 %(members_cnt)d %(limit_cnt)s 명의 멤버', members_cnt=project.members_cnt, limit_cnt=project.product.member_cnt_limit and '/{0}'.format(project.product.member_cnt_limit) or '')}}
+{% endif %}
+{% endblock %}
+
+{% block portlet_body %}
+
+{%- if not project.is_new_member_available() %}
+<div class="note note-danger">
+    <h4 class="block">{{_('더 이상 사용자를 추가할 수 없습니다')}}</h4>
+    <p> {{_('이 프로젝트의 최대 정원은 %(memger_cnt)d명이며, 현재 추가로 사용자를 초대하거나 받아들일 수 없습니다. 활동하지 않는 현재 사용자와, 초대된 사용자를 정리해보시는 건 어떨까요? 다만, 가입요청한 사용자(%(requested_memebers)d)는 프로젝트 정원에 포함되지 않습니다.', memger_cnt=project.product.member_cnt_limit or 0, requested_memebers=project.waiting_requested_members|list|count)}}</p>
+</div>
+{%- endif %}
+
+<form
+    action="#"
+    autocomplete="off"
+    class="form-horizontal"
+    data-project-id="{{ project.id }}"
+    id="member-search-form"
+    method="post"
+    name="member-search-form"
+>
+    <div class="well">
+        {{ search_form.hidden_tag() if search_form.hidden_tag }}
+        {{ render_39field(search_form.search_text, autocomplete="off", placeholder=_('EMAIL로 검색가능합니다.')) }}
+        {{ render_39fields([
+            search_form.is_owner,
+            search_form.is_termer,
+            search_form.is_modeler], label=_('사용자권한별')) }}
+        {{ render_39fields([
+            search_form.is_member,
+            search_form.is_outbound_user,
+            search_form.is_inbound_user_request], label=_('사용자유형')) }}
+        <div class="form-actions margin-top-20">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-9">
+                    <button id="search" class="btn btn-primary">{{_('검색')}} <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id='project-user-table-toolbar' class='columns'>
+</div>
+<table id="project-user-table"
+       data-toggle="table"
+       data-search="false"
+       data-side-pagination="server"
+       data-pagination="true"
+       data-page-list="[5, 10, 20, 50, 100, 200]"
+       data-page-size="10"
+       data-query-params="memberTableSearchQuery"
+       data-url="/api_btstptbl/project/{{ project.id }}/users/advsearch"
+       data-method="get"
+       data-toolbar='#project-user-table-toolbar'
+       data-unique-id="id"
+       data-sort-name="last_visited_at"
+       data-sort-order="desc"
+       data-show-columns="true"
+       data-project-id="{{ project.id }}">
+    <thead>
+    <tr>
+        <th data-checkbox="true"></th>
+        <th data-field="user_email" data-sortable="true">{{ _('이메일') }}</th>
+        <th data-field="user.name">{{ _('이름') }}</th>
+        <th data-formatter="roleFormatter">{{ _('역할') }}</th>
+        <th data-field="last_visited_at" data-sortable="true" data-formatter='btstrp_commonf_datetime'>{{ _('최근방문일시') }}</th>
+        <th data-field="created_at" data-visible="false" data-sortable="true" data-formatter='btstrp_commonf_datetime'>{{ _('프로젝트가입일시') }}</th>
+        <th data-field="is_owner" data-visible="false" data-sortable="true" data-formatter='btstrp_commonf_checked'>{{ _('관리자') }}</th>
+        <th data-field="is_modeler" data-visible="false" data-sortable="true" data-formatter='btstrp_commonf_checked'>{{ _('모델러') }}</th>
+        <th data-field="is_termer" data-visible="false" data-sortable="true" data-formatter='btstrp_commonf_checked'>{{ _('용어관리자') }}</th>
+        {% if is_p_owner() %}
+        <th data-field="is_owner" data-formatter="roleChangerFormatter"> {{ _('설정') }} </th>
+        <th data-field="is_owner" data-formatter="actionFormatter"> {{ _('Action') }} </th>
+        {% endif %}
+    </tr>
+    </thead>
+</table>
+
+<!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
+<div class="modal fade" id="role-changer-modal" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content portlet-wrapper">
+            <div class="modal-body">
+                <img src="/comp/static/assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
+                <span> &nbsp;&nbsp;Loading... </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal -->
+
+{% if current_user in project.members and project.owner != current_user %}
+<div class="pull-right">
+    <a data-toggle="modal" href="#project_leave" class="btn btn-sm red"><i class="fa fa-sign-out"></i> {{_('이 프로젝트를 탈퇴하겠습니다.')}}</a>
+    <!-- <a href="{{ url_for('.leave', project_id=project.id) }}" class="btn red btn-xs" >I WANT TO LEAVE THIS PROJECT</a> -->
+</div>
+
+<div class="modal fade" id="project_leave" tabindex="-1" role="project_leave" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">{{ _('주의하세요.')}}</h4>
+            </div>
+            <div class="modal-body"> <u>{{ project.title }}</u> {{ _('프로젝트에서 정말로 나가시겠습니까?')}} </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                <a href="{{ url_for('.leave', project_id=project.id) }}"  type="button" class="btn red">{{ _('네, 프로젝트를 탈퇴하겠습니다.')}}</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+{% endif %}
+
+<link href="/comp/static/assets/global/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="/comp/static/assets/global/plugins/icheck/icheck.min.js"></script>
+<script src="{{ url_for('.static', filename='js/members.js') | autoversion }}" type="text/javascript"></script>
+<script type="text/javascript">
+Members.init();
+$('#project-user-table').bootstrapTable();
+</script>
+{% endblock %}

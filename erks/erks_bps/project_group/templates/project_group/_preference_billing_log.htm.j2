@@ -1,0 +1,60 @@
+{% extends "portlet-body.htm.j2" %}
+{% block portlet_body %}
+
+<table class="table table-condensed table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                {{ _('결제일자')}}
+            </th>
+            <th>
+                {{ _('결제')}}
+            </th>
+            <th>
+                {{ _('상품')}}
+            </th>
+            <th>
+                {{ _('결제금액')}}
+            </th>
+            <th>
+                {{ _('실행')}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in billing_log %}
+        <tr>
+            <td> {{ log.pay_when|strd_dt_fmt }} </td>
+            <td> {{ log.payer.email }} </td>
+            <td> {{ log.product }} ({{ _('%(quantity)d개', quantity=log.quantity)}})
+            <br>
+            <div class="help-block">{{ log.started_when|strd_dt_fmt }}-{{ log.expired_when|strd_dt_fmt }}</div>
+            </td>
+            <td> {{ _('%(amount)s원', amount=log.amount|currency)}} </td>
+            <td>
+                {% if log.available_to_cancel %}
+                <a href="{{ url_for('project_group.pg_cancel_subscription', slug=project_group.slug, order_id=log.id) }}"
+                class=""><i class="fa fa-close"></i> {{ _('취소요청')}}</a>
+                {% elif log.canceled %}<span class="label label-warning">{{ _('취소처리중')}}</span>
+                {% elif log.check_in_use %}<span class="label label-info">{{ _('사용중')}}</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('project_group.pg_subscription', slug=project_group.slug) }}" class="btn btn-primary">
+{% if project_group.is_billed %}
+<i class="fa fa-plus"></i>{{ _('연장하기 (이용상품:')}} {{ project_group.product.product_name }})</a>
+{% else %}
+<i class="fa fa-plus"></i>{{ _('새로운 구독 시작하기')}}</a>
+{% endif %}
+
+
+
+{% if project_group.is_billed %}
+    {{ _('서비스기간은 <b class="font-red">%(expired)s</b>까지입니다.', expired=project_group.billed_expired_when | strd_dt_fmt)}}
+{% endif %}
+
+{% endblock %}

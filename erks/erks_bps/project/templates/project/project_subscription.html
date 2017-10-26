@@ -1,0 +1,62 @@
+{% extends g.project.base_html %}
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield, render_39field_readonly %}
+{% from 'project/_form_helpers_product_billing.html' import render_product_description, render_product_amount, render_customer_form_groups, render_product_paybutton, render_proceed_to_pay %}
+
+{% set active_page = 'setting' -%}
+
+{% block script_head %}
+{{ super() }}
+<link href="/comp/static/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
+<!-- <script src="/comp/static/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script> -->
+<script src="{{ url_for('project.static', filename='js/billing-ksnet.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block project_content %}
+
+<!-- BEGIN PORTLET-->
+<div class="portlet light form-fit">
+    <div class="portlet-title">
+        <div class="caption font-blue">
+            <i class="icon-settings font-blue"></i>
+            <span class="caption-subject bold uppercase">{{_('프로젝트 구독')}}</span>
+            <span class="caption-helper"></span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <form name="KSPayWeb" id="prj_create_form" class="form-horizontal form-bordered" method="POST"
+        {% if seq == 1 %} action="{{ url_for('project.subscription', project_id=project.id, seq=2) }}" {% endif %}>
+            {{ form.hidden_tag() if form.hidden_tag }}
+
+            {% if seq == 1 %}
+            {{ render_product_description(form.product_obj) }}
+            {{ render_39field(form.subscription_months) }}
+            {{ render_product_amount(form.sndAmount)}}
+            {{ render_customer_form_groups(form) }}
+            {{ render_proceed_to_pay() }}
+            {% else %}
+            {{ render_product_description(form.product_obj, months=form.subscription_months.data, amount=form.sndAmount.data) }}
+            {{ render_39field_readonly(form.sndOrdername) }}
+            {{ render_39field_readonly(form.sndMobile) }}
+            {{ render_39field_readonly(form.sndEmail) }}
+            {{ render_39field(form.sndPaymethod) }}
+            {{ render_product_paybutton(form) }}
+            {% endif %}
+        </form>
+    </div>
+
+</div>
+<!-- END PORTLET-->
+{% endblock %}
+
+{% block script_foot %}
+{{ super() }}
+<script src="/comp/static/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script>
+$('#prj_create_form').parsley().on('form:submit', function() {
+    {% if seq == 2 %}
+    _pay(document.KSPayWeb);
+    return false;
+    {% endif %}
+});
+</script>
+{% endblock %}

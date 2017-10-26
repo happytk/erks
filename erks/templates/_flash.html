@@ -1,0 +1,10 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        {% set category = (category == 'message') and 'info' or category %}
+        <div class="note note-{{ category }}">
+            <h4 class="block">{{ message }}</h4>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}

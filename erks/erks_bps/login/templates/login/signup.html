@@ -1,0 +1,111 @@
+{% extends "login/base.html" %}
+{% block content %}
+    <!-- BEGIN REGISTRATION FORM -->
+    <form class="register-form" action="{{ url_for('.signup') }}" method="post">
+        {{ form.hidden_tag() if form.hidden_tag }}
+        <h3>{{_('회원가입')|capitalize}}</h3>
+        <!-- <h3>Sign Up</h3> -->
+        {% block flash %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-danger"><!-- display-hide -->
+                    <button class="close" data-close="alert"></button>
+                    <span>{{ message }}</span>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% endblock %}
+        <p>
+             {{_('아래에 회원가입에 필요한 정보를 입력하세요')}}:
+        <!-- Enter your account details below:-->
+        </p>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">{{_('이메일')}}</label>
+            <!-- <label class="control-label visible-ie8 visible-ie9">Email</label> -->
+            <div class="input-icon">
+                <i class="fa fa-envelope"></i>
+                {{ form.email(class_='form-control placeholder-no-fix', type="text", placeholder=_('이메일')) }}
+            </div>
+            {% if 'email' in form.errors %}
+            {% for error_msg in form.errors['email'] %}
+            <span id="email-error" class="help-block">{{ error_msg }}</span>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">{{_('비밀번호')}}</label>
+            <!-- <label class="control-label visible-ie8 visible-ie9">Password</label> -->
+            <div class="input-icon">
+                <i class="fa fa-lock"></i>
+                {{ form.password(class_='form-control placeholder-no-fix', type="password", autocomplete="off", id="register_password", placeholder=_('비밀번호')) }}
+            </div>
+            {%- if 'password' in form.errors %}
+            {%- for error_msg in form.errors['password'] %}
+            <span id="password-error" class="help-block">{{ error_msg }}</span>
+            {%- endfor %}
+            {%- endif %}
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">{{_('비밀번호 재입력')}}</label>
+            <!-- <label class="control-label visible-ie8 visible-ie9">Re-type Your Password</label> -->
+            <div class="controls">
+                <div class="input-icon">
+                    <i class="fa fa-check"></i>
+                    {{ form.password_confirm(class_='form-control placeholder-no-fix', type="password", autocomplete="off", id="register_password_check", placeholder=_('비밀번호 재입력')) }}
+                </div>
+            </div>
+            {% if 'password_confirm' in form.errors %}
+            {% for error_msg in form.errors['password_confirm'] %}
+            <span id="password-error" class="help-block">{{ error_msg }}</span>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label>
+            <input type="checkbox" name="chk_term_of_service"/>
+            {{_('<a href="%(url)s" data-target="#footer-toc-ajax" data-toggle="modal">
+            서비스 이용 약관</a> 에 동의합니다.', url=url_for('portal.dialog_toc'))}}
+            <br>
+            <div id="register_term_of_service_error">
+            </div>
+            </label>
+            <label>
+            <input type="checkbox" name="chk_privacy_policy"/>
+            {{_('<a href="%(url)s" data-target="#footer-privacy_policy-ajax" data-toggle="modal">
+            개인정보 처리방침</a> 에 동의합니다.', url=url_for('portal.dialog_privacy_policy') )}}
+            <br>
+            <div id="register_privacy_policy_error">
+            </div>
+            </label>
+            <label>
+            <input type="checkbox" name="chk_privacy_policy_agree"/>
+            {{_('<a href="%(url)s" data-target="#footer-privacy_policy-agree-ajax" data-toggle="modal">
+            개인정보의 수집∙이용 동의서</a> 에 동의합니다.', url=url_for('portal.dialog_privacy_policy_agree'))}}
+            <br>
+            <div id="register_privacy_policy_agree_error">
+            </div>
+            </label>
+            <label>
+            {{_('상기 약관 / 개인정보 처리방침 및 수집∙이용에 대한 내용을 숙지 후, 동의 하셔야만 회원가입을 하실 수 있습니다.')}}
+            </label>
+            <!-- <input type="checkbox" name="tnc"/> I agree to the <a href="javascript:;" id="btn_term_of_service">
+            Terms of Service </a>
+            and <a href="javascript:;" id="btn_privacy_policy">
+            Privacy Policy </a> -->
+        </div>
+        <div class="form-actions">
+            <button id="register-back-btn" type="button" class="btn" onclick="javascript:history.go(-1);">
+            <i class="m-icon-swapleft"></i> {{_('이전으로')}} </button>
+            <!-- <i class="m-icon-swapleft"></i> Back </button> -->
+            <button type="submit" id="register-submit-btn" class="btn blue pull-right">
+            {{_('가입하기')}} <i class="m-icon-swapright m-icon-white"></i>
+            <!-- Sign Up <i class="m-icon-swapright m-icon-white"></i> -->
+            </button>
+        </div>
+
+        <input type="hidden" value="{{ next or '' }}" name="next">
+    </form>
+    <!-- END REGISTRATION FORM -->
+{% endblock %}

@@ -1,0 +1,233 @@
+{% from '_form_helpers.html' import render_39field, render_39fields %}
+{% extends "portlet-body.htm.j2" %}
+
+{% block portlet_helper %}
+{{ project_user.user_email }} {{_('사용자의 권한 설정')}}
+{% endblock %}
+
+{% block portlet_body %}
+<form
+    class="form-horizontal form-bordered"
+    id="project-user-role-changer-form"
+    data-project-user-id='{{ project_user.id }}'
+    data-ajax="true"
+    action="{{ url_for('projectuser._user_role_changer', project_user_id=project_user.id) }}"
+    method="post"
+    >
+    {{ form.hidden_tag() if form.hidden_tag }}
+    <div class="panel-group accordion" id="accordion3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_1"> {{ _('모델러 권한 설정') }}</a>
+                </h4>
+            </div>
+            <div id="collapse_3_1" class="panel-collapse in">
+                <div class="panel-body">
+                    {{ render_39field(form.is_modeler) }}
+                    <div id="is-modeler-wrapper"
+                         class="{% if not form.is_modeler.data %}display-hide{% endif %}">
+                        {{ render_39field(form.can_manage_all_models) }}
+                        {# render_39field(form.manageable_models) #}
+                        <div id="modeler-table-wrapper"
+                             class="col-md-12 {% if form.can_manage_all_models.data %}display-hide{% endif %}">
+                            <table id="modeler-role-detail-table"
+                                   data-toggle="table"
+                                   data-pagination="false"
+                                   data-search="true"
+                                   data-maintain-selected="false"
+                                   data-click-to-select="true"
+                                   data-unique-id="Oid">
+                                <thead>
+                                    <th data-field="Oid" data-visible="false">Oid</th>
+                                    <th data-field="name" data-sortable="true">{{ _('모델명')}}</th>
+                                    <th data-field="is_my" data-checkbox="true">use</th>
+                                </thead>
+                                <tbody>
+                                {% for model, is_my in form.populate_my_models() %}
+                                <tr>
+                                    <td>{{ model.Oid }}</td>
+                                    <td>{{ model.name }}</td>
+                                    <td>{% if is_my %}-{% endif %}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_2"> {{ _('용어관리자 권한 설정') }} </a>
+                </h4>
+            </div>
+            <div id="collapse_3_2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    {{ render_39field(form.is_termer) }}
+                    {% if not project_user.project_group_user.project_group.use_glossary_master %}
+                    <div id="is-termer-wrapper"
+                         class="{% if not form.is_termer.data %}display-hide{% endif %}">
+                        {{ render_39field(form.can_manage_all_glossaries) }}
+                        {# render_39field(form.manageable_glossaries) #}
+                        <div id="termer-table-wrapper"
+                             class="col-md-12 {% if form.can_manage_all_glossaries.data %}display-hide{% endif %}">
+                             <div class="alert alert-info">
+                                {{ _('관리할 용어사전을 선택해주세요. 이 사용자의 경우 신규 용어사전은 생성할 수 없습니다.') }}
+                             </div>
+                            <table id="termer-role-detail-table"
+                                   data-toggle="table"
+                                   data-pagination="false"
+                                   data-search="true"
+                                   data-maintain-selected="false"
+                                   data-click-to-select="true"
+                                   data-unique-id="id">
+                                <thead>
+                                    <th data-field="id" data-visible="false">id</th>
+                                    <th data-field="glossary_name" data-sortable="true">{{ _('용어사전명') }}</th>
+                                    <th data-field="is_my" data-checkbox="true">{{ _('사용') }}</th>
+                                </thead>
+                                <tbody>
+                                {% for glossary, is_my in form.populate_my_glossaries() %}
+                                <tr>
+                                    <td>{{ glossary.id }}</td>
+                                    <td>{{ glossary.glossary_name }}</td>
+                                    <td>{% if is_my %}-{% endif %}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_3"> {{ _('기타 설정') }}  </a>
+                </h4>
+            </div>
+            <div id="collapse_3_3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{_('사용자가 더 이상 프로젝트의 구성원이 아니더라도, 해당 사용자가 작성한 데이터는 유지됩니다.') }}
+                        <b>{{_('버튼 클릭 즉시 처리됩니다.') }}</b></p>
+                    <p>
+                        <a class="btn red" href='{{ url_for("projectuser.user_leave", project_user_id=project_user.id) }}'><i class="fa fa-sign-out"></i> {{_('이 사용자를 탈퇴처리합니다.') }}</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn red"><i class="fa fa-check"></i> {{_('저장합니다.')}}</button>
+        <button type="button" class="btn dark" data-dismiss="modal">Close</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var $form = $('#project-user-role-changer-form');
+    // var $modal = $('.modal-body', $form);
+    var project_user_id = $form.data('project-user-id');
+    if (!project_user_id) {
+        console.log($form, project_user_id);
+        alert('check project-user-id!');
+        return;
+    }
+
+    // $('.make-switch', $modal).bootstrapSwitch();
+    // $('table', $modal).bootstrapTable();
+
+    $('#is_modeler', $form).on('switchChange.bootstrapSwitch', function(event, state) {
+        if (state) {
+            $('#is-modeler-wrapper').show();
+        }
+        else {
+            $('#is-modeler-wrapper').hide();
+        }
+    });
+
+    $('#is_termer', $form).on('switchChange.bootstrapSwitch', function(event, state) {
+        if (state) {
+            $('#is-termer-wrapper').show();
+        }
+        else {
+            $('#is-termer-wrapper').hide();
+        }
+    });
+
+    $('#can_manage_all_models', $form).on('switchChange.bootstrapSwitch', function(event, state) {
+        if (state) {
+            $('#modeler-table-wrapper').hide();
+        }
+        else {
+            $('#modeler-table-wrapper').show();
+
+        }
+    });
+
+    $('#can_manage_all_glossaries', $form).on('switchChange.bootstrapSwitch', function(event, state) {
+        if (state) {
+            $('#termer-table-wrapper').hide();
+        }
+        else {
+            $('#termer-table-wrapper').show();
+
+        }
+    });
+
+    $form.submit(function(e) {
+        var model_ids = null,
+            glossary_ids = null;
+
+        // e.preventDefault();
+
+        model_ids = $('#modeler-role-detail-table', $form).bootstrapTable('getData');
+        glossary_ids = $('#termer-role-detail-table', $form).bootstrapTable('getData');
+
+        console.log(model_ids, glossary_ids);
+
+        model_ids = $.map(model_ids, function(row) {
+            if (row.is_my || row.is_my == undefined) {
+                return row.Oid; // oid를 저장해야 이력과 상관없이 조회 가능
+            }
+            else { return ''; }
+        });
+        model_ids = model_ids.filter(function(e) { return e; });
+        // alert(model_ids.join(','));
+        $('#manageable_models', $form).val(model_ids.join(','));
+
+        glossary_ids = $.map(glossary_ids, function(row) {
+            if (row.is_my || row.is_my == undefined) {
+                return row.id;
+            }
+            else { return ''; }
+        });
+        glossary_ids = glossary_ids.filter(function(e) { return e; });
+
+        $('#manageable_glossaries', $form).val(glossary_ids.join(','));
+        // // $form.submit();
+        // // console.log($form.serialize());
+        // $.post(Flask.url_for('projectuser._user_role_changer', {project_user_id: project_user_id}),
+        //     $form.serialize(),
+        //     function() {
+        //         App.alert({
+        //             container: $form, // alerts parent container
+        //             place: 'prepend', // append or prepent in container
+        //             type: 'success', // alert's typexxxx
+        //             message: _('성공적으로 저장되었습니다.'),  // alert's message
+        //             close: true, // make alert closable
+        //             reset: false, // close all previouse alerts first
+        //             focus: true, // auto scroll to the alert after shown
+        //             closeInSeconds: 5, // auto close after defined seconds
+        //             icon: 'fa fa-check' // put icon class before the message
+        //         });
+        //     });
+    });
+});
+</script>
+{% endblock %}

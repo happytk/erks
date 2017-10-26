@@ -1,0 +1,43 @@
+{% extends "login/base.html" %}
+{% block content %}
+
+        <!-- BEGIN FORGOT PASSWORD FORM -->
+        <form class="forget-form" action="{{ url_for('.resend_verifying_mail') }}" method="post">
+            <h4>{{_('인증메일 재전송')}}</h4>
+            <p>
+                 {{_('인증메일 전송을 위해 아래에 이메일 주소를 입력해주세요.')}}
+            </p>
+            <!-- <h3>Forget Password ?</h3>
+            <p>
+                 Enter your e-mail address below to reset your password.
+            </p> -->
+            {% block flash %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-danger"><!-- display-hide -->
+                        <!-- <button class="close" data-close="alert"></button> -->
+                        <span>{{ message }}</span>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% endblock %}            
+            <div class="form-group">
+                <div class="input-icon">
+                    <i class="fa fa-envelope"></i>
+                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="이메일" name="email"/>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="back-btn" class="btn" onclick="javascript:history.go(-1);">
+                <i class="m-icon-swapleft"></i> {{_('이전으로')}} </button>
+                <!-- <i class="m-icon-swapleft"></i> Back </button> -->
+                <button type="submit" class="btn blue pull-right">
+                {{_('보내기')}} <i class="m-icon-swapright m-icon-white"></i>
+                </button>
+            </div>
+        </form>
+        <!-- END FORGOT PASSWORD FORM -->
+
+{% endblock %}

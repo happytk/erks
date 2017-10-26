@@ -1,0 +1,71 @@
+{% extends "project_group/preference.html" %}
+{% from '_form_helpers.html' import render_39field, render_39submit, render_39imgfield, render_39field_readonly %}
+{% from 'project/_form_helpers_product_billing.html' import render_product_description, render_product_amount, render_customer_form_groups, render_product_paybutton, render_products_selection, render_proceed_to_pay %}
+
+
+{% block script_head %}
+{{ super() }}
+<link href="/comp/static/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
+<!-- <script src="/comp/static/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script> -->
+<script src="{{ url_for('project.static', filename='js/billing-ksnet.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block project_content %}
+<!-- BEGIN PORTLET-->
+<div class="portlet light form-fit">
+    <div class="portlet-title">
+        <div class="caption font-blue">
+            <i class="icon-settings font-blue"></i>
+            <span class="caption-subject bold uppercase">{{_('프로젝트 그룹 구독')}}</span>
+            <span class="caption-helper"></span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <form name="KSPayWeb" id="pg_billing_form" class="form-horizontal form-bordered" method="POST"
+            {% if seq == 1 %} action="{{ url_for('project_group.pg_subscription', slug=project_group.slug, seq=2) }}" {% endif %}>
+
+            {{ pg_billing_form.hidden_tag() if pg_billing_form.hidden_tag }}
+
+            {% if seq == 1 %}
+            {% if pg_billing_form.product_obj.data %}
+            {{ render_product_description(pg_billing_form.product_obj) }}
+            {% else %}
+            {{ render_products_selection(products) }}
+            {% endif %}
+            {{ render_39field(pg_billing_form.subscription_months) }}
+            {{ render_product_amount(pg_billing_form.sndAmount)}}
+            {{ render_customer_form_groups(pg_billing_form) }}
+            {{ render_proceed_to_pay() }}
+            {% else %}
+            {{ render_product_description(pg_billing_form.product_obj, months=pg_billing_form.subscription_months.data,
+            amount=pg_billing_form.sndAmount.data) }}
+            {{ render_39field_readonly(pg_billing_form.sndOrdername) }}
+            {{ render_39field_readonly(pg_billing_form.sndMobile) }}
+            {{ render_39field_readonly(pg_billing_form.sndEmail) }}
+            {{ render_39field(pg_billing_form.sndPaymethod) }}
+            {{ render_product_paybutton(pg_billing_form) }}
+            {% endif %}
+
+        </form>
+    </div>
+</div>
+<!-- END PORTLET-->
+
+
+{% endblock %}
+
+
+{% block script_foot %}
+{{ super() }}
+<script src="/comp/static/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script>
+
+$('#pg_billing_form').parsley().on('form:submit', function() {
+    {% if seq == 2 %}
+    //TODO: Need to refactor
+    _pay(document.KSPayWeb);
+    return false;
+    {% endif %}
+});
+</script>
+{% endblock %}

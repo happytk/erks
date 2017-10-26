@@ -1,0 +1,16 @@
+[report]
+omit =
+    *.html
+    *.email
+    *.j2
+    ercc/ercc_bps/erc/*.py
+    ercc/ercc_bps/schema/*.py
+    ercc/ercc_bps/model_mgmt/*.py
+    ercc/ercc_bps/report/*.py
+    ercc/ercc_bps/admin/*.py
+    */manager.py
+    ercc/db_utils/*.py
+    ercc/utils/form/*.py
+    ercc/_version.py
+    ercc/celery.py
+    ercc/tasks.py

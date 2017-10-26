@@ -1,0 +1,17 @@
+{% extends g.project.base_html %}
+
+{% block project_content %}
+<!-- BEGIN PAGE CONTENT-->
+{% if not project.is_expired or not config['BILLING'] %}
+<div class="row">
+    <div class="col-md-6">
+        {{ Portlet('project._summary_model', project_id=project.id).render() | safe }}
+        {{ Portlet('project._summary_glossary', project_id=project.id).render() | safe }}
+    </div>
+    <div class="col-md-6">
+        {{ Portlet('project._summary_board', project_id=project.id).render() | safe }}
+    </div>
+</div>
+{% endif %}
+<!-- END PAGE CONTENT-->
+{% endblock project_content %}

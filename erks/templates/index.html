@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% from '_project_box.html' import render_project_box %}
+{% from '_form_helpers.html' import render_form %}
+
+{% block flash %}{% endblock %}
+{% block body_additional_class %} page-footer-fixed {% endblock %}
+{% block container_wrapper %}
+
+<div class="jumbotron jumbotron_header">
+    <div class="jumbotron-inner-wrapper">
+        <div class="container">
+            <img src="{{ _('/static/img/r3/main_banner_01_text.png') }}" style="max-width:100%;">
+        </div>
+    </div>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="clearfix">
+    </div>
+    <div class="row">
+        {% for category, message in messages %}
+        {% set category = (category == 'message') and 'info' or category %}
+        <div class="text-center note note-{{ category }}">
+            <h4 class="block">{{ message }}</h4>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endwith %}
+{% if config['BILLING'] %}
+<div class="container col-xs-hidden">
+    <a href="http://b2b.tworld.co.kr/bizts/main.bs" target="_blank">
+        <img src="/static/img/banner/b2btworld_20171013_ver0.0_cut.jpg"/></a>
+</div>
+{% endif %}
+<div class="container" style="padding-top:80px; padding-bottom:80px;">
+    <div class="row">
+        <div class="col-md-4 text-center"><big>
+        {{_('장소 시간의 제약이 없는<br/>
+        <span class="bold">ONLINE 통합 데이터 모델링 환경을</span><br/>
+        제공합니다')}}<br/>
+        </big><img src="/static/img/r3/feature_img01.png" style="max-width:100%;">
+        </div>
+        <div class="col-md-4 text-center"><big>
+        {{_('데이터를 체계적으로<br/>
+        <span class="bold">관리할 수 있는 표준용어사전을</span><br/>
+        제공합니다.')}}<br/>
+        </big><img src="/static/img/r3/feature_img02.png" style="max-width:100%;">
+        </div>
+        <div class="col-md-4 text-center"><big>
+        {{_('사용자들이 실시간으로<br/>
+        <span class="bold">공유/협업할 수 있는 작업 공간을</span><br/>
+        제공합니다.')}}<br/>
+        </big><img src="/static/img/r3/feature_img03.png" style="max-width:100%;">
+        </div>
+    </div>
+    <div class="row text-center">
+        <a href="{{ url_for('portal.about') }}" class="btn btn-circle btn-default">{{_('더 알아보기')}}</a>
+    </div>
+</div>
+<div class="container" style="border-top: 1px solid #c9c9c9;"></div>
+<div class="container container-sk container-sk-last">
+    <h1 class="page-title" style="color:#333333;">{{_('추천 프로젝트')}}
+        <p class="help-block text-center" style="font-weight: normal; font-size: 15px;"><a href="{{ url_for('login.login') }}">{{_('로그인</a> 후 확인해보실 수 있는 공개프로젝트입니다.')}}</p>
+    </h1>
+    <div class="portlet portlet-fit bordered">
+        <div class="portlet-body">
+            <div class="row">
+                {% for project in projects %}
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" id="project">
+                {{ render_project_box(project, current_user) }}
+                </div>
+                {% else %}
+                <div class="text-center">No projects yet.</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+
+<!-- BEGIN PRE-FOOTER(EVENT) -->
+<!-- END PRE-FOOTER(EVENT) -->
+
+<!-- BEGIN PRE-FOOTER -->
+<div class="page-prefooter wrapper">
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 footer-block text-center">
+                <img src="/static/img/r3/icon_banner.png"/>
+                {{_('ER-C를 경험하세요!')}}
+                <a href="{{ url_for('project.demo') }}" class="btn btn-circle btn-default btn-transparent">{{_('시연하기')}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PRE-FOOTER -->
+
+<div class="page-footer" style="background-color:#444444; color: #999999;">
+    <div class="container">
+        <div class="row">
+            {% include "_footer_links.html" %}
+            |
+            {% include "_copyright.html" %}
+            {% include "_locale.html" %}
+        </div>
+   </div>
+</div>
+<div class="scroll-to-top">
+    <i class="icon-arrow-up"></i>
+</div>
+
+{% include "_footer_links_dialog.html" %}
+
+{% endblock %}

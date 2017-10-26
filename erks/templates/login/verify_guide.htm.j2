@@ -1,0 +1,16 @@
+{% extends "login/_base.htm.j2" %}
+{% set popup_id = 'joinSuccess'%}
+
+{% block mainContent %}
+        <div class="subDiv">
+            <div class="joinSuccessDiv">회원가입 완료<br />
+                <span>ER-KS 를 이용해주셔서 감사합니다.</span></div>
+            <p class="joinSuccessMsg"><span class="bold">{{ email }}</span> 로 <br />
+            사용에 필요한 최종 확인 링크가 전송되었습니다. <br />
+            해당 링크로 접속하시면 가입이 완료됩니다.</p>
+            <div class="btnArea alignR floatR mt15">
+                <a href="{{ url_for('portal.index') }}" class="btn medium  white4 w160">메인</a>
+                <a href="{{ url_for('login.login') }}" class="btn medium  navy w160">로그인</a>
+            </div>
+        </div>
+{% endblock %}

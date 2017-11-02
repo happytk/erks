@@ -51,16 +51,15 @@ from .forms import DocumentSetsForm, DocumentUploadForm
 
 default_breadcrumb_root(bpapp, '.')
 
-@bpapp.route('/<projectid>/documentsList', methods=['GET', 'POST'])
-@bpapp.route('/documentsList', methods=['GET', 'POST'])
-def documents_list(projectid='asdf'):
+@bpapp.route('/<project_id>/documentsList', methods=['GET', 'POST'])
+def documents_list(project_id='asdf'):
     # form = RegistrationForm.objects.get_or_404(id='test')
 
     form = DocumentUploadForm((request.form))
 
     # basedoc =  baseDocument.objects.get_or_404(title="asdf")
     basedoc = DocumentSetsForm()
-    basedoc.project_id = projectid
+    basedoc.project_id = project_id
 
     if request.method == 'POST':
         file = request.files['file']
@@ -72,30 +71,21 @@ def documents_list(projectid='asdf'):
 
         #basedoc.save()
 
-
-
-
-
-        parser = DocumentParser(filename=filename, filepath=filepath, project_id=projectid)
+        parser = DocumentParser(filename=filename, filepath=filepath, project_id=project_id)
         parser.csv_parser()
-
-
-
-
 
         # return render_template('documents.html.tmpl', active_menu="documents", form=form, document_sets=document_sets)
 
     else:
         pass
 
-    project_sets = documents_sets_collection.find_one({"project_id": projectid})
+    project_sets = documents_sets_collection.find_one({"project_id": project_id})
     document_sets = project_sets["sets"] if project_sets is not None else []
 
     return render_template('documents.htm.j2', active_menu="documents", form=form, document_sets=document_sets)
 
 
-@bpapp.route('/<projectid>/documents/export', methods=['GET', 'POST'])
-@bpapp.route('/documents/export', methods=['GET', 'POST'])
-def documents_export(projectid='asdf'):
-    zip_file_path = export_document_sets(projectid)
+@bpapp.route('/<project_id>/documents/export', methods=['GET', 'POST'])
+def documents_export(project_id):
+    zip_file_path = export_document_sets(project_id)
     return send_file(zip_file_path, mimetype='application/octet-stream')

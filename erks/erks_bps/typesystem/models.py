@@ -186,13 +186,13 @@ def get_typesystem(project_id):
                   }
     return typesystem
 
-def save_all(project_id, type_system_diagram, entity_types, relation_types):
+def save_all_typesystem(project_id, type_system_diagram, entity_types, relation_types):
     new_entity_types = []
     new_logical_entity_types = []
     new_relation_types = []
     new_logical_relation_types = []
 
-    for key, entity_type in entity_types.iteritems():
+    for key, entity_type in entity_types.items():
         #logical_entity_type.setdefault(key, []).append(value)
         new_logical_entity_type = {}
         logical_value = entity_type["logical_value"] if "logical_value" in entity_type else None
@@ -210,7 +210,7 @@ def save_all(project_id, type_system_diagram, entity_types, relation_types):
         entity_type.pop('definition', None)
         new_entity_types.append(entity_type)
 
-    for key, relation_type in relation_types.iteritems():
+    for key, relation_type in relation_types.items():
         new_logical_relation_type = {}
         logical_value = relation_type["logical_value"] if "logical_value" in relation_type else None
         definition = relation_type["definition"] if "definition" in relation_type else None

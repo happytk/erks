@@ -191,6 +191,7 @@ FILE-UPLOAD
 """
 MAX_CONTENT_LENGTH = max(PROJECT_BRAND_IMAGE_MAX_CONTENT_LENGTH, MAX_ERD_CONTENT_LENGTH)
 UPLOAD_DIR = os.path.join(_base_dir, 'upload_files')
+DOWNLOAD_DIR = os.path.join(_base_dir, 'download_files')
 
 
 

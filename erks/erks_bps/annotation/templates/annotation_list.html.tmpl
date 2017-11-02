@@ -1,0 +1,58 @@
+{% extends "portal/_annotator_base.htm.j2" %}
+
+{% block page_settings %}
+{% set active_menu = 'annotation'%}
+{% endblock %}
+
+
+{% block page_head %}
+    <link href="{{ url_for('static', filename='css/gt-c.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block mainContent %}
+
+
+
+    <div class="container-fluid height100">
+      <div class="row height100">
+        <div class="col-md-10 col-md-offset-1 main">
+          <div class="row placeholders">
+
+            <h2 class="sub-header">task1</h2>
+            <div class="row">
+              <span>showing...</span>
+              <span>Document Name</span>
+              <span>Status</span>
+              <span>Last Modified</span>
+              <span><button type="submit" class="btn btn-default pull-right">Submit All</button></span>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <tbody>
+                  {% for list_item in annotation_list %}
+                    <tr>
+                      <td >
+                        <h2><a href="{{ url_for('annotation.annotation_tool',project_id=project_id, document_id=list_item.id) }}">{{list_item.name}}</a></h2>
+                        <div>{{list_item.text}}</div>
+                        <h4>Last Modified: {{list_item.modifiedDate}}</h4>
+                      </td>
+                    </tr>
+
+
+                  {% endfor %}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+
+      </div>
+    </div>
+
+{% endblock %}

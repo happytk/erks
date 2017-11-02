@@ -1,0 +1,181 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+html {
+    height: 100%
+}
+body {
+  padding-top: 50px;
+  height:100%
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}
+
+.height100 {
+    height: 100%
+}
+
+
+.sidebar {
+    
+}
+
+
+
+.toolBigIcon {
+    width:72px;
+    height:72px;
+    text-align:center;
+    display:block;
+    background-color:#F4F4F4;
+    border:solid;
+}
+
+.itemMentionIcon {
+    display:inline-block;
+    width: 30px;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+    line-height: 35px;
+}
+
+.itemRelationIcon{
+    display:inline-block;
+    width: 30px;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+    line-height: 35px;
+    border: 2px solid;
+}
+
+.itemLabel {
+    display:inline-block;
+    text-align: center;
+    cursor: pointer;
+    line-height: 35px;
+    text-overflow ellipsis;
+    padding: 0 5px;
+    vertical-align: middle;
+}
+
+.gtcSentence{
+    position: relative;
+    border: none;
+    border-color: #E0E0E0;
+    color: #4C4D53;
+    padding: 5px 15px;
+    transition: border .5s ease;
+    box-sizing: border-box;
+    cursor: default;
+    font-size: 14pt;
+}
+.sentenceNumber{
+    position: absolute;
+    right: 100%;
+    font-size: .7em;
+    padding: 2px 4px;
+    border: none;
+    min-width: 30px;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+.gtcToken{
+    position: relative;
+    display: inline;
+    white-space: nowrap;
+    border: none;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.gtcTokenText{
+    padding: 8px 1px;
+    white-space: nowrap;
+}
+
+.gtcTokenSelection{
+    position: absolute;
+    border-top: 2px solid #00B2EF;
+    border-bottom: 2px solid #00B2EF;
+    background-color: rgba(255,255,255,.1);
+    z-index: 1;
+    box-sizing: content-box;
+    white-space: nowrap;
+}
+
+.gtcTokenSelectionBegin{
+    border-left: 2px solid #00B2EF;
+}
+
+.gtcTokenSelectionEnd{
+    border-right: 2px solid #00B2EF;
+}
+
+.gtcTokenRelationMargin{
+    //margin-top: 200px;
+    height: 100px;
+    display: inline-block;
+}
+
+.testBox{
+    position: absolute;
+    border:solid;
+}
+
+.iconList{
+overflow-y: auto;
+
+    height: -moz-calc(100% - 50px);
+    height: -webkit-calc(100% - 50px);
+    height: calc(100% - 50px);
+}
+
+.heightMinus50{
+    height: -moz-calc(100% - 50px);
+    height: -webkit-calc(100% - 50px);
+    height: calc(100% - 50px);
+}
+
+.tokenEntityTypeMarker{
+    border-width: 2px;
+    border-style: solid;
+    position: absolute;
+    height: 30px;
+    line-height: 30px;
+    font-size: .8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 2px;
+    box-sizing: border-box;
+    padding-bottom: 5px;
+    z-index: 3;
+
+
+}
+
+
+.relationLabel{
+    color: #000000;
+    position: absolute;
+    font-size: .8em;
+    background-color: #fff;
+    border-width: 2px;
+    border-style: solid;
+    padding: 2px;
+    z-index: 5;
+}
+
+.relationDrawingArea{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}

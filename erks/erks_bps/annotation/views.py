@@ -1,0 +1,123 @@
+# -*- encoding:utf-8 -*-
+from flask import render_template, request, send_file
+from . import bpapp
+from .models import *
+import json
+from bson.json_util import dumps
+import sys
+from erks.utils.log_exception import log_exception
+
+
+
+@bpapp.route('/<project_id>/annotationMain', methods=['GET', 'POST'])
+def annotation_main(project_id):
+
+    return render_template('annotation.html.tmpl', project_id=project_id, active_menu="humanAnnotation")
+
+
+@bpapp.route('/<project_id>/annotationList', methods=['GET', 'POST'])
+def annotation_list(project_id):
+    annotation_list = get_annotation_list(project_id=project_id)
+    return render_template('annotation_list.html.tmpl', project_id=project_id, active_menu="annotation", annotation_list=annotation_list)
+
+
+@bpapp.route('/<project_id>/annotationTool/<document_id>', methods=['GET', 'POST'])
+def annotation_tool(document_id, project_id):
+
+    return render_template('annotation_tool.html.tmpl', project_id=project_id, document_id=document_id)
+
+
+@bpapp.route('/getEntityTypeList/<project_id>', methods=['POST', 'GET'])
+def get_entity_type_list(project_id):
+    result = {}
+    entity_type_list = None
+
+    try:
+        #project_id = str(request.json['project_id'])
+        result = {}
+        entity_type_list = get_entity_type_list(project_id)
+        result["resultOK"] = True
+        result["list"] = entity_type_list
+
+    except Exception as e:
+        result["resultOK"] = False
+        result["message"] = str(Exception)
+        log_exception(e)
+
+    return dumps(result, ensure_ascii=False)
+
+
+@bpapp.route('/<project_id>/getRelationshipTypeList', methods=['POST', 'GET'])
+def get_relationship_type_list(project_id):
+    result = {}
+    relationship_type_list = None
+
+    try:
+        result = {}
+        relationship_type_list = get_relationship_type_list(project_id)
+        result["resultOK"] = True
+        result["list"] = relationship_type_list
+
+    except Exception as e:
+        result["resultOK"] = False
+        result["message"] = str(Exception)
+        log_exception(e)
+
+    return dumps(result, ensure_ascii=False)
+
+@bpapp.route('/<project_id>/getGroundTruth', methods=['POST', 'GET'])
+def get_ground_truth(project_id):
+    result = {}
+
+    try:
+        document_id = str(request.json['document_id'])
+        result = {}
+        document = get_ground_truth(project_id, document_id)
+        result["resultOK"] = True
+        result["document"] = document
+
+    except Exception as e:
+        result["resultOK"] = False
+        result["message"] = str(Exception)
+        log_exception(e)
+
+    return dumps(result, ensure_ascii=False)
+
+
+@bpapp.route('/<project_id>/getSireInfo', methods=['POST', 'GET'])
+def get_sire_info(project_id):
+    result = {}
+
+    try:
+        document_id = str(request.json['document_id'])
+        result = {}
+        document = get_sire_info(project_id)
+        result["resultOK"] = True
+        result["sireInfo"] = document
+
+    except Exception as e:
+        result["resultOK"] = False
+        result["message"] = str(Exception)
+        log_exception(e)
+
+    return dumps(result, ensure_ascii=False)
+
+@bpapp.route('/<project_id>/saveAll', methods=['POST', 'GET'])
+def save_all(project_id):
+    result = {}
+
+    try:
+        ground_truth_id = str(request.json['ground_truth_id'])
+        save_data = request.json['saveData']
+        result = {}
+        save_result = save_all(project_id, ground_truth_id=ground_truth_id, save_data=save_data)
+        result["resultOK"] = True
+        result["result"] = save_result
+
+    except Exception as e:
+        result["resultOK"] = False
+        result["message"] = str(Exception)
+        log_exception(e)
+
+    return dumps(result, ensure_ascii=False)
+

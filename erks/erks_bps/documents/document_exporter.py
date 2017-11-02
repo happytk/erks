@@ -9,11 +9,13 @@ import json
 import zipfile
 from .models import *
 
-
+from flask import (
+    current_app,
+)
 def export_document_sets(project_id):
     tmp_dir_id = str(uuid.uuid1())
 
-    new_dir_path = os.path.join(app.config['DOWNLOAD_DIR'], tmp_dir_id)
+    new_dir_path = os.path.join(current_app.config['DOWNLOAD_DIR'], tmp_dir_id)
     new_gt_dir_path = os.path.join(new_dir_path, "gt")
     os.makedirs(new_dir_path)
     os.makedirs(new_gt_dir_path)
@@ -31,7 +33,7 @@ def export_document_sets(project_id):
         print(ground_truth["global_document_id"])
         with open(os.path.join(new_gt_dir_path, ground_truth["ground_truth"]["id"]+".json"), 'w') as ground_truth_file:
             json.dump(ground_truth["ground_truth"], ground_truth_file)
-    zip_file_path = os.path.join(app.config['DOWNLOAD_DIR'], "pre_annotation_"+tmp_dir_id+".zip")
+    zip_file_path = os.path.join(current_app.config['DOWNLOAD_DIR'], "pre_annotation_"+tmp_dir_id+".zip")
     zip_file = zipfile.ZipFile(zip_file_path, 'w', zipfile.ZIP_DEFLATED)
 
     for root, sub_dirs, files in os.walk(new_dir_path):

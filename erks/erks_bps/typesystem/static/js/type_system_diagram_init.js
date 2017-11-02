@@ -23,6 +23,8 @@ var $J1 = (function (module){
 
     _p.diagram_init = function(projectId){
         _p.projectId = projectId;
+        console.log("@@@@@@@@@@@@@@")
+        console.log(projectId)
         var data = {"project_id":projectId};
 
         _p.innerMapEle.empty();
@@ -608,7 +610,7 @@ var $J1 = (function (module){
 
     function downloadTSDJson(data){
         return $.ajax({
-            url: Flask.url_for('typesystem.save_all', {project_id: _p.projectId})
+            url: Flask.url_for('typesystem.save_all_typesystem', {project_id: _p.projectId})
             ,type: 'POST'
             ,contentType: "application/json;charset=utf-8"
             ,dataType: 'json'
@@ -622,7 +624,7 @@ var $J1 = (function (module){
 
     function saveAll(data){
         return $.ajax({
-            url: Flask.url_for('typesystem.save_all', {project_id: _p.projectId})
+            url: Flask.url_for('typesystem.save_all_typesystem', {project_id: _p.projectId})
             ,type: 'POST'
             ,contentType: "application/json;charset=utf-8"
             ,dataType: 'json'

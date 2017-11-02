@@ -88,8 +88,8 @@ class DocumentParser:
 
     @classmethod
     def get_epoch_time(cls):
-        epoch = datetime.datetime.utcfromtimestamp(0)
-        return int((datetime.datetime.today() - epoch).total_seconds() * 1000.0)
+        epoch = datetime.utcfromtimestamp(0)
+        return int((datetime.today() - epoch).total_seconds() * 1000.0)
 
     def csv_parser(self):
         f = open(self.uploaded_file, 'r')

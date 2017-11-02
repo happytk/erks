@@ -10,12 +10,12 @@
 <div class="container-fluid heightMinus50">
     <div class="row height100">
         {% block sidebar %}
-            <div class="col-sm-2 col-md-2 sidebar">
+            <div class="col-sm-1 col-md-1 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li ><a href="#">Type System</a></li>
+                    <li ><a href="{{ url_for('typesystem.list_typesystem', project_id=g.project.id) }}">Type System</a></li>
                     <li ><a href="#">Dictionaries</a></li>
-                    <li><a href="#">Documents</a></li>
-                    <li><a href="#">Human Annotation</a></li>
+                    <li><a href="{{ url_for('documents.documents_list', project_id=g.project.id) }}">Documents</a></li>
+                    <li><a href="{{ url_for('annotation.annotation_main', project_id=g.project.id) }}">Human Annotation</a></li>
                 </ul>
             </div>
         {% endblock %}

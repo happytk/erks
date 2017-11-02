@@ -15,7 +15,7 @@
                         <li {% if active_menu == 'info' %}class="on"{% endif %}><a href="{{ url_for('project.info', project_id=g.project.id) }}">프로젝트 정보</a></li>
                     </ul>
                     <div class="btnArea">
-                        <a href="#" class="btn medium">ER-KS 시작하기</a>
+                        <a href="{{ url_for('typesystem.list_typesystem', project_id=g.project.id) }}" class="btn medium">ER-KS 시작하기</a>
                     </div>
                 </div>
                 <div class="contentsDiv">

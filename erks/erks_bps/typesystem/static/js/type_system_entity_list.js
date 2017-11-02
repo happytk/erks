@@ -8,7 +8,7 @@ var $J1 = (function (module){
     _p.entity_list_init = function(projectId){
         _p.projectId = projectId;
         var data = {"project_id":projectId};
-
+        console.log(projectId)
 
         $.when(getEntityTypeList(data))
         .done(function (entityTypeList){

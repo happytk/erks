@@ -3,9 +3,17 @@
 {% set active_menu = 'documents'%}
 {% endblock %}
 
+{% block page_head %}
+    <link href="{{ url_for('static', filename='css/gt-c.css')}}" rel="stylesheet">
+    <link href="{{ url_for('typesystem.static', filename='css/type_system_diagram.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
+
+{% endblock %}
+
+
 {% block workArea %}
 
-        <div id = "topContent" class="col-md-10 col-md-offset-1 main height100">
+        <div id = "topContent" class="col-md-10 main height100">
             <h1 class="page-header maximizeTarget">Type System</h1>
             <div class="row maximizeTarget">
                 <ul class="nav nav-tabs">
@@ -23,10 +31,10 @@
                     </li>
                 </ul>
             </div>
-            <div class="tab-content heightMinus50">
+            <div class="tab-content heightMinus100">
                 <div id="tab-content-entity-types" class="tab-pane active">
                     <div class="row placeholder">
-                        <form class="form-inline" action="{{ url_for('typesystem.import_typesystem',projectid='asdf')}}" enctype="multipart/form-data" data-ajax="true" method="POST" >
+                        <form class="form-inline" action="{{ url_for('typesystem.import_typesystem',project_id=project_id) }}" enctype="multipart/form-data" data-ajax="true" method="POST" >
                             <div class="form-group">
                                 <button id="btnAddEntityType" type="button" class="btn btn-default">Add Entity Type</button>
                                 <input type="file" name="file" class="form-control input-sm">
@@ -295,18 +303,13 @@
 {% endblock %}
 
 
-{% block page_head %}
-    <link href="{{ url_for('static', filename='css/gt-c.css')}}" rel="stylesheet">
-    <link href="{{ url_for('typesystem.static', filename='css/type_system_diagram.css')}}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
 
-{% endblock %}
 
 
 
 {% block script_foot %}
-<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.10.2.min.js')}}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js')}}"></script>
+<!--script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.10.2.min.js')}}"></script-->
+
 <script type="text/javascript" src="{{ url_for('static', filename='js/jsplumb.min.js')}}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.fileDownload.js')}}"></script>
 <script type="text/javascript" src="{{ url_for('typesystem.static', filename='js/jquery.ui.entity_type.js')}}"></script>
@@ -318,14 +321,16 @@
 <script type="text/javascript" src="{{ url_for('typesystem.static', filename='js/type_system_entity_list.js')}}"></script>
 
 <script>
-    $J1._p.entity_list_init("asdf");
+    $J1._p.entity_list_init("{{project_id}}");
+
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         var target = $(e.target).attr("href") // activated tab
         if (target == "#tab-content-type-system-diagram"){
-            $J1._p.diagram_init("asdf");
+            console.log("@@@@@@@@111");
+            $J1._p.diagram_init("{{project_id}}");
         };
         if (target == "#tab-content-entity-types"){
-            $J1._p.entity_list_init("asdf");
+            $J1._p.entity_list_init("{{project_id}}");
         };
 
     });

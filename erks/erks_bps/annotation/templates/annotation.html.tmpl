@@ -1,0 +1,58 @@
+{% extends "portal/_annotator_base.htm.j2" %}
+{% block page_settings %}
+{% set active_menu = 'documents'%}
+{% endblock %}
+
+
+{% block page_head %}
+    <link href="{{ url_for('static', filename='css/gt-c.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block workArea %}
+
+
+<div class="col-sm-10 col-md-10 main">
+    <h1 class="page-header">Human Annotation</h1>
+    <div class="row placeholders">
+
+        <h2 class="sub-header">task1</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Annotation Set Name</th>
+                        <th>Annotator Name</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>set1</td>
+                        <td>chazzy1</td>
+                        <td class="danger">IN PROGRESS</td>
+                        <td>
+                            <button id="btnAnnotate" type="submit" class="btn btn-primary" onclick="javascript:openAnnotator();">Annotate</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+
+
+{% block script_foot %}
+<script>
+    function openAnnotator(){
+        var project_id = '{{project_id}}';
+        var win = window.open(Flask.url_for("annotation.annotation_list",{project_id: project_id}), '_blank');
+        win.focus();
+    };
+</script>
+{% endblock %}

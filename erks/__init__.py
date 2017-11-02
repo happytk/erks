@@ -745,7 +745,8 @@ def configure_blueprints(app):
         # integrity,
         exporter,
         documents,
-        typesystem
+        typesystem,
+        annotation,
     )
 
     app.register_blueprint(portal.bpapp)
@@ -763,6 +764,7 @@ def configure_blueprints(app):
     app.register_blueprint(project_group.bpapp)
     app.register_blueprint(documents.bpapp)
     app.register_blueprint(typesystem.bpapp)
+    app.register_blueprint(annotation.bpapp)
     # app.register_blueprint(report.bpapp)
     # app.register_blueprint(schema.bpapp)
     # app.register_blueprint(integrity.bpapp)

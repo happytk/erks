@@ -7,7 +7,6 @@ html {
     height: 100%
 }
 body {
-  padding-top: 50px;
   height:100%
 }
 @media (max-width: 979px) {
@@ -30,6 +29,18 @@ body {
     height: -moz-calc(100% - 50px);
     height: -webkit-calc(100% - 50px);
     height: calc(100% - 50px);
+}
+
+.heightMinus100{
+    height: -moz-calc(100% - 100px);
+    height: -webkit-calc(100% - 100px);
+    height: calc(100% - 100px);
+}
+
+.heightMinus150{
+    height: -moz-calc(100% - 150px);
+    height: -webkit-calc(100% - 150px);
+    height: calc(100% - 150px);
 }
 
 .leftRightPadding20{

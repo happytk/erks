@@ -135,17 +135,18 @@ def about(slug=None):
     return render_template('portal/about.htm.j2', project_group=project_group)
 
 
-# @bpapp.route('/services')
-# @bpapp.route('/pg/<slug>/services')
-# def services(slug='default'):
-#     """상품 소개 페이지. 생성 페이지까지 연결."""
-#     args = {}
-#     args['project_group'] = ProjectGroup.objects.get_or_404(slug=slug)
+@bpapp.route('/services')
+@bpapp.route('/pg/<slug>/services')
+def services(slug='default'):
+    """상품 소개 페이지. 생성 페이지까지 연결."""
+    #     args = {}
+    #     args['project_group'] = ProjectGroup.objects.get_or_404(slug=slug)
 
-#     products = Product.objects.all()
-#     for product in products:
-#         args[product.product_code] = product
-#     return render_template('services.html', **args)
+    #     products = Product.objects.all()
+    #     for product in products:
+    #         args[product.product_code] = product
+    #     return render_template('services.html', **args)
+    return render_template('services.html')
 
 
 @bpapp.route('/search', methods=['GET', 'POST'])

@@ -1,0 +1,26 @@
+{% extends "portal/_base.htm.j2" %}
+{% block page_settings %}
+{% set active_menu = 'documents'%}
+{% endblock %}
+
+
+
+
+{% block mainContent %}
+<div class="container-fluid heightMinus50">
+    <div class="row height100">
+        {% block sidebar %}
+            <div class="col-sm-2 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li ><a href="#">Type System</a></li>
+                    <li ><a href="#">Dictionaries</a></li>
+                    <li><a href="#">Documents</a></li>
+                    <li><a href="#">Human Annotation</a></li>
+                </ul>
+            </div>
+        {% endblock %}
+        {% block workArea %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

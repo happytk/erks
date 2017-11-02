@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
     <!-- 부트스트랩 -->
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='bootstrap-3.3.7-dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='bootstrap-table/css/bootstrap-table.min.css') }}" rel="stylesheet" type="text/css"  />
     <link href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ url_for('static', filename='css/animate.css') }}" rel="stylesheet">  <!-- 20171022 추가 -->
@@ -31,6 +31,9 @@
     <script src="{{ url_for('static', filename='js/jquery.lettering.js') }}"></script>        <!-- 20171022 추가 -->
     <script src="{{ url_for('static', filename='js/jquery.textillate.js') }}"></script>       <!-- 20171022 추가 -->
     <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    {{ JSGlue.include() }}
+    {% block page_head %}
+    {% endblock %}
 </head>
 <body>
     <div class="wrapDiv">
@@ -213,5 +216,7 @@
             </div>
         </div>
     </div>
+    {% block script_foot %}
+    {% endblock %}
 </body>
 </html>

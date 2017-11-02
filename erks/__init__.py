@@ -744,6 +744,8 @@ def configure_blueprints(app):
         # schema,
         # integrity,
         exporter,
+        documents,
+        typesystem
     )
 
     app.register_blueprint(portal.bpapp)
@@ -759,6 +761,8 @@ def configure_blueprints(app):
     # app.register_blueprint(glossarymaster.bpapp)
     # app.register_blueprint(erc.bpapp, url_prefix='/erc')
     app.register_blueprint(project_group.bpapp)
+    app.register_blueprint(documents.bpapp)
+    app.register_blueprint(typesystem.bpapp)
     # app.register_blueprint(report.bpapp)
     # app.register_blueprint(schema.bpapp)
     # app.register_blueprint(integrity.bpapp)

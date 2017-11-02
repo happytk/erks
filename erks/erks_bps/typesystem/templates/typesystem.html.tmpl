@@ -1,0 +1,333 @@
+{% extends "portal/_annotator_base.htm.j2" %}
+{% block page_settings %}
+{% set active_menu = 'documents'%}
+{% endblock %}
+
+{% block workArea %}
+
+        <div id = "topContent" class="col-md-10 col-md-offset-1 main height100">
+            <h1 class="page-header maximizeTarget">Type System</h1>
+            <div class="row maximizeTarget">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#tab-content-entity-types">Entity Typese</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#tab-content-mention-attributes">Mention Attributes</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#tab-content-relation-types">Relation Types</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#tab-content-type-system-diagram">Type System Diagram</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content heightMinus50">
+                <div id="tab-content-entity-types" class="tab-pane active">
+                    <div class="row placeholder">
+                        <form class="form-inline" action="{{ url_for('typesystem.import_typesystem',projectid='asdf')}}" enctype="multipart/form-data" data-ajax="true" method="POST" >
+                            <div class="form-group">
+                                <button id="btnAddEntityType" type="button" class="btn btn-default">Add Entity Type</button>
+                                <input type="file" name="file" class="form-control input-sm">
+                                <button id="btnImport" type="submit" class="btn btn-default">Import</button>
+                            </div>
+                            <button id="btnExport" type="button" class="btn btn-primary pull-right">Export</button>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="pull-right">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-sm" placeholder="Search">
+                                </div>
+                                <button type="submit" class="btn btn-default">Search</button>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <!--Entity Types list  -->
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Entity Types</th>
+                                    <th>Roles</th>
+                                    <th>Subtypes</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="entity_type_list">
+                                <!-- list -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="tab-content-mention-attributes" class="tab-pane">
+
+                    <!--Mention Attributes list  -->
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>NAM</td>
+                                </tr>
+                                <tr>
+                                    <td>NOM</td>
+                                </tr>
+                                <tr>
+                                    <td>NONE</td>
+                                </tr>
+                                <tr>
+                                    <td>PRO</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>GEN</td>
+                                </tr>
+                                <tr>
+                                    <td>NEG</td>
+                                </tr>
+                                <tr>
+                                    <td>SPC</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+                <div id="tab-content-relation-types" class="tab-pane">
+
+
+                    <!-- Relation Types list  -->
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Relation Type</th>
+                                    <th>First Entity Type / Role</th>
+                                    <th>Second Entity Type / Role</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1,001</td>
+                                    <td>Lorem</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                </tr>
+                                <tr>
+                                    <td>1,002</td>
+                                    <td>amet</td>
+                                    <td>consectetur</td>
+                                    <td>adipiscing</td>
+                                </tr>
+                                <tr>
+                                    <td>1,003</td>
+                                    <td>Integer</td>
+                                    <td>nec</td>
+                                    <td>odio</td>
+                                </tr>
+                                <tr>
+                                    <td>1,003</td>
+                                    <td>libero</td>
+                                    <td>Sed</td>
+                                    <td>cursus</td>
+                                </tr>
+                                <tr>
+                                    <td>1,004</td>
+                                    <td>dapibus</td>
+                                    <td>diam</td>
+                                    <td>Sed</td>
+                                </tr>
+                                <tr>
+                                    <td>1,005</td>
+                                    <td>Nulla</td>
+                                    <td>quis</td>
+                                    <td>sem</td>
+                                </tr>
+                                <tr>
+                                    <td>1,006</td>
+                                    <td>nibh</td>
+                                    <td>elementum</td>
+                                    <td>imperdiet</td>
+                                </tr>
+                                <tr>
+                                    <td>1,007</td>
+                                    <td>sagittis</td>
+                                    <td>ipsum</td>
+                                    <td>Praesent</td>
+                                </tr>
+                                <tr>
+                                    <td>1,008</td>
+                                    <td>Fusce</td>
+                                    <td>nec</td>
+                                    <td>tellus</td>
+                                </tr>
+                                <tr>
+                                    <td>1,009</td>
+                                    <td>augue</td>
+                                    <td>semper</td>
+                                    <td>porta</td>
+                                </tr>
+                                <tr>
+                                    <td>1,010</td>
+                                    <td>massa</td>
+                                    <td>Vestibulum</td>
+                                    <td>lacinia</td>
+                                </tr>
+                                <tr>
+                                    <td>1,011</td>
+                                    <td>eget</td>
+                                    <td>nulla</td>
+                                    <td>Class</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+
+                </div>
+                <div id="tab-content-type-system-diagram" class="tab-pane heightMinus50">
+                    <div id="diagramViewHolder" class="row height100">
+                        <div id="diagramToolbar" class="row tsdToolBar navbar-form">
+                            <div class="btn-group">
+                                <button id="btnMaximizeView" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                                </button>
+                                <button id="btnNormalView" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span>
+                                </button>
+                            </div>
+
+                            <div class="btn-group">
+                                <button id="btnTSDSave" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
+                                </button>
+
+                                <button id="btnTSDDownload" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>
+                                </button>
+                                <button class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                                </button>
+                                <button id="btnClearTSD" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </div>
+
+                            <div class="btn-group">
+                                <button id="btnAddEntity" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </button>
+                                <button id="btnAddRelations" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                                </button>
+                                <button id="btnDelete" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                </button>
+                            </div>
+
+                            <div class="btn-group">
+                                <button id="btnShowRelationEntity" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                                </button>
+                                <button id="btnShowAllEntity" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                </button>
+                                <button id="btnShowAllRelations" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span id="lblRelationCount"></span><span class="glyphicon glyphicon-random" aria-hidden="true"></span>
+                                </button>
+                                <button id="btnHideAllRelations" class="btn btn-default" type="button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </button>
+
+                            </div>
+
+                            <div class="btn-group">
+                                <button id="btnTypeSystemLogical" type="button" class="btn btn-default">Logical</button>
+                                <button id="btnTypeSystemPhysical" type="button" class="btn btn-default">Physical</button>
+                            </div>
+
+
+                        </div>
+                        <div id="diagramView" class="diagramView">
+                            <div id="innerMap" class="innerMap">
+
+                            </div>
+                            <div id="miniMap" class="miniMap">
+                                <div id="viewPoint" class="viewPoint"></div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+{% endblock %}
+
+
+{% block page_head %}
+    <link href="{{ url_for('static', filename='css/gt-c.css')}}" rel="stylesheet">
+    <link href="{{ url_for('typesystem.static', filename='css/type_system_diagram.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
+
+{% endblock %}
+
+
+
+{% block script_foot %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.10.2.min.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jsplumb.min.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.fileDownload.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('typesystem.static', filename='js/jquery.ui.entity_type.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('typesystem.static', filename='js/type_system_diagram_init.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('typesystem.static', filename='js/type_system_diagram_entity.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('typesystem.static', filename='js/type_system_diagram_relation.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('typesystem.static', filename='js/type_system_diagram_minimap.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('typesystem.static', filename='js/type_system_diagram_detail.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('typesystem.static', filename='js/type_system_entity_list.js')}}"></script>
+
+<script>
+    $J1._p.entity_list_init("asdf");
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href") // activated tab
+        if (target == "#tab-content-type-system-diagram"){
+            $J1._p.diagram_init("asdf");
+        };
+        if (target == "#tab-content-entity-types"){
+            $J1._p.entity_list_init("asdf");
+        };
+
+    });
+</script>
+{% endblock %}

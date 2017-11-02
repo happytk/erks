@@ -1,0 +1,221 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+html {
+    height: 100%
+}
+body {
+  padding-top: 50px;
+  height:100%
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}
+
+.height100 {
+    height: 100%
+}
+
+.heightPlus120 {
+    height: -moz-calc(100% + 100px);
+    height: -webkit-calc(100% + 100px);
+    height: calc(100% + 100px);
+}
+
+.heightMinus50{
+    height: -moz-calc(100% - 50px);
+    height: -webkit-calc(100% - 50px);
+    height: calc(100% - 50px);
+}
+
+.leftRightPadding20{
+    padding-left:20px;
+    padding-right:20px;
+}
+
+
+.diagramView{
+    width: 100%;
+    height: 100%;
+    border-style:solid;
+    border-width: 1px;
+    border-color:#ddd;
+    overflow:hidden;
+}
+
+.innerMap{
+    width: 5000px;
+    height: 5000px;
+    background-color:#fafafa
+}
+
+
+
+
+
+
+
+
+
+
+
+div.entity {
+	color: #333;
+	padding-top: 5px;
+	overflow: hidden;
+	border-style: solid;
+}
+div.entityOuter {
+    font-weight: bold;
+    background: #E5E5E5;
+    border-color:#E5E5E5;
+    border-width: 2px;
+    border-bottom-width: 4px;
+    -moz-box-shadow: 3px 3px 5px #696969;  /* Firefox */
+	-webkit-box-shadow: 3px 3px 5px #696969;  /* Safari and Chrome */
+	box-shadow: 3px 3px 5px #696969;  /* CSS3 */
+}
+
+.typeColorLine {
+
+    height:5px;
+
+}
+
+div.attributeContainer {
+	font-weight: normal;
+	/*
+	border-top: 1px solid #E5E5E5;
+	border-left: 1px solid #E5E5E5;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	*/
+	border-style: solid;
+	border-width: 1px;
+
+	border-collapse: collapse;
+	table-layout: auto;
+
+	background: WHITE;
+	margin-top: 3px;
+	padding: 0px 5px 0px 5px;
+	white-space:nowrap;
+	overflow : hidden;
+	width:auto;
+	height:100%;
+
+}
+
+
+
+div.objectContainer {
+	position: absolute;
+	cursor: move;
+	z-index: 50;
+}
+.attrText {
+    display: inline-block;
+}
+
+
+
+
+.attributeTitle{
+    font-size:10px;
+}
+.attributeItem{
+    font-size:10px;
+}
+.labelArea{
+    font-size:12px;
+}
+
+
+
+
+.subtgypeItem{
+    font-size:10px;
+}
+
+
+div.thickBox {
+	border: 3px solid #0071BC;
+}
+
+.relationToggleOutgoing{
+    font-size:10px;
+    cursor:pointer;
+}
+
+.relationToggleIncoming{
+    font-size:10px;
+    cursor:pointer;
+}
+
+.toggleShow{
+
+}
+
+.toggleHide{
+    border: 1px solid #0071BC;
+}
+
+.miniMap{
+	border-style: solid;
+	border-width: 1px;
+	width:100px;
+	height: 100px;
+    position: fixed;
+	bottom: 10px;
+	left: 10px;
+	z-index: 500;
+}
+
+minimapEntity{
+	border: 1px solid #ccc;
+	z-index: 10;
+	position: absolute;
+}
+
+.viewPoint{
+	border: 2px solid #0071BC;
+	position: absolute;
+	cursor: move;
+	z-index: 100;
+}
+
+
+
+.entityPropertyAddRole{
+    cursor:pointer;
+}
+
+.entityPropertyDeleteRole{
+    cursor:pointer;
+}
+
+.entityPropertyShowAllRoles{
+    cursor:pointer;
+}
+
+/* Overrides list-group-item from Bootstrap */
+.small-list-group-item {
+    padding: 2px 10px
+}
+
+.relationPropertySmallList{
+    overflow:auto;
+    max-height:100px
+}
+
+.relationPropertyEntityRelation{
+    cursor:pointer;
+}
+
+.relationPropertyAllRelation{
+    cursor:pointer;
+}

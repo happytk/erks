@@ -16,7 +16,7 @@ manager = Manager(app)
 
 collect = Collect()
 collect.init_app(app)
-collect.init_script(manager)
+#collect.init_script(manager)
 
 
 # Turn on debugger by default and reloader
@@ -25,6 +25,7 @@ manager.add_command("runserver", Server(
     use_reloader=app.debug,
     #     processes=4,
     threaded=True,
+    port=16060,
     host='0.0.0.0')
 )
 

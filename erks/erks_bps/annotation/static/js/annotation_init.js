@@ -128,7 +128,7 @@ var $J1 = (function (module){
 
     function getRelationTypeList(data){
         return $.ajax({
-            url: Flask.url_for('annotation.get_relationship_type_list', {project_id: data.project_id})
+            url: Flask.url_for('annotation.relationship_type_list', {project_id: data.project_id})
             ,type: 'POST'
             ,contentType: "application/json;charset=utf-8"
             ,dataType: 'json'
@@ -141,7 +141,7 @@ var $J1 = (function (module){
 
     function getEntityTypeList(data){
         return $.ajax({
-            url: Flask.url_for('annotation.get_entity_type_list', {project_id: data.project_id})
+            url: Flask.url_for('annotation.entity_type_list', {project_id: data.project_id})
             ,type: 'POST'
             ,contentType: "application/json;charset=utf-8"
             ,dataType: 'json'
@@ -154,7 +154,7 @@ var $J1 = (function (module){
 
     function getGroundTruth(data){
         return $.ajax({
-            url: Flask.url_for('annotation.get_ground_truth', {project_id: data.project_id})
+            url: Flask.url_for('annotation.ground_truth', {project_id: data.project_id})
             ,type: 'POST'
             ,contentType: "application/json;charset=utf-8"
             ,dataType: 'json'
@@ -167,7 +167,7 @@ var $J1 = (function (module){
 
     function getSireInfo(data){
         return $.ajax({
-            url: Flask.url_for('annotation.get_sire_info', {project_id: data.project_id})
+            url: Flask.url_for('annotation.sire_info', {project_id: data.project_id})
             ,type: 'POST'
             ,contentType: "application/json;charset=utf-8"
             ,dataType: 'json'
@@ -180,7 +180,7 @@ var $J1 = (function (module){
 
     function saveAll(data){
         return $.ajax({
-            url: Flask.url_for('annotation.save_all', {project_id: _p.projectId})
+            url: Flask.url_for('annotation.save_all_annotation', {project_id: _p.projectId})
             ,type: 'POST'
             ,contentType: "application/json;charset=utf-8"
             ,dataType: 'json'

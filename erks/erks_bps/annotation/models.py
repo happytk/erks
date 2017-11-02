@@ -10,6 +10,8 @@ from erks.erks_bps.typesystem.models import *
 
 import json
 
+
+
 def get_annotation_list(project_id):
     documents = documents_collection.find_one({"project_id":project_id})
     return documents["documents"]
@@ -63,7 +65,7 @@ def get_ground_truth(project_id, ground_truth_id):
     return document["ground_truth"]
 
 
-def save_all(project_id, ground_truth_id, save_data):
+def save_all_annotation(project_id, ground_truth_id, save_data):
 
     result = ground_truth_collection.update(
         {"project_id": project_id,

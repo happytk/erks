@@ -1,7 +1,8 @@
 # -*- encoding:utf-8 -*-
 from flask import render_template, request, send_file
 from . import bpapp
-from .models import *
+#from .models import *
+from erks.erks_bps.annotation import models
 import json
 from bson.json_util import dumps
 import sys
@@ -17,7 +18,7 @@ def annotation_main(project_id):
 
 @bpapp.route('/<project_id>/annotationList', methods=['GET', 'POST'])
 def annotation_list(project_id):
-    annotation_list = get_annotation_list(project_id=project_id)
+    annotation_list = models.get_annotation_list(project_id=project_id)
     return render_template('annotation_list.html.tmpl', project_id=project_id, active_menu="annotation", annotation_list=annotation_list)
 
 
@@ -28,14 +29,14 @@ def annotation_tool(document_id, project_id):
 
 
 @bpapp.route('/getEntityTypeList/<project_id>', methods=['POST', 'GET'])
-def get_entity_type_list(project_id):
+def entity_type_list(project_id):
     result = {}
     entity_type_list = None
 
     try:
         #project_id = str(request.json['project_id'])
         result = {}
-        entity_type_list = get_entity_type_list(project_id)
+        entity_type_list = models.get_entity_type_list(project_id)
         result["resultOK"] = True
         result["list"] = entity_type_list
 
@@ -48,13 +49,13 @@ def get_entity_type_list(project_id):
 
 
 @bpapp.route('/<project_id>/getRelationshipTypeList', methods=['POST', 'GET'])
-def get_relationship_type_list(project_id):
+def relationship_type_list(project_id):
     result = {}
     relationship_type_list = None
 
     try:
         result = {}
-        relationship_type_list = get_relationship_type_list(project_id)
+        relationship_type_list = models.get_relationship_type_list(project_id)
         result["resultOK"] = True
         result["list"] = relationship_type_list
 
@@ -66,13 +67,13 @@ def get_relationship_type_list(project_id):
     return dumps(result, ensure_ascii=False)
 
 @bpapp.route('/<project_id>/getGroundTruth', methods=['POST', 'GET'])
-def get_ground_truth(project_id):
+def ground_truth(project_id):
     result = {}
 
     try:
         document_id = str(request.json['document_id'])
         result = {}
-        document = get_ground_truth(project_id, document_id)
+        document = models.get_ground_truth(project_id, document_id)
         result["resultOK"] = True
         result["document"] = document
 
@@ -85,13 +86,13 @@ def get_ground_truth(project_id):
 
 
 @bpapp.route('/<project_id>/getSireInfo', methods=['POST', 'GET'])
-def get_sire_info(project_id):
+def sire_info(project_id):
     result = {}
 
     try:
         document_id = str(request.json['document_id'])
         result = {}
-        document = get_sire_info(project_id)
+        document = models.get_sire_info(project_id)
         result["resultOK"] = True
         result["sireInfo"] = document
 
@@ -102,15 +103,15 @@ def get_sire_info(project_id):
 
     return dumps(result, ensure_ascii=False)
 
-@bpapp.route('/<project_id>/saveAll', methods=['POST', 'GET'])
-def save_all(project_id):
+@bpapp.route('/<project_id>/saveAllAnnotation', methods=['POST', 'GET'])
+def save_all_annotation(project_id):
     result = {}
 
     try:
         ground_truth_id = str(request.json['ground_truth_id'])
         save_data = request.json['saveData']
         result = {}
-        save_result = save_all(project_id, ground_truth_id=ground_truth_id, save_data=save_data)
+        save_result = models.save_all_annotation(project_id, ground_truth_id=ground_truth_id, save_data=save_data)
         result["resultOK"] = True
         result["result"] = save_result
 

@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block page_head %}
+    <link href="{{ url_for('static', filename='css/layout_header_only.css') }}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ url_for('static', filename='css/gt-c.css')}}" rel="stylesheet">
     <link href="{{ url_for('typesystem.static', filename='css/type_system_diagram.css')}}" rel="stylesheet">
     <link href="{{ url_for('static', filename='jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">

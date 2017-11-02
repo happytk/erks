@@ -3,6 +3,7 @@
 
 
 {% block page_head %}
+    <link href="{{ url_for('static', filename='css/layout_header_only.css') }}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ url_for('static', filename='css/gt-c.css')}}" rel="stylesheet">
     <link href="{{ url_for('annotation.static', filename='css/annotation_tool.css')}}" rel="stylesheet">
 {% endblock %}
@@ -26,7 +27,8 @@
 {% set active_menu = 'annotation'%}
 {% endblock %}
 
-
+{% block footer %}
+{% endblock %}
 
 
 {% block mainContent %}

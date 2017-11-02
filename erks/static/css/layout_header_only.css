@@ -1,0 +1,140 @@
+
+
+header {position:relative; height:60px; }
+	header.sub {background:#323544; }
+	header.login {height:220px; background:#323544; }
+	header .headerSub {position:relative; width:1200px; margin:0 auto; height:60px; }
+	header .topLogo {position:absolute; top:20px; left:0; width:75px; height:20px; }
+	header.login .topLogo {position:absolute; top:71px; left:calc((100% - 75px) / 2); width:75px; height:20px; }
+	header.login .headerSub {}
+	header .rightMenu {overflow:visible; float:right; margin-top:12px; }
+	header .rightMenu li {float:left; margin-left:60px; font-size:15px; height:36px; line-height:36px; letter-spacing:-0.2px; color:#222222; }
+	header .rightMenu li:last-child .btn {margin-top:3px; }
+	header .rightMenu li.arrow {background:url(../images/bg_delimeter_03.png) no-repeat 100% center; padding-right:20px; }
+	header.sub .rightMenu li {color:#fff; }
+	header .rightMenu li .dropdown .dropdown-menu {width:157px; border:1px solid #e1e1e1; border-bottom:0;  margin-top:12px; }
+	header .rightMenu li .dropdown .dropdown-menu li {font-size:14px; height:35px; line-height:35px; color:#222; background:#fff; border-bottom:1px solid #e1e1e1; }
+	header .rightMenu li .dropdown .dropdown-menu li a {font-size:14px; height:35px; line-height:35px; color:#222; padding:0 14px; display:block; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; }
+	header .rightMenu li .dropdown .dropdown-menu li.on {background:#f86464; color:#fff; }
+	header .rightMenu li .dropdown .dropdown-menu li.on a {color:#fff; }
+	header .rightMenu li .dropdown .dropdown-menu li a:hover {color:#fff; background:#f86464; border-bottom:1px solid #e1e1e1; }
+	header .rightMenu li a {color:#222222; }
+	header .rightMenu li a:hover {color:#667295; }
+	header.sub .rightMenu li a:hover {background:#323544; color:#fff; }
+	header.sub .rightMenu li a {color:#fff; }
+	header.sub .rightMenu li a:hover {color:#9ea5c4; }
+	header.sub .rightMenu li a.btn {margin-top:3px; line-height:28px; }
+	header.sub .rightMenu li a.btn:hover {color:#9ea5c4; border:1px solid #585b67; }
+	header .rightMenu li a.btn:hover {background:#323544; color:#fff; }
+	header.sub .rightMenu li a.on {color:#98acee; font-weight:bold; }
+	header.sub .dropdown .btn.dropdown-toggle.selectbox {color:#fff; }
+	header .dropdown .btn.dropdown-toggle.selectbox:hover {color:#9ea5c4; border:1px solid #585b67; }
+
+
+footer {position:relative; width:100%; border-top:1px solid #eaeaea; }
+	footer .footerSub {width:1200px; margin:0 auto; height:58px; position:relative; }
+	footer .footerSub .footerMenu {position:relative; }
+	footer .footerSub .footerMenu li {float:left; background:url(../images/bg_delimeter_02.gif) no-repeat 100% center; padding-right:18px; margin-right:16px; font-size:13px; line-height:58px; color:#999999; letter-spacing:-0.2px; }
+	footer .footerSub .footerMenu li a {color:#999999; }
+	footer .footerSub .footerMenu li:hover a {color:#667295; }
+	footer .footerSub .footerMenu li:last-child {background:none; }
+	footer .footerSub .copyright {font-size:13px; line-height:58px; color:#999999; position:absolute; top:0; right:0; }
+
+
+.dim {position:absolute; top:0; left:0; background:#000; opacity:0.5; filter:alpha(opacity=50); z-index:99999; }
+.dim2 {position:absolute; top:0; left:0; background:#000; opacity:0.5; filter:alpha(opacity=50); z-index:9999999; }
+.dim3 {position:absolute; top:60px; left:0; background:#000; opacity:0.5; filter:alpha(opacity=50); z-index:99999; }
+.popup {display:none; position:absolute; top:0; left:0; z-index:99999; width:612px; background:#f4f4f4; padding:30px; border-radius:0; }
+	.popup.login {padding:0; top:160px !important; width:460px; }
+	.popup.projectCreate {width:960px; height:440px; display:block; }
+	.popup.login1 {width:460px; background:none; }
+	.popup.join {width:460px; background:none; }
+	.popup.joinSuccess {height:330px; background:#fff; }
+	.popup.passwdSetting {background:none; }
+	.popup.myInfo1 {width:340px; background:#fff; padding:32px 30px 17px; top:60px !important;  border:1px solid #e1e1e1; }
+	.popup.msg{width:340px; min-height:120px; background:#fff; z-index:9999999; }
+	.popup.msg.popMsg5 {background:#fff url(../images/bg_warning.png) no-repeat 15px 15px; }
+	.popup.emailCollectionReject {width:800px; height:152px; background:#fff; padding:30px 40px; }
+	.popup.privacy {width:800px; height:600px; background:#fff; }
+	.popup.term {width:800px; height:600px; background:#fff; }
+	.popup a.popClose {position:absolute; right:15px; top:15px; width:20px; height:20px; background:url(../images/btn_popClose.png) no-repeat center center; font-size:0; display:block; }
+	.popup a.popClose:hover {background:url(../images/btn_popClose_on.png) no-repeat center center; }
+	.popup a.popClose2 {position:absolute; right:15px; top:15px; width:20px; height:20px; background:url(../images/btn_popClose.png) no-repeat center center; font-size:0; display:block; }
+	.popup a.popClose2:hover {background:url(../images/btn_popClose_on.png) no-repeat center center; }
+	.popup a.popClose3 {position:absolute; right:15px; top:15px; width:20px; height:20px; background:url(../images/btn_popClose.png) no-repeat center center; font-size:0; display:none; }
+	.popup a.popClose3:hover {background:url(../images/btn_popClose_on.png) no-repeat center center; }
+	.popup .subDiv {padding:60px 60px 15px; background:#fff; }
+	.popup.joinSuccess .subDiv {padding-top:45px; }
+	.popup.passwdSetting .subDiv  {padding-bottom:45px; }
+	.popup h4.title {font-size:22px; line-height:1; color:#333; letter-spacing:-0.2px; font-weight:bold; }
+	.popup h5.title {font-size:17px; line-height:1; color:#222222; font-weight:bold; /*font-family:"LatoRegular"; */}
+	.popup h5.title.border {border-bottom:2px solid #222; padding-bottom:20px; }
+	.popup h5.title span {float:right; font-size:12px; font-weight:normal; }
+	.popup h5.title span.type2 {float:none; color:#999999; margin-left:15px; }
+	.popup .communityWriteDiv {margin-bottom:27px; }
+	.popup .communityWriteDiv .contentsArea {padding:0 29px; border:1px solid #e1e1e1; margin-top:29px; background:#fff; margin-bottom:25px; }
+	.popup .communityWriteDiv .contentsArea.project {padding:0; }
+	.popup .communityWriteDiv .contentsArea.project .form-group {border-bottom:1px solid #ebebeb; }
+	.popup .communityWriteDiv .contentsArea.project .form-group:last-child {border-bottom:0; }
+	.popup .communityWriteDiv .contentsArea.project .form-control.inputTxt {margin:6px 0; width:717px; }
+	.popup .communityWriteDiv .contentsArea.project textarea.form-control {border:1px solid #e1e1e1; margin:6px 0; width:717px; height:148px; font-size:14px; color:#333; letter-spacing:-0.2px; line-height:24px; border-radius:0; box-shadow:none; }
+	.popup .communityWriteDiv .form-group .control-label {float:left; width:175px; font-size:14px; line-height:48px; color:#333; letter-spacing:-0.2px; text-align:left; padding:0 0 0 19px; background:#fff;  }
+	.popup .communityWriteDiv .form-group .control-label.essential {background:url(../images/bg_delimeter_08.gif) no-repeat 97px 17px; }
+	.popup .communityWriteDiv .checkbox {z-index:99; margin-top:13px; margin-left:20px; float:left; }
+	.popup .communityWriteDiv .checkbox label {margin-left:10px; font-size:14px; line-height:20px; color:#333333; letter-spacing:-0.2px; }
+	.popup .communityWriteDiv .checkbox input[type=checkbox] {width:20px; height:20px; background:url(../images/bg_checkbox.gif) no-repeat 0 0; margin-left:-30px; }
+	.popup .communityWriteDiv .checkbox input[type=checkbox]:checked {background:url(../images/bg_checkbox_on.gif) no-repeat 0 0; background-size:20px 20px; }
+	.popup .communityWriteDiv .checkbox span {background:url(../images/bg_checkbox.gif) no-repeat 0 0; width:20px; height:20px; position:absolute; top:0; left:0; }
+	.popup .communityWriteDiv .checkbox input[type=checkbox]:checked + span {background:url(../images/bg_checkbox_on.gif) no-repeat 0 0; }
+	.popup .loginDiv {padding-top:8px; padding-bottom:13px; overflow:hidden; }
+	.popup .loginDiv .form-group .control-label {font-size:12px; line-height:32px; color:#999999; letter-spacing:-0.2px; padding-top:9px; width:100%; text-align:left; }
+	.popup .loginDiv .form-group .control-label.floatL {float:left; width:52px; font-size:14px; color:#222222; padding-top:0; line-height:35px; }
+	.popup .loginDiv .form-group .control-label span.errMsg {font-size:12px; color:#ff0000; letter-spacing:-0.2px; float:right; padding:5px 0; line-height:normal; width:55%; text-align:right; font-weight:normal; }
+	.popup .loginDiv div.txt {height:35px; line-height:35px; padding-left:15px; font-size:14px; font-weight:bold; color:#222; letter-spacing:-0.2px; }
+	.popup .loginDiv .checkbox {z-index:99; margin-top:20px; }
+	.popup .loginDiv .checkbox label {margin-left:10px; font-size:13px; line-height:20px; color:#333333; letter-spacing:-0.2px; vertical-align:middle; }
+	.popup .loginDiv .checkbox input[type=checkbox] {width:20px; height:20px; background:url(../images/bg_checkbox.gif) no-repeat 0 0; margin-left:-30px; }
+	.popup .loginDiv .checkbox input[type=checkbox]:checked {background:url(../images/bg_checkbox_on2.gif) no-repeat 0 0; background-size:20px 20px; }
+	.popup .loginDiv .checkbox span {background:url(../images/bg_checkbox.gif) no-repeat 0 0; width:20px; height:20px; position:absolute; top:0; left:0; }
+	.popup .loginDiv .checkbox p.txt {font-size:13px; letter-spacing:-0.2px; color:#222; display:inline-block; height:20px; vertical-align:bottom; }
+	.popup .loginDiv .checkbox span.bold {background:none; width:auto; height:auto; position:relative; }
+	.popup .loginDiv .checkbox input[type=checkbox]:checked + span {background:url(../images/bg_checkbox_on2.gif) no-repeat 0 0; }
+	.popup .msg {font-size:12px; letter-spacing:-0.2px; color:#ff0000; }
+	.popup .msg.type2 {text-align:right; margin-bottom:5px; }
+	.popup .menu {margin:25px 60px 0; }
+	.popup .menu li {float:left; background:url(../images/bg_delimeter_09.gif) no-repeat 100% center; padding-right:38px; margin-right:37px; }
+	.popup .menu.type2 li {margin-right:52px; padding-right:53px;  }
+	.popup .menu.type3 li {margin-right:42px; padding-right:42px;  }
+	.popup .menu li a {display:block; font-size:14px; letter-spacing:-0.2px; color:#494b56; }
+	.popup .menu li:hover a {color:#667295; }
+	.popup .menu li:last-child {margin-right:0; padding-right:0; background:none; }
+	.popup .changeDiv {display:none; }
+	.popup .changeBtn {text-align:right; font-size:13px; line-height:17px; font-weight:bold; color:#222222; letter-spacing:-0.2px; background:url(../images/bg_delimeter_10.gif) no-repeat 175px 15px; display:block;  padding-top:15px; margin-top:3px; border-top:1px solid #e1e1e1; }
+	.popup .changeBtn.on {background:url(../images/bg_delimeter_10_on.gif) no-repeat 175px 15px; }
+	.popup .errMsgArea {min-height:30px; line-height:15px; padding:7px 0; text-align:right; color:#ff0000; font-size:12px; letter-spacing:-0.2px; }
+	.popup .successMsg {font-size:12px; color:#222222; letter-spacing:-0.2px; float:right; padding:2px 0; line-height:normal; text-align:right; font-weight:normal; background:url(../images/bg_delimeter_10.png) no-repeat 0 7px; padding-left:15px; line-height:25px; margin:1px 0 0; }
+	.popup .infoDiv {font-size:13px; line-height:21px; color:#222; letter-spacing:-0.2px; background:#f4f4f4; padding:12px 21px; margin:10px 0 0; }
+	.popup p.infoTxt {font-size:13px; line-height:22px; letter-spacing:-0.2px; color:#999999; margin:8px 0 0 0; }
+	.popup .joinSuccessDiv {height:86px; background:url(../images/bg_delimeter_12.png) no-repeat 0 0; font-size:21px; font-weight:bold; color:#222; letter-spacing:-0.2px; padding:2px 0 22px 88px; border-bottom:1px solid #e1e1e1; }
+	.popup .joinSuccessDiv span {font-size:14px; color:#999999; font-weight:normal; margin-top:5px; display:block; }
+	.popup .joinSuccessMsg {font-size:14px; letter-spacing:-0.2px; color:#222; text-align:center; line-height:24px; margin:20px 0 10px; }
+	.popup .joinSuccessMsg .bold {font-weight:bold; color:#f86464; }
+	.popup.msg .msgDiv {font-size:14px; line-height:24px; color:#222222; letter-spacing:-0.2px; text-align:center; height:120px; display:table; width:100%; }
+	.popup.msg .msgDiv .sub {display:table-cell; vertical-align:middle; }
+	.popup.msg .msgDiv .sub span {color:#f86464; }
+	.popup .scrollArea {font-size:13px; line-height:21px; color:#222; letter-spacing:-0.2px; padding:15px 0; height:520px; overflow-y:auto; }
+	.popup .scrollArea p {margin-bottom:11px; }
+	.popup .table {width:100%; border-top:1px solid #e1e1e1; border-left:1px solid #e1e1e1; }
+	.popup .table th {height:39px; border-bottom:1px solid #e1e1e1; border-left:1px solid #e1e1e1; background:#f4f4f4; line-height:39px; text-align:center; }
+	.popup .table td {border-bottom:1px solid #e1e1e1; border-left:1px solid #e1e1e1; padding:17px 20px; }
+
+
+.dropdown .btn.dropdown-toggle.selectbox {background:url(../images/bg_delimeter_03.png) no-repeat; background-position:calc(100% - 12px) center; margin-left:0; border:0; width:157px; text-align:left; color:#222222; font-size:14px; height:36px; line-height:34px; border:1px solid #585b67; padding-left:15px; }
+.dropdown.open .btn.dropdown-toggle.selectbox {background:url(../images/bg_delimeter_03_on.png) no-repeat; background-position:calc(100% - 12px) center; }
+.dropdown-menu {background:#fff; }
+.dropdown-menu li {background:#fff; font-size:15px; color:#222222; margin-left:0 !important;  }
+.dropdown-menu li a {color:#b9b9b9; padding:0; color:#222222; font-size:15px; }
+.dropdown-menu li a:hover {background:#fff; }
+
+.dropdown-menu {border-radius:0; border:0; padding:0; width:auto; min-width:0; margin-left:0; right:0; left:0; margin-top:0; box-shadow:none; border:1px solid #333333; border-bottom:0; background:#fff; }
+.dropdown-menu li {text-align:left; display:block !important; line-height:30px; padding:0; background:#fff; color:#222; opacity:1; filter:alpha(opacity=100); float:none !important; border-bottom:1px solid #333; }

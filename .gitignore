@@ -37,3 +37,6 @@ dist/
 ercc.egg-info/
 ~$*
 celerybeat-schedule
+erks/erks_bps/neuroner/data
+erks/erks_bps/neuroner/output
+erks/erks_bps/neuroner/trained_models

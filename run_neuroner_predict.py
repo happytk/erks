@@ -76,7 +76,7 @@ def parse_arguments(arguments=None):
     arguments['argument_default_value'] = argument_default_value
     return arguments
 
-def main(argv=sys.argv):
+def run_neuroner_predict_standalone(argv=sys.argv):
     ''' NeuroNER main method
 
     Args:
@@ -86,8 +86,8 @@ def main(argv=sys.argv):
     # Parse arguments
 
 
-    neuroner_home_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)),'erks/erks_bps/neuroner')
 
+    neuroner_home_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)),'erks/erks_bps/neuroner')
 
     dataset_text_folder = os.path.join(neuroner_home_dir, 'data/my_document2')
 
@@ -105,9 +105,34 @@ def main(argv=sys.argv):
     
     nn = NeuroNER(**arguments)
     nn.fit()
-    nn.close() 
+    nn.close()
+
+
+def run_neuroner_predict_erks():
+
+    neuroner_home_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'erks/erks_bps/neuroner')
+
+    dataset_text_folder = os.path.join(neuroner_home_dir, 'data/my_document2')
+
+    pretrained_model_folder = os.path.join(neuroner_home_dir, 'trained_models/my_model')
+    output_folder = os.path.join(neuroner_home_dir, 'output')
+    argv = []
+    argv.append('--train_model=False')
+    argv.append('--use_pretrained_model=True')
+    argv.append('--dataset_text_folder=' + dataset_text_folder)
+    argv.append('--pretrained_model_folder=' + pretrained_model_folder)
+    argv.append('--output_folder=' + output_folder)
+
+    arguments = parse_arguments(argv)
+
+    nn = NeuroNER(**arguments)
+    nn.fit()
+    nn.close()
+
+    return nn.brat_entities
+
 
 if __name__ == "__main__":
-    main()
+    run_neuroner_predict_standalone()
 
 

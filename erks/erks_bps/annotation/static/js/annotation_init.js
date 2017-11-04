@@ -125,6 +125,18 @@ var $J1 = (function (module){
 
 
 
+    function runNeuroner(data){
+        return $.ajax({
+            url: Flask.url_for('annotation.run_neuroner', {project_id: data.project_id})
+            ,type: 'POST'
+            ,contentType: "application/json;charset=utf-8"
+            ,dataType: 'json'
+            ,data: JSON.stringify(data)
+            ,beforeSend:function(){
+
+            }
+        })
+    };
 
     function getRelationTypeList(data){
         return $.ajax({
@@ -284,6 +296,7 @@ var $J1 = (function (module){
                 _p.resetRelationTypeList();
                 _p.processRelationToolUIReset();
             };
+            return;
 
 
 
@@ -297,6 +310,20 @@ var $J1 = (function (module){
                 _p.resetRelationTypeList();
                 _p.processRelationToolUIReset();
             };
+            return;
+
+
+        };
+        if (ele.is("#btnRunNeuroner")){
+            event.stopPropagation();
+
+            data={};
+            data.project_id=_p.projectId;
+
+            runNeuroner(data)
+            .done(function(result){
+                console.log(result)
+            });
 
 
         };

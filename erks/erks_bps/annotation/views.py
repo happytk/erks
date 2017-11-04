@@ -122,3 +122,16 @@ def save_all_annotation(project_id):
 
     return dumps(result, ensure_ascii=False)
 
+
+@bpapp.route('/<project_id>/runNeuroner', methods=['POST', 'GET'])
+def run_neuroner(project_id):
+    result = {}
+
+    import run_neuroner_predict
+    brat_entities = run_neuroner_predict.run_neuroner_predict_erks()
+    result["entities"] = brat_entities
+
+
+    return dumps(result, ensure_ascii=False)
+
+

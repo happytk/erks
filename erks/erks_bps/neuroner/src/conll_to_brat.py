@@ -235,7 +235,13 @@ def conll_to_brat(conll_input_filepath, conll_output_filepath, brat_original_fol
         previous_token_label = token['label']
     output_entities(brat_output_folder, previous_filename, entities, text_filepath, text, overwrite=overwrite)
     conll_file.close()
+
     print('Done.')
+
+    """
+    여기서 나온 entities를 사용하자. 
+    """
+    return entities
 
 def output_brat(output_filepaths, dataset_brat_folders, stats_graph_folder, overwrite=False):
     # Output brat files
@@ -244,4 +250,4 @@ def output_brat(output_filepaths, dataset_brat_folders, stats_graph_folder, over
             continue
         brat_output_folder = os.path.join(stats_graph_folder, 'brat', dataset_type)
         utils.create_folder_if_not_exists(brat_output_folder)
-        conll_to_brat(output_filepaths[dataset_type], output_filepaths[dataset_type], dataset_brat_folders[dataset_type], brat_output_folder, overwrite=overwrite)
+        return conll_to_brat(output_filepaths[dataset_type], output_filepaths[dataset_type], dataset_brat_folders[dataset_type], brat_output_folder, overwrite=overwrite)

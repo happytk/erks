@@ -3,7 +3,7 @@ Miscellaneous utility functions for natural language processing
 '''
 import codecs
 import re
-import utils
+from . import utils
 import os
 import numpy as np
 

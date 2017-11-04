@@ -5,11 +5,11 @@ import os
 import pickle
 from pprint import pprint
 import shutil
-import utils
-import main
-from entity_lstm import EntityLSTM
+from . import utils
+from . import main
+from .entity_lstm import EntityLSTM
 import tensorflow as tf
-import utils_tf
+from . import utils_tf
 from tensorflow.python.tools.inspect_checkpoint import print_tensors_in_checkpoint_file
 import glob
 
@@ -88,8 +88,12 @@ def prepare_pretrained_model_for_restoring(output_folder_name, epoch_number, mod
     embeddings and freeze them while training the model to obtain high performance. This can be done by specifying the token_pretrained_embedding_filepath 
     and setting freeze_token_embeddings = True in parameters.ini for training.
     '''
-    input_model_folder = os.path.join('..', 'output', output_folder_name, 'model')
-    output_model_folder = os.path.join('..', 'trained_models', model_name)
+
+    neuroner_src_dir = os.path.dirname(os.path.realpath(__file__))
+    neuroner_home_dir = os.path.abspath(os.path.join(neuroner_src_dir, '..'))
+
+    input_model_folder = os.path.join(neuroner_home_dir, 'output', output_folder_name, 'model')
+    output_model_folder = os.path.join(neuroner_home_dir, 'trained_models', model_name)
     utils.create_folder_if_not_exists(output_model_folder)
 
     # trim and copy dataset.pickle
@@ -129,9 +133,9 @@ def check_contents_of_dataset_and_model_checkpoint(model_folder):
 
 
 if __name__ == '__main__':
-    output_folder_name = 'en_2017-05-05_08-58-32-633799'
-    epoch_number = 30
-    model_name = 'conll_2003_en'
+    output_folder_name = 'en_2017-11-04_17-02-33-840727'
+    epoch_number = 3
+    model_name = 'my_model'
     delete_token_mappings = False
     prepare_pretrained_model_for_restoring(output_folder_name, epoch_number, model_name, delete_token_mappings)
     

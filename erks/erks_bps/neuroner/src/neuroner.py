@@ -1,24 +1,24 @@
 import matplotlib
 matplotlib.use('Agg')
-import train
-import dataset as ds
+from . import train
+from . import dataset as ds
 import tensorflow as tf
 from tensorflow.contrib.tensorboard.plugins import projector
-from entity_lstm import EntityLSTM
-import utils
+from .entity_lstm import EntityLSTM
+from . import utils
 import os
-import conll_to_brat
+from . import conll_to_brat
 import glob
 import codecs
 import shutil
 import time
 import copy
-import evaluate
+from . import evaluate
 import random
 import pickle
-import brat_to_conll
+from . import brat_to_conll
 import numpy as np
-import utils_nlp
+from . import utils_nlp
 import distutils
 import configparser
 from pprint import pprint
@@ -89,6 +89,8 @@ class NeuroNER(object):
                       'use_crf':True,
                       'use_pretrained_model':False,
                       'verbose':False}
+
+
         # If a parameter file is specified, load it
         if len(parameters_filepath) > 0:
             conf_parameters = configparser.ConfigParser()
@@ -96,10 +98,26 @@ class NeuroNER(object):
             nested_parameters = utils.convert_configparser_to_dictionary(conf_parameters)
             for k,v in nested_parameters.items():
                 parameters.update(v)
+
         # Ensure that any arguments the specified in the command line overwrite parameters specified in the parameter file
+
         for k,v in arguments.items():
             if arguments[k] != arguments['argument_default_value']:
                 parameters[k] = v
+
+        """
+        파라메터 읽기 관련 디렉토리 구조 수정된걸 적절히 넣어준다.
+
+        일단 train은 안하는걸로...
+        """
+        neuroner_src_dir = os.path.dirname(os.path.realpath(__file__))
+        neuroner_home_dir = os.path.abspath(os.path.join(neuroner_src_dir, '..'))
+        parameters_filepath = os.path.join(neuroner_src_dir, 'parameters.ini')
+
+        pass
+
+
+
         for k,v in parameters.items():
             v = str(v)
             # If the value is a list delimited with a comma, choose one element at random.
@@ -126,7 +144,18 @@ class NeuroNER(object):
         if verbose: pprint(parameters)
         # Update conf_parameters to reflect final parameter values
         conf_parameters = configparser.ConfigParser()
-        conf_parameters.read(os.path.join('test', 'test-parameters-training.ini'))
+
+        """
+        여기도 파라메터 파일 위치 바뀐걸 수정해줌
+        """
+
+        #conf_parameters.read(os.path.join('test', 'test-parameters-training.ini'))
+        conf_parameters.read(os.path.join(neuroner_src_dir, 'test/test-parameters-training.ini'))
+
+        pass
+
+
+
         parameter_to_section = utils.get_parameter_to_section_of_configparser(conf_parameters)
         for k, v in parameters.items():
             conf_parameters.set(parameter_to_section[k], k, str(v))
@@ -252,7 +281,16 @@ class NeuroNER(object):
         
         # Parse arguments
         arguments = dict( (k,str(v)) for k,v in locals().items() if k !='self')
-        
+
+
+
+
+        neuroner_src_dir = os.path.dirname(os.path.realpath(__file__))
+        neuroner_home_dir = os.path.abspath(os.path.join(neuroner_src_dir, '..'))
+        arguments["token_pretrained_embedding_filepath"] = os.path.join(neuroner_home_dir,
+                                                                         'data/word_vectors/glove.6B.100d.txt')
+
+
         # Initialize parameters
         parameters, conf_parameters = self._load_parameters(arguments['parameters_filepath'], arguments=arguments)
         dataset_filepaths, dataset_brat_folders = self._get_valid_dataset_filepaths(parameters)

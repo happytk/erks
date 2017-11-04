@@ -4,7 +4,7 @@ Tests for main.py
 
 import unittest
 import os
-import main
+from . import main
 from shutil import rmtree
 
 class TestMain(unittest.TestCase):

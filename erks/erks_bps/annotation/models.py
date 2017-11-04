@@ -13,7 +13,10 @@ import json
 
 
 def get_annotation_list(project_id):
-    documents = documents_collection.find_one({"project_id":project_id})
+    documents = documents_collection.find_one({
+        "project_id": project_id,
+        "document_type": "regular_sets",
+    })
     return documents["documents"]
 
 
@@ -56,14 +59,21 @@ def get_sire_info(project_id):
 
 
 def get_ground_truth(project_id, ground_truth_id):
-    print(ground_truth_id)
     document = ground_truth_collection.find_one(
         {"project_id": project_id,
-         "ground_truth.id": ground_truth_id
+         "ground_truth.id": ground_truth_id,
+         "document_type": "regular_sets",
          }
     )
     return document["ground_truth"]
 
+def get_online_text_ground_truth(project_id):
+    document = ground_truth_collection.find_one(
+        {"project_id": project_id,
+         "document_type": "online_text",
+         }
+    )
+    return document["ground_truth"]
 
 def save_all_annotation(project_id, ground_truth_id, save_data):
 

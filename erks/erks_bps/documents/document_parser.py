@@ -12,7 +12,7 @@ class MyException(Exception):
 
 
 class DocumentParser:
-    def __init__(self, filename, filepath, project_id):
+    def __init__(self, filename=None, filepath="/", project_id=None):
         self.uploaded_file = os.path.join(filepath, filename)
         self.global_file_name = filename
         self.global_project_id = project_id
@@ -106,9 +106,24 @@ class DocumentParser:
             print match.groups()[0]
         """
         documents = self.document_parser(data)
-        self.create_documents(documents)
-        self.create_ground_truth(documents)
-        self.create_sets(documents)
+
+        self.clear_project_documents(document_type="regular_sets")
+
+
+        self.create_documents(documents, document_type="regular_sets")
+        self.create_ground_truth(documents, document_type="regular_sets")
+        self.create_sets(documents, document_type="regular_sets")
+
+    def online_text_parser(self, text):
+        text = text.replace('"', "'")
+        text = '"online text","' + text + '"'
+        documents = self.document_parser(text)
+
+        self.clear_project_documents(document_type="online_text")
+
+        self.create_documents(documents=documents, document_type="online_text")
+        self.create_ground_truth(documents, document_type="online_text")
+        self.create_sets(documents, document_type="online_text")
 
     def document_parser(self, data):
 
@@ -183,12 +198,46 @@ class DocumentParser:
 
         return documents
 
-    def create_documents(self, documents):
+    def clear_project_documents(self, document_type):
+        documents_collection.remove(
+            {
+                "project_id": self.global_project_id,
+                "document_type": document_type
+            },
+            {
+                "justOne": False
+            }
+        )
+
+        ground_truth_collection.remove(
+            {
+                "project_id": self.global_project_id,
+                "document_type": document_type
+            },
+            {
+                "justOne": False
+            }
+        )
+
+        documents_sets_collection.remove(
+            {
+                "project_id": self.global_project_id,
+                "document_type": document_type
+            },
+            {
+                "justOne": False
+            }
+        )
+
+
+    def create_documents(self, documents, document_type):
         documents_collection.insert_one({"project_id": self.global_project_id,
-                                         "documents": documents})
+                                         "documents": documents,
+                                         "document_type": document_type
+                                         })
         pass
 
-    def create_ground_truth(self, documents):
+    def create_ground_truth(self, documents, document_type):
         str_buffer = []
         is_begin_set = False
         for document in documents:
@@ -230,7 +279,9 @@ class DocumentParser:
 
             ground_truth_collection.insert_one({"project_id": self.global_project_id,
                                                 "global_document_id": self.global_document_id,
-                                                "ground_truth": ground_truth})
+                                                "ground_truth": ground_truth,
+                                                "document_type": document_type
+                                                })
 
     def sentence_parser(self, ground_truth, begin, sentence_buffer):
         text = ''.join(sentence_buffer).rstrip()
@@ -311,7 +362,7 @@ class DocumentParser:
             token["text"] = text
             sentence["tokens"].append(token)
 
-    def create_sets(self, documents):
+    def create_sets(self, documents, document_type):
         sets = []
         document_set = self.get_base_set()
         document_set["id"] = "id-all"
@@ -336,7 +387,9 @@ class DocumentParser:
         sets.append(document_set)
 
         documents_sets_collection.insert_one({"project_id": self.global_project_id,
-                                    "sets": sets})
+                                    "sets": sets,
+                                    "document_type": document_type,
+                                    })
 
 
 

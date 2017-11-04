@@ -174,7 +174,7 @@ class NeuroNER(object):
             if os.path.isfile(dataset_filepaths[dataset_type]) and os.path.getsize(dataset_filepaths[dataset_type]) > 0:
                 # Brat text files exist
                 if os.path.exists(dataset_brat_folders[dataset_type]) and len(glob.glob(os.path.join(dataset_brat_folders[dataset_type], '*.txt'))) > 0:
-    
+
                     # Check compatibility between conll and brat files
                     brat_to_conll.check_brat_annotation_and_text_compatibility(dataset_brat_folders[dataset_type])
                     if os.path.exists(dataset_compatible_with_brat_filepath):
@@ -183,7 +183,7 @@ class NeuroNER(object):
     
                 # Brat text files do not exist
                 else:
-    
+
                     # Populate brat text and annotation files based on conll file
                     conll_to_brat.conll_to_brat(dataset_filepaths[dataset_type], dataset_compatible_with_brat_filepath, dataset_brat_folders[dataset_type], dataset_brat_folders[dataset_type])
                     dataset_filepaths[dataset_type] = dataset_compatible_with_brat_filepath
@@ -341,7 +341,6 @@ class NeuroNER(object):
         model = self.model
         transition_params_trained = self.transition_params_trained
         stats_graph_folder, experiment_timestamp = self._create_stats_graph_folder(parameters)
-
         # Initialize and save execution details
         start_time = time.time()
         results = {}
@@ -433,6 +432,13 @@ class NeuroNER(object):
                 if parameters['use_pretrained_model'] and not parameters['train_model']:
                     brat_entities = conll_to_brat.output_brat(output_filepaths, dataset_brat_folders, stats_graph_folder)
                     self.brat_entities = brat_entities
+
+
+                    """
+                    train 아닌경우 여기서 끝남.
+                    """
+
+
                     break
 
                 # Save model

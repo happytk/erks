@@ -16,6 +16,7 @@
                     <li ><a href="#">Dictionaries</a></li>
                     <li><a href="{{ url_for('documents.documents_list', project_id=g.project.id) }}">Documents</a></li>
                     <li><a href="{{ url_for('annotation.annotation_main', project_id=g.project.id) }}">Human Annotation</a></li>
+                    <li><a href="{{ url_for('annotation.ml_annotator', project_id=g.project.id) }}">MachineLearning Annotator</a></li>
                 </ul>
             </div>
         {% endblock %}

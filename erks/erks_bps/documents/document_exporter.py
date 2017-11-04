@@ -20,15 +20,15 @@ def export_document_sets(project_id):
     os.makedirs(new_dir_path)
     os.makedirs(new_gt_dir_path)
 
-    project_sets = documents_sets_collection.find_one({"project_id": project_id})
+    project_sets = documents_sets_collection.find_one({"project_id": project_id, "document_type": "regular_sets"})
     with open(os.path.join(new_dir_path, "sets.json"), 'w') as sets_file:
         json.dump(project_sets["sets"], sets_file)
 
-    project_documents = documents_collection.find_one({"project_id": project_id})
+    project_documents = documents_collection.find_one({"project_id": project_id, "document_type": "regular_sets"})
     with open(os.path.join(new_dir_path, "documents.json"), 'w') as documents_file:
         json.dump(project_documents["documents"], documents_file)
 
-    project_ground_truths = ground_truth_collection.find({"project_id": project_id})
+    project_ground_truths = ground_truth_collection.find({"project_id": project_id, "document_type": "regular_sets"})
     for ground_truth in project_ground_truths:
         print(ground_truth["global_document_id"])
         with open(os.path.join(new_gt_dir_path, ground_truth["ground_truth"]["id"]+".json"), 'w') as ground_truth_file:

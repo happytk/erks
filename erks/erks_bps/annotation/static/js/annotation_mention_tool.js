@@ -20,16 +20,18 @@ var $J1 = (function (module){
 
     _p.resetMentionTypeClass = function(){
         $("#list-mention-type").empty();
-        for (var k in _p.loadedSireInfo.entityProp.mentionType) {
-            mentionType = _p.loadedSireInfo.entityProp.mentionType[k];
-            drawMentionType(mentionType);
-        };
         $("#list-mention-class").empty();
-        for (var k in _p.loadedSireInfo.entityProp.clazz) {
-            mentionClass = _p.loadedSireInfo.entityProp.clazz[k];
-            drawMentionClass(mentionClass);
-        }
+        if (_p.loadedSireInfo){
+            for (var k in _p.loadedSireInfo.entityProp.mentionType) {
+                mentionType = _p.loadedSireInfo.entityProp.mentionType[k];
+                drawMentionType(mentionType);
+            };
 
+            for (var k in _p.loadedSireInfo.entityProp.clazz) {
+                mentionClass = _p.loadedSireInfo.entityProp.clazz[k];
+                drawMentionClass(mentionClass);
+            }
+        };
     };
 
 
@@ -67,13 +69,16 @@ var $J1 = (function (module){
         sentenceEle.append(sentenceIndexEle);
         sentenceEle.attr("sentenceId",sentence.id);
         $("#document-holder").append(sentenceEle);
-        for (var k=0; k<sentence.tokens.length; k++){
-            var token = sentence.tokens[k];
-            drawToken(sentenceEle,token);
-            if (k+1 <= sentence.tokens.length) {
-                drawBlank(sentenceEle,token,sentence.tokens[k+1]);
+        if (sentence){
+            for (var k=0; k<sentence.tokens.length; k++){
+                var token = sentence.tokens[k];
+                drawToken(sentenceEle,token);
+                if (k+1 <= sentence.tokens.length) {
+                    drawBlank(sentenceEle,token,sentence.tokens[k+1]);
+                }
             }
         }
+
     };
 
     function drawToken(sentenceEle,token){
@@ -154,7 +159,7 @@ var $J1 = (function (module){
             newMention.begin = _p.activeSelection.begin;
             newMention.end = _p.activeSelection.end;
 
-            assignEntityType(newMention);
+            _p.assignEntityType(newMention);
 
             mentions.push(newMention);
             _p.clearMentionTargetSelection();
@@ -164,8 +169,9 @@ var $J1 = (function (module){
     };
 
     //_p.activeSelection이 있을것을 요구한다. 최초로 로딩시 이미 있는 멘션 칠할때도 하나씩 activeSession 을 만들거 가면서 이작업을 한다.(drawMentionTargetSelection을 이용해 자동으로 됨)
-    function assignEntityType(mention){
+    _p.assignEntityType = function(mention){
         var entityType = _p.loadedEntityTypesLabelMap[mention.type]
+
         for (var k in _p.activeSelection.tokens){
             var tokenEle = _p.activeSelection.tokens[k];
             tokenEle.addClass("entityTypeAssigned");
@@ -178,13 +184,14 @@ var $J1 = (function (module){
 
     _p.resetMentionDisplay = function(){
         var mentions = _p.loadedGroundTruth.mentions;
+
         for (var k in mentions){
             var mention = mentions[k];
 
             var sentenceId = mention.id.split("-")[0]
             _p.activeSelection= {"sentenceId":sentenceId, "id":mention.id, "begin":mention.begin, "end":mention.end, "tokens":{}};
             _p.drawMentionTargetSelection(sentenceId,mention.begin,mention.end);
-            assignEntityType(mention);
+            _p.assignEntityType(mention);
 
         };
         _p.clearMentionTargetSelection();
@@ -262,41 +269,66 @@ var $J1 = (function (module){
             $(ele).removeClass("gtcTokenSelectionEnd");
             $(ele).css("display","none");
         });
+    };
+
+
+    _p.getTargetSentence = function(from, to){
+        var targetSentence = null;
+        for (var k in _p.sentencesIdMap){
+            var sentenceItem = _p.sentencesIdMap[k];
+            var sentenceFrom = sentenceItem.begin;
+            var sentenceTo = sentenceItem.end;
+
+            if (from >= sentenceFrom && to <= sentenceTo){
+                targetSentence = _p.sentencesIdMap[k];
+                break;
+            }
+
+        }
+        return targetSentence;
     }
 
-
-
-
     _p.drawMentionTargetSelection = function(sentenceId,from,to){
-        var sentence = _p.sentencesIdMap[sentenceId];
 
-        for (var k in sentence.tokens){
-            var token =  sentence.tokens[k];
-            var tokenEle = $("#gtcToken-"+token.id);
+        var sentence = null;
+        if (sentenceId) {
+            sentence = _p.sentencesIdMap[sentenceId];
+        } else {
+            sentence = _p.getTargetSentence(from, to);
+        };
 
-            if (from >= token.begin && from <= token.end){
-                var tokenTo = to;
-                var endMark = true;
-                if (tokenTo > token.end){
-                    tokenTo = token.end;
-                    endMark = false;
-                };
-                drawTokenSelection(tokenEle,from-token.begin,tokenTo-token.begin,true,endMark);
-            } else if (from < token.begin && to > token.end) {
-                //앞에 있는 공백까지 같이 막아줌.
+        if (sentence){
 
-                drawPreBlankSelection(tokenEle);
+            for (var k in sentence.tokens){
+                var token =  sentence.tokens[k];
+                var tokenEle = $("#gtcToken-"+token.id);
 
-                drawTokenSelection(tokenEle,0,token.end-token.begin,false,false);
-            } else if (from < token.begin && to >= token.begin && to <= token.end){
-                var tokenFrom = from;
-                var beginMark = true;
-                tokenFrom = token.begin;
-                //앞에 있는 공백까지 같이 막아줌.
-                drawPreBlankSelection(tokenEle);
-                drawTokenSelection(tokenEle,tokenFrom-token.begin,to-token.begin,false,true);
+                if (from >= token.begin && from <= token.end){
+                    var tokenTo = to;
+                    var endMark = true;
+                    if (tokenTo > token.end){
+                        tokenTo = token.end;
+                        endMark = false;
+                    };
+                    drawTokenSelection(tokenEle,from-token.begin,tokenTo-token.begin,true,endMark);
+                } else if (from < token.begin && to > token.end) {
+                    //앞에 있는 공백까지 같이 막아줌.
+
+                    drawPreBlankSelection(tokenEle);
+
+                    drawTokenSelection(tokenEle,0,token.end-token.begin,false,false);
+                } else if (from < token.begin && to >= token.begin && to <= token.end){
+                    var tokenFrom = from;
+                    var beginMark = true;
+                    tokenFrom = token.begin;
+                    //앞에 있는 공백까지 같이 막아줌.
+                    drawPreBlankSelection(tokenEle);
+                    drawTokenSelection(tokenEle,tokenFrom-token.begin,to-token.begin,false,true);
+                }
             }
         }
+
+
 
     }
     function drawPreBlankSelection(tokenEle){

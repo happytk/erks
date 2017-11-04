@@ -48,6 +48,7 @@ from .models import *
 from .document_parser import DocumentParser
 from .document_exporter import export_document_sets
 from .forms import DocumentSetsForm, DocumentUploadForm
+from bson.json_util import dumps
 
 default_breadcrumb_root(bpapp, '.')
 
@@ -79,7 +80,7 @@ def documents_list(project_id='asdf'):
     else:
         pass
 
-    project_sets = documents_sets_collection.find_one({"project_id": project_id})
+    project_sets = documents_sets_collection.find_one({"project_id": project_id, "document_type": "regular_sets"})
     document_sets = project_sets["sets"] if project_sets is not None else []
 
     return render_template('documents.htm.j2', active_menu="documents", form=form, document_sets=document_sets)
@@ -89,3 +90,12 @@ def documents_list(project_id='asdf'):
 def documents_export(project_id):
     zip_file_path = export_document_sets(project_id)
     return send_file(zip_file_path, mimetype='application/octet-stream')
+
+
+@bpapp.route('/<project_id>/documents/onlineTextParser', methods=['GET', 'POST'])
+def online_text_parser(project_id):
+    text = str(request.json['text'])
+    result = {}
+    parser = DocumentParser(filename="online_text", filepath="/", project_id=project_id)
+    parser.online_text_parser(text)
+    return dumps(result, ensure_ascii=False)

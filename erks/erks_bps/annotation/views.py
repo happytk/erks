@@ -28,6 +28,12 @@ def annotation_tool(document_id, project_id):
     return render_template('annotation_tool.html.tmpl', project_id=project_id, document_id=document_id)
 
 
+@bpapp.route('/<project_id>/mlAnnotator', methods=['GET', 'POST'])
+def ml_annotator(project_id):
+
+    return render_template('ml_annotator.html.tmpl', project_id=project_id)
+
+
 @bpapp.route('/getEntityTypeList/<project_id>', methods=['POST', 'GET'])
 def entity_type_list(project_id):
     result = {}
@@ -84,6 +90,22 @@ def ground_truth(project_id):
 
     return dumps(result, ensure_ascii=False)
 
+@bpapp.route('/<project_id>/getOnlineTextGroundTruth', methods=['POST', 'GET'])
+def online_text_ground_truth(project_id):
+    result = {}
+
+    try:
+        result = {}
+        document = models.get_online_text_ground_truth(project_id)
+        result["resultOK"] = True
+        result["document"] = document
+
+    except Exception as e:
+        result["resultOK"] = False
+        result["message"] = str(Exception)
+        log_exception(e)
+
+    return dumps(result, ensure_ascii=False)
 
 @bpapp.route('/<project_id>/getSireInfo', methods=['POST', 'GET'])
 def sire_info(project_id):
@@ -126,11 +148,11 @@ def save_all_annotation(project_id):
 @bpapp.route('/<project_id>/runNeuroner', methods=['POST', 'GET'])
 def run_neuroner(project_id):
     result = {}
+    document = request.json['text']
 
     import run_neuroner_predict
-    brat_entities = run_neuroner_predict.run_neuroner_predict_erks()
+    brat_entities = run_neuroner_predict.run_neuroner_predict_erks(project_id=project_id, document=document)
     result["entities"] = brat_entities
-
 
     return dumps(result, ensure_ascii=False)
 

@@ -15,6 +15,8 @@ from erks.erks_bps.neuroner.src.neuroner import NeuroNER
 import warnings
 warnings.filterwarnings('ignore')
 
+import datetime
+from erks.utils.log_exception import log_exception
 def parse_arguments(arguments=None):
     ''' Parse the NeuroNER arguments
 
@@ -108,29 +110,41 @@ def run_neuroner_predict_standalone(argv=sys.argv):
     nn.close()
 
 
-def run_neuroner_predict_erks():
+def run_neuroner_predict_erks(project_id, document):
 
     neuroner_home_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'erks/erks_bps/neuroner')
-
-    dataset_text_folder = os.path.join(neuroner_home_dir, 'data/my_document2')
-
+    #dataset_text_folder = os.path.join(neuroner_home_dir, 'data/my_document2')
     pretrained_model_folder = os.path.join(neuroner_home_dir, 'trained_models/my_model')
     output_folder = os.path.join(neuroner_home_dir, 'output')
-    argv = []
-    argv.append('--train_model=False')
-    argv.append('--use_pretrained_model=True')
-    argv.append('--dataset_text_folder=' + dataset_text_folder)
-    argv.append('--pretrained_model_folder=' + pretrained_model_folder)
-    argv.append('--output_folder=' + output_folder)
 
-    arguments = parse_arguments(argv)
+    dataset_text_folder = os.path.join(neuroner_home_dir, "data", project_id+"_"+datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
+    deploy_dir = os.path.join(dataset_text_folder, 'deploy')
 
-    nn = NeuroNER(**arguments)
-    nn.fit()
-    nn.close()
+    result = None
+    try:
+        os.makedirs(deploy_dir)
+        with open(os.path.join(deploy_dir, "document1.txt"), 'w') as d:
+            d.writelines(document)
 
-    return nn.brat_entities
+        argv = []
+        argv.append('--train_model=False')
+        argv.append('--use_pretrained_model=True')
+        argv.append('--dataset_text_folder=' + dataset_text_folder)
+        argv.append('--pretrained_model_folder=' + pretrained_model_folder)
+        argv.append('--output_folder=' + output_folder)
 
+        arguments = parse_arguments(argv)
+
+        nn = NeuroNER(**arguments)
+        nn.fit()
+        nn.close()
+        result = nn.brat_entities
+
+
+    except Exception as e:
+        log_exception(e)
+
+    return result
 
 if __name__ == "__main__":
     run_neuroner_predict_standalone()

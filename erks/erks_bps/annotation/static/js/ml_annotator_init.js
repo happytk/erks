@@ -2,32 +2,12 @@
 var $J1 = (function (module){
 	var _p = module._p = module._p || {};
 
-    _p.projectId = null;
-
-    _p.loadedEntityTypesLabelMap={};
-    _p.loadedRelationTypesIdMap={};
-    _p.loadedRelationPropLabelMap={};
-    _p.loadedGroundTruth={};
-    _p.loadedSireInfo={};
-    _p.activeSelection=null;
-    _p.sentencesIdMap = {};
-    _p.toolModeEnum = {
-        mentionTool:0,
-        relationTool:1,
-        coreferenceTool:2
-    };
-    _p.currentToolMode = null;
-    _p.currentTypeSystemMode = "L"; //L ogical or P hysical
-
-    _p.relationTargetInfo = {}
-
-    _p.init = function(projectId,documentId){
+    _p.ml_annotator_init = function(projectId){
 
         _p.projectId = projectId
 
         data={};
         data.project_id=projectId;
-        data.document_id=documentId;
 
         _p.currentToolMode = _p.toolModeEnum.mentionTool;
 
@@ -66,19 +46,6 @@ var $J1 = (function (module){
             _p.resetRelationTypeList();
         });
 
-        getGroundTruth(data)
-        .done(function(result){
-            _p.loadedGroundTruth = result.document;
-
-            for (var k in _p.loadedGroundTruth.sentences){
-                var sentence = _p.loadedGroundTruth.sentences[k];
-                _p.sentencesIdMap[sentence.id] = sentence;
-            };
-
-            resetDocument();
-            _p.resetMentionDisplay();
-        });
-
         getSireInfo(data)
         .done(function(result){
             _p.loadedSireInfo = result.sireInfo;
@@ -92,8 +59,8 @@ var $J1 = (function (module){
     };
 
     function setupUIEvent(){
-        $("#document-holder").off("click","**");
-        $("#document-holder").on("click","span, div",function(event){
+        $("#documentsArea").off("click","**");
+        $("#documentsArea").on("click","span, div, button",function(event){
             var ele = $(this);
             processDocumentClickEvent(ele,event);
         });
@@ -127,6 +94,19 @@ var $J1 = (function (module){
     function runNeuroner(data){
         return $.ajax({
             url: Flask.url_for('annotation.run_neuroner', {project_id: data.project_id})
+            ,type: 'POST'
+            ,contentType: "application/json;charset=utf-8"
+            ,dataType: 'json'
+            ,data: JSON.stringify(data)
+            ,beforeSend:function(){
+
+            }
+        })
+    };
+
+    function requestOnlineTextParser(data){
+        return $.ajax({
+            url: Flask.url_for('documents.online_text_parser', {project_id: data.project_id})
             ,type: 'POST'
             ,contentType: "application/json;charset=utf-8"
             ,dataType: 'json'
@@ -202,6 +182,19 @@ var $J1 = (function (module){
         })
     };
 
+    function getOnlineTextGroundTruth(data){
+        return $.ajax({
+            url: Flask.url_for('annotation.online_text_ground_truth', {project_id: data.project_id})
+            ,type: 'POST'
+            ,contentType: "application/json;charset=utf-8"
+            ,dataType: 'json'
+            ,data: JSON.stringify(data)
+            ,beforeSend:function(){
+
+            }
+        })
+    };
+
     function processDocumentClickEvent(ele,event){
         if (_p.currentToolMode == _p.toolModeEnum.mentionTool){
             if (ele.hasClass("gtcToken")){
@@ -252,11 +245,135 @@ var $J1 = (function (module){
             _p.relationTargetInfo = {};
 
 
-        }
+        };
+
+
+        if (ele.is("#btnRunMLAnnotator")){
+            event.stopPropagation();
+            processRunMLAnnotator();
+            return;
+
+        };
+
 
 
     };
 
+
+
+    function processRunMLAnnotator(){
+        var sourceText = $("#document-source").val();
+        sourceText = sourceText.trim();
+        $("#document-holder").empty();
+        data1={};
+        data1.project_id=_p.projectId;
+        data1.text = sourceText;
+        requestOnlineTextParser(data1)
+        .done(function(result1){
+
+            data2={};
+            data2.project_id=_p.projectId;
+
+            getOnlineTextGroundTruth(data2)
+            .done(function(result2){
+                _p.loadedGroundTruth = result2.document;
+                for (var k in _p.loadedGroundTruth.sentences){
+                    var sentence = _p.loadedGroundTruth.sentences[k];
+                    _p.sentencesIdMap[sentence.id] = sentence;
+                };
+                resetDocument();
+                _p.resetMentionDisplay();
+
+
+                /*
+                var mlResult = {
+                    "entities": [
+                        {
+                            end:22,
+                            label: "LOC",
+                            start: 13,
+                            text: "Las Vegas"
+                        },
+                        {
+                            end:51,
+                            label: "PER",
+                            start: 36,
+                            text: "Stephen Paddock"
+
+                        }
+                    ]
+                };
+                resetMLMentionDisplay(mlResult);
+                return;
+                */
+
+                runNeuroner(data1)
+                .done(function(result3){
+                    console.log(result3)
+
+                    if (result3){
+                        resetMLMentionDisplay(result3);
+
+                    }
+
+
+                });
+
+            });
+        });
+
+        _p.currentToolMode = _p.toolModeEnum.mentionTool;
+
+
+    };
+
+
+    function resetMLMentionDisplay(mlResult){
+        for(var k in mlResult.entities){
+            try{
+                var entity = mlResult.entities[k];
+                var from = entity.start;
+                var to = entity.end;
+                var label = entity.label;
+                var text = entity.text;
+
+
+                var sentence = _p.getTargetSentence(from,to);
+                var mentionId = sentence.id+"-m"+k;
+                var mention = {};
+
+                mention.type = label;
+                mention.id = mentionId;
+
+
+
+                _p.activeSelection= {"sentenceId":sentence.id, "id":mentionId, "begin":from, "end":to, "tokens":{}};
+                _p.drawMentionTargetSelection(sentence.id,from,to);
+                _p.assignEntityType(mention);
+            } catch (ex){
+                console.log(ex);
+            }
+
+
+        };
+        _p.clearMentionTargetSelection();
+        _p.activeSelection = null;
+
+
+    };
+
+
+
+    function resetDocument(){
+        $("#document-name").empty();
+        $("#document-holder").empty();
+        $("#document-name").html(_p.loadedGroundTruth.name);
+
+        for (var k in _p.loadedGroundTruth.sentences) {
+            sentence = _p.loadedGroundTruth.sentences[k];
+            _p.drawSentence(sentence, k);
+        }
+    };
 
     function processToolbarClickEvent(ele,event){
         if (ele.is("#btnTest1")){
@@ -380,33 +497,9 @@ var $J1 = (function (module){
         }
     };
 
-    function resetDocument(){
-        $("#document-name").empty();
-        $("#document-holder").empty();
-        $("#document-name").html(_p.loadedGroundTruth.name);
-
-        for (var k in _p.loadedGroundTruth.sentences) {
-            sentence = _p.loadedGroundTruth.sentences[k];
-            _p.drawSentence(sentence, k);
-        }
-    };
 
 
-    function drawSimpleSentence(sentence,index){
-        var sentenceId = "gtcSentence-" + sentence.index;
-        var sentenceEle = $('<div id="'+sentenceId+'" class="gtcSentence"></div>');
-        var sentenceIndexEle = $('<div class="sentenceNumber">'+index+'</div>');
-        sentenceEle.append(sentenceIndexEle);
-        sentenceEle.attr("sentenceId",sentence.id);
-        $("#document-holder").append(sentenceEle);
-        for (var k=0; k<sentence.tokens.length; k++){
-            var token = sentence.tokens[k];
-            drawToken(sentenceEle,token);
-            if (k+1 <= sentence.tokens.length) {
-                drawBlank(sentenceEle,token,sentence.tokens[k+1]);
-            }
-        }
-    };
+
 
     _p.getObjectId = function(obj){
         if (!obj){

@@ -1,0 +1,179 @@
+{% extends "portal/_annotator_base.htm.j2" %}
+
+
+
+{% block page_head %}
+    <link href="{{ url_for('static', filename='css/layout_header_only.css') }}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{ url_for('static', filename='css/gt-c.css')}}" rel="stylesheet">
+    <link href="{{ url_for('annotation.static', filename='css/annotation_tool.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block script_foot %}
+    <script type="text/javascript" src="{{ url_for('annotation.static', filename='js/jsplumb.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('annotation.static', filename='js/annotation_init.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('annotation.static', filename='js/ml_annotator_init.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('annotation.static', filename='js/annotation_mention_tool.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('annotation.static', filename='js/annotation_relation_tool.js')}}"></script>
+    <script>
+
+        $(document).ready(function() {
+            $J1._p.ml_annotator_init('{{project_id}}');
+        });
+
+    </script>
+{% endblock %}
+
+{% block page_settings %}
+{% set active_menu = 'annotation'%}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+
+{% block mainContent %}
+    <div class="container-fluid heightMinus50">
+      <div class="row height100">
+        <div class="row">
+            <div id="toolbar" class="col-md-10 col-md-offset-1">
+                <form class="navbar-form navbar-left">
+                    <button id="btnTest1" type="button" class="btn btn-default">Test</button>
+                    <input id="selectionFrom" type="text" class="form-control" aria-label="from">
+                    <input id="selectionTo" type="text" class="form-control" aria-label="to">
+                    <button id="btnSave" type="button" class="btn btn-default">Save</button>
+                    <button id="btnTypeSystemLogical" type="button" class="btn btn-default">Logical</button>
+                    <button id="btnTypeSystemPhysical" type="button" class="btn btn-default">Physical</button>
+                    <button id="btnRunNeuroner" type="button" class="btn btn-default">RunNeuroner</button>
+
+
+                </form>
+            </div>
+        </div>
+        <div class="row height100">
+
+            <div id="leftSideBar" class="col-md-1 sidebar">
+                <div id="btnMentionTool" class="toolBigIcon">Mention</div>
+                <div id="btnRelationTool" class="toolBigIcon">Relation</div>
+                <div id="btnCoreferenceTool" class="toolBigIcon">Coreference</div>
+            </div>
+
+            <div id="documentsArea" class="col-md-8">
+                <div>
+                    <h3 id="document-name"></h3>
+                </div>
+                <div>
+                    <textarea  id="document-source" class="form-control" rows="10" style="min-width: 100%">
+
+                    </textarea>
+                </div>
+                <div class="btn-group text-center">
+                    <button id="btnRunMLAnnotator" class="btn btn-default" type="button" aria-label="Center Align">
+                        <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div id="document-holder"></div>
+
+            </div>
+            <div id="rightSideBar" class="col-md-3 heightMinus50">
+                <div id="mentionToolRightSideBar" class="height100">
+                    <div>
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#tab-content-entity">Entity</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab-content-mention">Mention</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content height100">
+                        <div id="tab-content-entity" class="tab-pane active height100">
+                            <div>
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#tab-content-type">Type</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab-content-subtype">Subtype</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab-content-role">Role</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content iconList">
+                                <div id="tab-content-type" class="tab-pane active">
+                                    <div id="list-entity-type">
+                                        111111
+                                    </div>
+                                </div>
+                                <div id="tab-content-subtype" class="tab-pane">
+                                    <div id="list-entity-subtype">
+                                        222222222
+                                    </div>
+                                </div>
+                                <div id="tab-content-role" class="tab-pane">
+                                    <div id="list-entity-role">
+                                        33333333333
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="tab-content-mention" class="tab-pane">
+                            <div>
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#tab-content-mention-type">Type</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab-content-class">Class</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div id="tab-content-mention-type" class="tab-pane active">
+                                    <div id="list-mention-type">
+                                        444444444444
+                                    </div>
+                                </div>
+                                <div id="tab-content-class" class="tab-pane">
+                                    <div id="list-mention-class">
+                                        555555555555
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="relationToolRightSideBar" style="display:none"  class="height100">
+                    <div>
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#tab-content-relation-type">Relation Type</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="tab-content-relation-type" class="tab-pane height100">
+                        <div id="list-relation-type" class="iconList">
+                            6666666
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

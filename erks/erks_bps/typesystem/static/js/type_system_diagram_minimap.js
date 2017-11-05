@@ -7,10 +7,8 @@
     var diagramViewEle = $("#diagramView");
 
     function reCalcMinimapScale(){
-        //var mapwidth = _p.innerMapEle.width();
-        //var mapheight =  _p.innerMapEle.height();
-        var mapwidth = 0;
-        var mapheight = 0;
+        var mapwidth = diagramViewEle.width();
+        var mapheight = diagramViewEle.height();
 
         _p.innerMapEle.find(".entity").each(function(index,ele){
             ele = $(ele);
@@ -23,6 +21,9 @@
                 mapheight = maxHeight;
             };
         });
+
+
+
         var minimapwidth = miniMapEle.width();
         var minimapheight = miniMapEle.height();
         var Hscale = minimapwidth / mapwidth;
@@ -123,6 +124,7 @@
 
     _p.resetMinimapViewpoint = function(){
         reCalcMinimapScale();
+
         var left = _p.innerMapEle.position().left*minimapScale*(-1);
         if (left < 0 ) {
             left = 0;

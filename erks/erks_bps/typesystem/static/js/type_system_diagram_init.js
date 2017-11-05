@@ -23,8 +23,6 @@ var $J1 = (function (module){
 
     _p.diagram_init = function(projectId){
         _p.projectId = projectId;
-        console.log("@@@@@@@@@@@@@@")
-        console.log(projectId)
         var data = {"project_id":projectId};
 
         _p.innerMapEle.empty();

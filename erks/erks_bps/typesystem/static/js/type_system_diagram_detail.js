@@ -468,9 +468,6 @@ var $J1 = (function (module){
 
     _p.deleteEntityRelation = function(ele){
         var relId = ele.attr("relId");
-        console.log(relId);
-
-
         delete _p.loadedRelationTypesIdMap[relId];
 
         _p.resetRelationMaps();

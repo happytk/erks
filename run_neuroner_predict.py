@@ -79,67 +79,43 @@ def parse_arguments(arguments=None):
     return arguments
 
 def run_neuroner_predict_standalone(argv=sys.argv):
-    ''' NeuroNER main method
-
-    Args:
-        parameters_filepath the path to the parameters file
-        output_folder the path to the output folder
-    '''
-    # Parse arguments
-
-
-
     neuroner_home_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)),'erks/erks_bps/neuroner')
-
     dataset_text_folder = os.path.join(neuroner_home_dir, 'data/my_document2')
-
-    #pretrained_model_folder = os.path.join(neuroner_home_dir, 'trained_models/conll_2003_en')
     pretrained_model_folder = os.path.join(neuroner_home_dir, 'trained_models/my_model')
     output_folder = os.path.join(neuroner_home_dir, 'output')
-
     argv.append('--train_model=False')
     argv.append('--use_pretrained_model=True')
     argv.append('--dataset_text_folder='+dataset_text_folder)
     argv.append('--pretrained_model_folder='+pretrained_model_folder)
     argv.append('--output_folder=' + output_folder)
-
     arguments = parse_arguments(argv[1:])
-    
     nn = NeuroNER(**arguments)
     nn.fit()
     nn.close()
 
 
 def run_neuroner_predict_erks(project_id, document):
-
     neuroner_home_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'erks/erks_bps/neuroner')
-    #dataset_text_folder = os.path.join(neuroner_home_dir, 'data/my_document2')
-    pretrained_model_folder = os.path.join(neuroner_home_dir, 'trained_models/my_model')
+    pretrained_model_folder = os.path.join(neuroner_home_dir, 'trained_models/my_model_2')
     output_folder = os.path.join(neuroner_home_dir, 'output')
-
     dataset_text_folder = os.path.join(neuroner_home_dir, "data", project_id+"_"+datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
     deploy_dir = os.path.join(dataset_text_folder, 'deploy')
-
     result = None
     try:
         os.makedirs(deploy_dir)
         with open(os.path.join(deploy_dir, "document1.txt"), 'w') as d:
             d.writelines(document)
-
         argv = []
         argv.append('--train_model=False')
         argv.append('--use_pretrained_model=True')
         argv.append('--dataset_text_folder=' + dataset_text_folder)
         argv.append('--pretrained_model_folder=' + pretrained_model_folder)
         argv.append('--output_folder=' + output_folder)
-
         arguments = parse_arguments(argv)
-
         nn = NeuroNER(**arguments)
         nn.fit()
         nn.close()
         result = nn.brat_entities
-
 
     except Exception as e:
         log_exception(e)

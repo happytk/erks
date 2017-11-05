@@ -100,7 +100,6 @@ def create_project(slug='default'):
     d = {}
     d['form'] = project_create_form
     d['project_group'] = project_group
-
     # if project_group.is_not_default:
     #     grade = project_group.get_grade(current_user._get_current_object())
     #     if not project_group.ban_create_project or grade in ('owner', 'manager'):

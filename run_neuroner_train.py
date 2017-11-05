@@ -97,7 +97,7 @@ def main(argv=sys.argv):
     argv.append('--train_model=True')
     argv.append('--use_pretrained_model=False')
     argv.append('--dataset_text_folder='+dataset_text_folder)
-    argv.append('--maximum_number_of_epochs=3')
+    argv.append('--maximum_number_of_epochs=100')
     argv.append('--output_folder='+output_folder)
 
     #argv.append('--pretrained_model_folder='+pretrained_model_folder)

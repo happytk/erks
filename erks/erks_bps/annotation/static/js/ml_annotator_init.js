@@ -264,6 +264,9 @@ var $J1 = (function (module){
     function processRunMLAnnotator(){
         var sourceText = $("#document-source").val();
         sourceText = sourceText.trim();
+        if (!sourceText) {
+            return;
+        };
         $("#document-holder").empty();
         data1={};
         data1.project_id=_p.projectId;
@@ -283,49 +286,53 @@ var $J1 = (function (module){
                 };
                 resetDocument();
                 _p.resetMentionDisplay();
-
-
-                /*
-                var mlResult = {
-                    "entities": [
-                        {
-                            end:22,
-                            label: "LOC",
-                            start: 13,
-                            text: "Las Vegas"
-                        },
-                        {
-                            end:51,
-                            label: "PER",
-                            start: 36,
-                            text: "Stephen Paddock"
-
-                        }
-                    ]
-                };
-                resetMLMentionDisplay(mlResult);
-                return;
-                */
-
+                _p.showLoadingProgressbar();
                 runNeuroner(data1)
                 .done(function(result3){
-                    console.log(result3)
-
                     if (result3){
                         resetMLMentionDisplay(result3);
-
-                    }
-
-
+                    };
+                })
+                .always(function(message){
+                    _p.hideLoadingProgressbar();
                 });
-
             });
         });
-
         _p.currentToolMode = _p.toolModeEnum.mentionTool;
-
-
     };
+
+    _p.showLoadingProgressbar = function(){
+        $('#loadingWindow').empty();
+        $('#loadingWindow')
+            .bPopup({
+                appendTo: 'body'
+                ,modalColor :'WHITE'
+                ,escClose  : false
+                ,modalClose : false
+            });
+
+        $('<h3 id="progressbar1text"">Please Wait</h3>').appendTo('#loadingWindow');
+        $('<div id="progressTimer" class="progressbar""></div>').appendTo('#loadingWindow');
+
+        $("#progressTimer").progressTimer({
+            timeLimit: 60,
+            warningThreshold: 10,
+            baseStyle: 'progress-bar-warning',
+            warningStyle: 'progress-bar-danger',
+            completeStyle: 'progress-bar-info',
+            onFinish: function() {
+                console.log("I'm done");
+            }
+        });
+        $('#progressTimer').css("width",(($(window).width()/2)))
+        $('#progressTimer').css("height",(($(window).height()/2)))
+    };
+
+    _p.hideLoadingProgressbar = function(){
+        $('#loadingWindow').bPopup().close();
+        $('#loadingWindow').empty();
+    };
+
 
 
     function resetMLMentionDisplay(mlResult){
@@ -430,19 +437,7 @@ var $J1 = (function (module){
 
 
         };
-        if (ele.is("#btnRunNeuroner")){
-            event.stopPropagation();
 
-            data={};
-            data.project_id=_p.projectId;
-
-            runNeuroner(data)
-            .done(function(result){
-                console.log(result)
-            });
-
-
-        };
     };
 
     function processRightSideBarClickEvent(ele,event){

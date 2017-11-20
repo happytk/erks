@@ -14,6 +14,9 @@ app = create_app()
 manager = Manager(app)
 # celery = make_celery(app)
 
+
+
+
 collect = Collect()
 collect.init_app(app)
 #collect.init_script(manager)

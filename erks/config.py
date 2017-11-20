@@ -22,7 +22,8 @@ import os
 
 _base_dir = os.environ.get('ERCC_HOME', os.environ.get('HOME', '/erks'))
 
-
+DATASET = None
+TOKEN_TO_VECTOR = None
 
 """
 DEBUG는 기본적으로 RELOADER를 함께 구동하며,

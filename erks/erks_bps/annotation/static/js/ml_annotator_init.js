@@ -303,6 +303,7 @@ var $J1 = (function (module){
 
     _p.showLoadingProgressbar = function(){
         $('#loadingWindow').empty();
+
         $('#loadingWindow')
             .bPopup({
                 appendTo: 'body'
@@ -326,6 +327,7 @@ var $J1 = (function (module){
         });
         $('#progressTimer').css("width",(($(window).width()/2)))
         $('#progressTimer').css("height",(($(window).height()/2)))
+        $('#loadingWindow').css("left", "300px")
     };
 
     _p.hideLoadingProgressbar = function(){

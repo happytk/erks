@@ -146,9 +146,11 @@ class Dataset(object):
         '''
         start_time = time.time()
         print('Load dataset... ', end='', flush=True)
+        from . import dataset_loader
         if parameters['token_pretrained_embedding_filepath'] != '':
             if token_to_vector==None:
-                token_to_vector = utils_nlp.load_pretrained_token_embeddings(parameters)
+                token_to_vector = dataset_loader.get_token_to_vector(parameters)
+                #token_to_vector = utils_nlp.load_pretrained_token_embeddings(parameters)
         else:
             token_to_vector = {}
         if self.verbose: print("len(token_to_vector): {0}".format(len(token_to_vector)))
@@ -159,7 +161,10 @@ class Dataset(object):
         all_characters_in_pretraining_dataset = []
 
         if parameters['use_pretrained_model']:
-            pretraining_dataset = pickle.load(open(os.path.join(parameters['pretrained_model_folder'], 'dataset.pickle'), 'rb'))
+            from . import dataset_loader
+
+            #pretraining_dataset = pickle.load(open(os.path.join(parameters['pretrained_model_folder'], 'dataset.pickle'), 'rb'))
+            pretraining_dataset = dataset_loader.get_dataset(parameters)
             all_tokens_in_pretraining_dataset = pretraining_dataset.index_to_token.values()
             all_characters_in_pretraining_dataset = pretraining_dataset.index_to_character.values()
 

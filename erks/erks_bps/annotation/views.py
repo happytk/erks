@@ -152,6 +152,7 @@ def run_neuroner(project_id):
 
     import run_neuroner_predict
     brat_entities = run_neuroner_predict.run_neuroner_predict_erks(project_id=project_id, document=document)
+    print(brat_entitiesZ)
     result["entities"] = brat_entities
 
     return dumps(result, ensure_ascii=False)
